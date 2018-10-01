@@ -23,22 +23,15 @@ class Register extends Component {
           &nbsp;<span className='pipe'>|</span>&nbsp;
           <NavLink to='/register'>Register</NavLink>
         </div>
-        <div className='RegisterForm'>
-          { errMsg &&
-          <Notification isColor='warning'>
-            <div>{errMsg}</div>
-          </Notification>
-          }
-          <Field>
-            <Label>Username</Label>
-            <Input value={username} onChange={e => this.setState({ username: e.target.value })} />
-            <Label>Password</Label>
-            <Input value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-            <Label>Confirm Password</Label>
-            <Input value={passwordConf} type='password' onChange={e => this.setState({ passwordConf: e.target.value })} />
-            <Button className='is-warning' onClick={this.handleSubmit}>Register</Button>
-          </Field>
-        </div>
+        <Field>
+          <Label>Username</Label>
+          <Input value={username} />
+          <Label>Password</Label>
+          <Input value={password} type='password' />
+          <Label>Confirm Password</Label>
+          <Input value={passwordConf} type='password' />
+          <Button className='is-warning' >Register</Button>
+        </Field>
       </div>
     )
   }

@@ -23,9 +23,9 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              <Route path='/' render={() =>
+              <Route path='/Login' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/login'>
-                  <Register />
+                  <Login />
                 </Guard>} />
               <Route path='/Register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
