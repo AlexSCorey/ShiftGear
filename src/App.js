@@ -23,7 +23,6 @@ class App extends Component {
     // window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user)
     this.setState({ currentUser: user })
-    console.log(this.state.currentUser, 'state of current user in app.js')
   }
 
   render () {

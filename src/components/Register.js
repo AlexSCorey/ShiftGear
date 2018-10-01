@@ -10,7 +10,6 @@ class Register extends Component {
     super()
     this.state = {
       name: '',
-      username: '',
       email: '',
       password: '',
       passwordConf: '',
@@ -20,10 +19,10 @@ class Register extends Component {
   }
   handleSubmit (e) {
     e.preventDefault()
-    const { name, username, password, passwordConf, email, phoneNum } = this.state
+    const { name, password, passwordConf, email, phoneNum } = this.state
     // const { setCurrentUser } = this.props
     if (passwordConf === password) {
-      api.register(name, username, password, email, phoneNum)
+      api.register(name, password, email, phoneNum)
         .then(userToken => userToken)
     } else {
       this.setState({ errMsg: 'Your password and confirmation must match.' })
@@ -41,8 +40,6 @@ class Register extends Component {
         <Field>
           <Label>Name</Label>
           <Input value={name} onChange={e => this.setState({ name: e.target.value })} required />
-          <Label>Username</Label>
-          <Input value={username} onChange={e => this.setState({ username: e.target.value })} required />
           <Label>Email</Label>
           <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
           <Label>Password</Label>
