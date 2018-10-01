@@ -16,6 +16,14 @@ class App extends Component {
     this.state = {
       currentUser: null
     }
+    this.setCurrentUser = this.setCurrentUser.bind(this)
+  }
+  setCurrentUser (user) {
+    console.log('user in app.js')
+    // window.localStorage.setItem('username', user.username)
+    window.localStorage.setItem('token', user)
+    this.setState({ currentUser: user })
+    console.log(this.state.currentUser, 'state of current user in app.js')
   }
 
   render () {
@@ -24,14 +32,14 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              <Route path='/Login' render={() =>
+              <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <Login />
+                  <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Register' render={() =>
+              <Route path='/Register' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <Register />
+                  <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
               {/* <Route path='/dashboard' render={() =>
