@@ -8,6 +8,7 @@ import {
 
 import Login from './components/Login'
 import Register from './components/Register'
+import Dashboard from './components/Dashboard'
 
 class App extends Component {
   constructor () {
@@ -15,6 +16,13 @@ class App extends Component {
     this.state = {
       currentUser: null
     }
+    this.setCurrentUser = this.setCurrentUser.bind(this)
+  }
+  setCurrentUser (user) {
+    console.log('user in app.js')
+    // window.localStorage.setItem('username', user.username)
+    window.localStorage.setItem('token', user)
+    this.setState({ currentUser: user })
   }
 
   render () {
@@ -23,13 +31,19 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              <Route path='/' render={() =>
-                <Guard condition={!this.state.currentUser} redirectTo='/login'>
-                  <Register />
-                </Guard>} />
-              <Route path='/Register' render={() =>
+              <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <Register />
+                  <Login setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+
+              <Route path='/Register' render={(props) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <Register setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+
+              <Route path='/dashboard' render={() =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <Dashboard />
                 </Guard>} />
             </div>
           </main>
