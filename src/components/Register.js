@@ -3,8 +3,6 @@ import { Button, Label, Input, Field, Notification } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 import 'bulma/css/bulma.css'
 
-import apiCalls from './apiCalls'
-
 class Register extends Component {
   constructor () {
     super()
@@ -14,24 +12,8 @@ class Register extends Component {
       passwordConf: '',
       errMsg: null
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleSubmit (e) {
-    e.preventDefault()
-    const { username, password, passwordConf } = this.state
-    const { setCurrentUser } = this.props
-    if (passwordConf === password) {
-      apiCalls.register(username, password)
-        .then(user => setCurrentUser(user))
-        .catch(err => {
-          this.setState({
-            errMsg: err.message
-          })
-        })
-    } else {
-      this.setState({ errMsg: 'Your password and confirmation must match.' })
-    }
-  }
+
   render () {
     const { username, password, passwordConf, errMsg } = this.state
     return (

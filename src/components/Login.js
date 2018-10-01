@@ -3,7 +3,6 @@ import { Label, Input, Notification, Button } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
-import apiCalls from './apiCalls'
 
 class Login extends Component {
   constructor () {
@@ -14,26 +13,8 @@ class Login extends Component {
       registering: false,
       errMsg: null
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.register = this.register.bind(this)
   }
 
-  handleSubmit (e) {
-    e.preventDefault()
-    const { username, password } = this.state
-    let { setCurrentUser } = this.props
-    apiCalls.login(username, password)
-      .then(user => setCurrentUser(user))
-      .catch(err => {
-        this.setState({
-          errMsg: err.message
-        })
-      })
-  }
-  register (e, conditional) {
-    e.preventDefault()
-    this.setState({ 'registering': conditional })
-  }
   render () {
     const { username, password, errMsg } = this.state
     if (this.state.registering) {
