@@ -29,7 +29,7 @@ class Register extends Component {
     }
   }
   render () {
-    const { name, username, password, passwordConf, email, phoneNum } = this.state
+    const { name, password, passwordConf, email, phoneNum } = this.state
     return (
       <div>
         <div className='links is-size-6 has-text-centered'>
@@ -48,7 +48,7 @@ class Register extends Component {
           <Input value={passwordConf} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
           <Label>Phone Number</Label>
           <Input value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} />
-          <Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Register</Button>
+          <NavLink to='/dashboard'><Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Register</Button></NavLink>
         </Field>
       </div>
     )
