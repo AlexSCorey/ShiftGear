@@ -8,6 +8,7 @@ import {
 
 import Login from './components/Login'
 import Register from './components/Register'
+// import Dashboard from './components/Dashboard'
 
 class App extends Component {
   constructor () {
@@ -24,13 +25,19 @@ class App extends Component {
           <main className='main'>
             <div className='board'>
               <Route path='/Login' render={() =>
-                <Guard condition={!this.state.currentUser} redirectTo='/login'>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
                   <Login />
                 </Guard>} />
+
               <Route path='/Register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
                   <Register />
                 </Guard>} />
+
+              {/* <Route path='/dashboard' render={() =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <Dashboard />
+                </Guard>} /> */}
             </div>
           </main>
         </div>
