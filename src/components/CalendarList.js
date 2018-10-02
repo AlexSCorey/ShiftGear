@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class CalendarList extends Component {
   constructor () {
@@ -9,11 +10,12 @@ class CalendarList extends Component {
     }
   }
   render () {
-    let { name } = this.props
+    let { name, id } = this.props
+    console.log(this.props)
     return (<div className='calendarItem'>
-      <div>{name}
+      <Link to={`/Calendar/${id}`} >{name}
         <div className='fas fa-pencil-alt' />
-      </div>
+      </Link>
     </div>)
   }
 }

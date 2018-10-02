@@ -9,6 +9,7 @@ import {
 import Login from './components/Login'
 import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
+import Calendar from './components/Calendar'
 
 class App extends Component {
   constructor () {
@@ -43,6 +44,10 @@ class App extends Component {
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+              <Route path='/Calendar/:id' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <Calendar id={match.params.id} />
                 </Guard>} />
 
             </div>
