@@ -15,13 +15,18 @@ const api = {
       .then(userToken =>
         userToken.body.user.api_token)
       .then(api.login(email, password))
+      .then(api.setUserToken(userToken.body.user.api_token))
   },
   login: (email, password) => {
     return request.post(`${domain}/logins`)
       .send({ 'email': `${email}`,
         'password': `${password}` })
       .then(response =>
-        response.body)
+        response.body.token)
+      .then(token => {
+        api.setUserToken(token)
+        return { userToken }
+      })
   },
   setUserToken: (token) => {
     userToken = token
@@ -30,9 +35,10 @@ const api = {
     return userToken
   },
   getCalendar: () => {
+    // console.log(userToken, 'usertoken')
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'response body'))
+      .then(response => response.body)
   },
   updateCalendar: (calendar) => {
     return request.put()

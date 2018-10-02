@@ -8,7 +8,7 @@ import {
 
 import Login from './components/Login'
 import Register from './components/Register'
-import CalendarList from './components/CalendarList'
+import CalendarsContainer from './components/CalendarsContainer'
 
 class App extends Component {
   constructor () {
@@ -19,9 +19,8 @@ class App extends Component {
     this.setCurrentUser = this.setCurrentUser.bind(this)
   }
   setCurrentUser (user) {
-    console.log('user in app.js')
     // window.localStorage.setItem('username', user.username)
-    window.localStorage.setItem('api_token', user)
+    window.localStorage.setItem('token', `${user.token}`)
     this.setState({ currentUser: user })
   }
 
@@ -32,18 +31,18 @@ class App extends Component {
           <main className='main'>
             <div className='board'>
               <Route path='/Login' render={(props) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
               <Route path='/Register' render={(props) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <CalendarList setCurrentUser={this.setCurrentUser} />
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
             </div>
