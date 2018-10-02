@@ -34,7 +34,8 @@ const api = {
   getUserToken: () => {
     return userToken
   },
-  getCalendar: () => {
+  getCalendars: () => {
+    console.log('api call ran')
     // console.log(userToken, 'usertoken')
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)

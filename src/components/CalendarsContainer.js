@@ -8,36 +8,27 @@ class CalendarsContainer extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      calendarsOwned: [],
-      isLoading: true,
-      isEditing: false,
-      isDeleting: false
+      calendars: {},
+      owned: undefined,
+      managed: undefined,
+      employed: undefined
     }
 
     this.editCalendar = this.editCalendar.bind(this)
     this.deleteCalendar = this.deleteCalendar.bind(this)
   }
-
   componentDidMount () {
     this.getCalendars()
   }
   getCalendars () {
-    api.getCalendar().then(calendars => {
-      let owned = calendars.owned_calendars
-      this.setState({ calendarsOwned: owned })
+    api.getCalendars().then(calendars => {
+      this.setState({ calendars: calendars })
     })
-    console.log(this.state.calendarsOwned)
   }
-  // getQuizzes () {
-  //   apiCalls.getQuizzes().then(quizzes => {
-  //     this.setState({ quizzes })
-  //   })
-  // }
   editCalendar (calendar) {
     this.setState(state => {
       return update(state, {
-        calendar: { isEditing: true
-        }
+        calendar: { isEditing: true }
       })
     }, () => {
       api.updateCalendar(this.state.calendar)
@@ -50,7 +41,17 @@ class CalendarsContainer extends Component {
     })
   }
   render () {
-    return (<CalendarList />)
+    const { calendars } = this.state
+    if (calendars) {
+      const { managed_calendars, owned_calendars, employed_calendars } = calendars
+      return (<div>
+        {managed_calendars && managed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} name={calendar.name} />)}
+        {owned_calendars && owned_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} name={calendar.name} />)}
+        {employed_calendars && employed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} name={calendar.name} />)}
+      </div>)
+    } else {
+      return ('')
+    }
   }
 }
 
