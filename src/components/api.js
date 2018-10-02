@@ -32,7 +32,7 @@ const api = {
   getCalendar: () => {
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body)
+      .then(res => console.log(res.body, 'response body'))
   },
   updateCalendar: (calendar) => {
     return request.put()

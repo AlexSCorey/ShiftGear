@@ -49,7 +49,7 @@ class Login extends Component {
           <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
           <Label>Password</Label>
           <Input value={password} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
-          <NavLink to='/calendar'><Button className='button is-warning' onClick={e => { this.handleSubmit(e) }}>Login</Button></NavLink>
+          <NavLink to='/CalendarList'><Button className='button is-warning' onClick={e => { this.handleSubmit(e) }}>Login</Button></NavLink>
         </div>
       )
     }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import api from './api'
 import {Button} from 'bloomer'
-import request from 'superagent/superagent.js'
 import update from 'immutability-helper'
+import CalendarList from './CalendarList'
 
 class CalendarsContainer extends Component {
   constructor (props) {
@@ -20,7 +20,8 @@ class CalendarsContainer extends Component {
   }
 
   componentDidMount () {
-    api.getCalendar(this.props.id)
+    let token = window.localStorage.token
+    api.getCalendar(token)
       .then(calendar => this.setState({calendar, isLoading: false}))
   }
 
@@ -40,3 +41,9 @@ class CalendarsContainer extends Component {
       isDeleting: true
     })
   }
+  render () {
+    return (<CalendarList />)
+  }
+}
+
+export default CalendarsContainer
