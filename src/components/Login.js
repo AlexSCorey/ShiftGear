@@ -3,12 +3,13 @@ import { Label, Input, Notification, Button } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
+import api from './api'
 
 class Login extends Component {
   constructor () {
     super()
     this.state = {
-      username: '',
+      email: '',
       password: '',
       registering: false,
       errMsg: null
@@ -19,9 +20,15 @@ class Login extends Component {
     e.preventDefault()
     this.setState({ registering: value })
   }
-
+  handleSubmit (e) {
+    e.preventDefault()
+    const { password, email } = this.state
+    const { setCurrentUser } = this.props
+    api.login(email, password)
+      .then(userToken => setCurrentUser(userToken))
+  }
   render () {
-    const { username, password, errMsg } = this.state
+    const { email, password, errMsg } = this.state
     if (this.state.registering) {
       return (<Register setRegister={this.setRegister()} />
       )
@@ -38,11 +45,11 @@ class Login extends Component {
             <div>{errMsg}</div>
           </Notification>
           }
-          <Label>Username</Label>
-          <Input className='username' value={username} />
+          <Label>Email</Label>
+          <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
           <Label>Password</Label>
-          <Input className='username' value={password} type='password' />
-          <Button className='button is-warning'><NavLink to='/dashboard'>Login</NavLink></Button>
+          <Input value={password} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
+          <NavLink to='/calendar'><Button className='button is-warning' onClick={e => { this.handleSubmit(e) }}>Login</Button></NavLink>
         </div>
       )
     }

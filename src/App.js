@@ -8,7 +8,6 @@ import {
 
 import Login from './components/Login'
 import Register from './components/Register'
-import Dashboard from './components/Dashboard'
 
 class App extends Component {
   constructor () {
@@ -41,10 +40,6 @@ class App extends Component {
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/dashboard' render={() =>
-                <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <Dashboard />
-                </Guard>} />
             </div>
           </main>
         </div>

@@ -20,10 +20,10 @@ class Register extends Component {
   handleSubmit (e) {
     e.preventDefault()
     const { name, password, passwordConf, email, phoneNum } = this.state
-    // const { setCurrentUser } = this.props
+    const { setCurrentUser } = this.props
     if (passwordConf === password) {
       api.register(name, password, email, phoneNum)
-        .then(userToken => userToken)
+        .then(userToken => setCurrentUser(userToken))
     } else {
       this.setState({ errMsg: 'Your password and confirmation must match.' })
     }
