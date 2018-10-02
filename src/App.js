@@ -8,6 +8,7 @@ import {
 
 import Login from './components/Login'
 import Register from './components/Register'
+import CalendarList from './components/CalendarList'
 
 class App extends Component {
   constructor () {
@@ -20,7 +21,7 @@ class App extends Component {
   setCurrentUser (user) {
     console.log('user in app.js')
     // window.localStorage.setItem('username', user.username)
-    window.localStorage.setItem('token', user)
+    window.localStorage.setItem('api_token', user)
     this.setState({ currentUser: user })
   }
 
@@ -38,6 +39,11 @@ class App extends Component {
               <Route path='/Register' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
                   <Register setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+
+              <Route path='/CalendarList' render={(props) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <CalendarList setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
             </div>
