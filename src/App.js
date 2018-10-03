@@ -42,6 +42,11 @@ class App extends Component {
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
+              <Route path='/Calendar/:id/RegisterUser' render={({ match }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                  <Register setCurrentUser={this.setCurrentUser} id={match.params.id} />
+                </Guard>} />
+
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
@@ -52,9 +57,9 @@ class App extends Component {
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
 
-              <Route path='/CreateCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CreateCalendar id={match.params.id} />
+              <Route path='/CreateCalendar' render={({ props }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                  <CreateCalendar />
                 </Guard>} />
 
             </div>
