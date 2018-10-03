@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+// import moment from 'moment'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'react-day-picker/lib/style.css'
 
@@ -25,6 +25,10 @@ class CreateCalendar extends Component {
   //       this.setState({ calendar })
   //     })
   // }
+  timeOfDayStart () {
+    const moment = require('moment')
+    const startTime = moment().startOf('day')
+  }
   handleFromChange (value) {
     this.setState({ from: value })
   }
@@ -35,11 +39,8 @@ class CreateCalendar extends Component {
     let { from, to } = this.state
     // const modifiers = { start: from, end: to }
     return (<div >
-      <label>Calendar Tite
+      <label>Calendar Title
         <input className='input' type='text' placeholder='Provide calendar Title' />
-      </label>
-      <label>Calendar Type
-        <input className='input' type='text' placeholder='Provide calendar Type' />
       </label>
       <span className='fromDate'>
         <DayPickerInput
@@ -54,13 +55,60 @@ class CreateCalendar extends Component {
         }} onDayChange={(e) => this.handleToChange(e)} />
       </span>
       <div>Shift Times
-        <div>Shift Number
+        <div>
           <div>Start Time
-            <input type='time' />
+            <select id='selector' placeholder='hours'>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select>
+            <select id='selector' placeholder='minutes'>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select>
+            <select id='selector' placeholder='AM/PM'>
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select>
           </div>
           <div>Stop Time
-            <input type='time' />
+            <select id='selector' placeholder='hours'>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select>
+            <select id='selector' placeholder='minutes'>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select>
+            <select id='selector' placeholder='AM/PM'>
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select>
           </div>
+          Shift Number
         </div>
       </div>
     </div>)

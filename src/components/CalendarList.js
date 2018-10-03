@@ -9,6 +9,9 @@ class CalendarList extends Component {
       name: ''
     }
   }
+  // getUsers () {
+  //   api.getUser(this.props.id)
+  // }
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>

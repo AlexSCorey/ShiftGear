@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import api from './api'
-import { Button } from 'bloomer'
 import update from 'immutability-helper'
 import CalendarList from './CalendarList'
 
