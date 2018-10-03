@@ -21,7 +21,6 @@ class Login extends Component {
     this.setState({ registering: value })
   }
   handleSubmit (e) {
-    console.log('hi')
     e.preventDefault()
     const { password, email } = this.state
     const { setCurrentUser } = this.props
