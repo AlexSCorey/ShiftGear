@@ -9,7 +9,7 @@ import {
 import Login from './components/Login'
 import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
-import Calendar from './components/Calendar'
+import CreateCalendar from './components/CreateCalendar'
 
 class App extends Component {
   constructor () {
@@ -47,7 +47,7 @@ class App extends Component {
                 </Guard>} />
               <Route path='/Calendar/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <Calendar id={match.params.id} />
+                  <CreateCalendar id={match.params.id} />
                 </Guard>} />
 
             </div>

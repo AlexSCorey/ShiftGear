@@ -11,7 +11,6 @@ class CalendarList extends Component {
   }
   render () {
     let { name, id } = this.props
-    console.log(this.props)
     return (<div className='calendarItem'>
       <Link to={`/Calendar/${id}`} >{name}
         <div className='fas fa-pencil-alt' />
