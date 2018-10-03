@@ -11,6 +11,7 @@ import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
 import CreateCalendar from './components/CreateCalendar'
 import EditCalendar from './components/EditCalendar'
+import UserRegister from './components/UserRegister'
 
 class App extends Component {
   constructor () {
@@ -37,22 +38,28 @@ class App extends Component {
                   <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
+              <Route path='/welcome/:id' render={({ match }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                  <UserRegister setCurrentUser={this.setCurrentUser}
+                    id={match.params.id} />
+                </Guard>} />
+
               <Route path='/Register' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id/RegisterUser' render={({ match }) =>
+              {/* <Route path='/Calendar/:id/RegisterUser' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Register setCurrentUser={this.setCurrentUser} id={match.params.id} />
-                </Guard>} />
+                </Guard>} /> */}
 
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calender/:id' render={({ match }) =>
+              <Route path='/Calendar/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
