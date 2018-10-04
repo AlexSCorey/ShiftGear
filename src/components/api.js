@@ -34,6 +34,11 @@ const api = {
   getUserToken: () => {
     return userToken
   },
+  getUsers: (id) => {
+    return request.get(`${domain}/calendars/${id}/users`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => response.body)
+  },
   getCalendars: () => {
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -44,10 +49,6 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send(this.calendar.id(calendar))
       .then(res => res.body.calendars)
-      // not sure why I need this
-      // .then(createdCalendar => {
-      //   return Object.assign({}, calendar, createdCalendar)
-      // })
   },
   deleteCalendar (calendar) {
     return request.delete()

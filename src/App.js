@@ -47,7 +47,7 @@ class App extends Component {
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calender/:id' render={({ match }) =>
+              <Route path='/Calendar/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />

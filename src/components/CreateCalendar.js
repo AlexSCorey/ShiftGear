@@ -55,9 +55,9 @@ class CreateCalendar extends Component {
         }} onDayChange={(e) => this.handleToChange(e)} />
       </span>
       <div>Shift Times
-        <div>
+      <div>
           <div>Start Time
-            <select id='selector' placeholder='hours'>
+        <select id='selector' placeholder='hours'>
               <option value='1'>1</option>
               <option value='2'>2</option>
               <option value='3'>3</option>
@@ -71,19 +71,19 @@ class CreateCalendar extends Component {
               <option value='11'>11</option>
               <option value='12'>12</option>
             </select>
-            <select id='selector' placeholder='minutes'>
+        <select id='selector' placeholder='minutes'>
               <option value='00'>00</option>
               <option value='15'>15</option>
               <option value='30'>30</option>
               <option value='45'>45</option>
             </select>
-            <select id='selector' placeholder='AM/PM'>
+        <select id='selector' placeholder='AM/PM'>
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
             </select>
-          </div>
+        </div>
           <div>Stop Time
-            <select id='selector' placeholder='hours'>
+        <select id='selector' placeholder='hours'>
               <option value='1'>1</option>
               <option value='2'>2</option>
               <option value='3'>3</option>
@@ -97,17 +97,17 @@ class CreateCalendar extends Component {
               <option value='11'>11</option>
               <option value='12'>12</option>
             </select>
-            <select id='selector' placeholder='minutes'>
+        <select id='selector' placeholder='minutes'>
               <option value='00'>00</option>
               <option value='15'>15</option>
               <option value='30'>30</option>
               <option value='45'>45</option>
             </select>
-            <select id='selector' placeholder='AM/PM'>
+        <select id='selector' placeholder='AM/PM'>
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
             </select>
-          </div>
+        </div>
           Shift Number
         </div>
       </div>
