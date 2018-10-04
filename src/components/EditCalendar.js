@@ -60,7 +60,7 @@ class EditCalendar extends Component {
                 </div>)}
             </div>
           </div>
-        <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
+          <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
         </div>)
     } else {
       return (

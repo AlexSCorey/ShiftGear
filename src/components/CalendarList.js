@@ -20,12 +20,14 @@ class CalendarList extends Component {
     api.deleteCalendar(id)
       .then(this.forceUpdate())
   }
+
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
       <Link to={`/Calendar/${id}`}>{name}
         <div className='fas fa-pencil-alt' />
       </Link>
+      <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button>
       <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
     </div>)
   }
