@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import api from './api'
-import update from 'immutability-helper'
 import CalendarList from './CalendarList'
 
 class CalendarsContainer extends Component {
@@ -14,9 +13,6 @@ class CalendarsContainer extends Component {
       managed: undefined,
       employed: undefined
     }
-
-    this.editCalendar = this.editCalendar.bind(this)
-    this.deleteCalendar = this.deleteCalendar.bind(this)
   }
   componentDidMount () {
     this.getCalendars()
@@ -26,21 +22,7 @@ class CalendarsContainer extends Component {
       this.setState({ calendars: calendars })
     })
   }
-  editCalendar (calendar) {
-    this.setState(state => {
-      return update(state, {
-        calendar: { isEditing: true }
-      })
-    }, () => {
-      api.updateCalendar(this.state.calendar)
-    })
-  }
 
-  deleteCalendar (calendar) {
-    this.setState({
-      isDeleting: true
-    })
-  }
   render () {
     const { calendars } = this.state
     if (calendars) {

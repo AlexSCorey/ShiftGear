@@ -34,6 +34,11 @@ const api = {
   getUserToken: () => {
     return userToken
   },
+  getUsers: (id) => {
+    return request.get(`${domain}/calendars/${id}/users`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => response.body)
+  },
   getCalendars: () => {
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)
