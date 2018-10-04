@@ -46,8 +46,11 @@ class CalendarsContainer extends Component {
     if (calendars) {
       const { managed_calendars, owned_calendars, employed_calendars } = calendars
       return (<div><Link to='/CreateCalendar'>Add Calendar</Link>
+        <h2>Managed Calendars</h2>
         {managed_calendars && managed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
+        <h2>Owned Calendars</h2>
         {owned_calendars && owned_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
+        <h2>Employed Calendars</h2>
         {employed_calendars && employed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
       </div>)
     } else {

@@ -18,10 +18,10 @@ class NewUserRegister extends Component {
     const { id } = this.props
     e.preventDefault()
     const { password, passwordConf, name } = this.state
-    const { setCurrentUser } = this.props
+    // const { setCurrentUser } = this.props
     if (passwordConf === password) {
       api.newUserRegistrationCompletion(name, password, id)
-        .then(userToken => setCurrentUser(userToken))
+        .then(res => console.log(res, 'res from registration completion'))
     } else {
       this.setState({ errMsg: 'Your password and confirmation must match.' })
     }

@@ -4,7 +4,7 @@ class EditCalendar extends Component {
   render () {
     const { id } = this.props
     return (<div>
-      <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee </Link>
+      <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
     </div>)
   }
 }

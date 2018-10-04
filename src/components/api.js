@@ -61,15 +61,19 @@ const api = {
   newUserRegistrationCompletion: (name, password, id) => {
     return request.post(`${domain}/invitations/complete`)
       .set('Authorization', `Bearer ${id}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}` })
       .then(res => {
         console.log(res.body)
       })
   },
-  addEmployeeToCalendar: (name, email, id, phone) => {
+  addEmployeeToCalendar: (role, email, id) => {
     console.log(id, 'calendar id')
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(response => response.body)
+      .send({ 'email': `${email}`,
+        'role': `${role}` })
+      .then(response => console.log(response.body, 'add emp response in api'))
   }
 }
 

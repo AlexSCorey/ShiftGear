@@ -153,7 +153,7 @@ class CreateCalendar extends Component {
         <div>
           <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Submit Calendar</Button>
         </div>
-        <Link to='/Calendar/:id/AddEmployee'>Add Staff to This Calendar</Link>
+        <Link to='/Calendar/:id/AddEmployee'>Add Employees</Link>
       </div>
     </div>)
   }
