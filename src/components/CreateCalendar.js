@@ -86,7 +86,7 @@ class CreateCalendar extends Component {
     // const modifiers = { start: from, end: to }
     return (<div >
       <label>Calendar Title
-        <input className='input' type='text' placeholder='Provide calendar Title' />
+      <input className='input' type='text' placeholder='Provide calendar Title' />
       </label>
       <span className='datePicker'>
         <DayPickerInput onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
@@ -129,42 +129,43 @@ class CreateCalendar extends Component {
           </div>
           <div>Stop Time
 
-            <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
+        <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
 
-              <option value='1'>1</option>
-              <option value='2'>2</option>
-              <option value='3'>3</option>
-              <option value='4'>4</option>
-              <option value='5'>5</option>
-              <option value='6'>6</option>
-              <option value='7'>7</option>
-              <option value='8'>8</option>
-              <option value='9'>9</option>
-              <option value='10'>10</option>
-              <option value='11'>11</option>
-              <option value='12'>12</option>
-            </select>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            <option value='11'>11</option>
+            <option value='12'>12</option>
+          </select>
 
             <select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setToMinute(e.target.value)}>
 
-              <option value='00'>00</option>
-              <option value='15'>15</option>
-              <option value='30'>30</option>
-              <option value='45'>45</option>
-            </select>
+            <option value='00'>00</option>
+            <option value='15'>15</option>
+            <option value='30'>30</option>
+            <option value='45'>45</option>
+          </select>
 
-            <select className='timeSelector' placeholder='AM/PM' onBlur={(e) => this.setToAmPm(e.target.value)}>
+        <select className='timeSelector' placeholder='AM/PM' onBlur={(e) => this.setToAmPm(e.target.value)}>
+
 
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
             </select>
           </div>
           Shift Number
-        </div>
-        <div>
+      </div>
+      <div>
           <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Submit Calendar</Button>
         </div>
-        <Link to='/Calendar/:id/AddEmployee'>Add Employees</Link>
+      <Link to='/Calendar/:id/AddEmployee'>Add Employees</Link>
       </div>
     </div>)
   }
