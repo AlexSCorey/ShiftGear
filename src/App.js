@@ -21,6 +21,12 @@ class App extends Component {
       currentUser: null
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
+    this.setNewUser = this.setNewUser.bind(this)
+  }
+  setNewUser (user) {
+    console.log(user, 'user in app js new user')
+    window.localStorage.setItem('token', `${user}`)
+    this.setState({ currentUser: user })
   }
   setCurrentUser (user) {
     // window.localStorage.setItem('username', user.username)
@@ -41,7 +47,7 @@ class App extends Component {
 
               <Route path='/welcome/:id' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <NewUserRegister setCurrentUser={this.setCurrentUser}
+                  <NewUserRegister setNewUser={this.setNewUser}
                     id={match.params.id} />
                 </Guard>} />
 
@@ -52,7 +58,7 @@ class App extends Component {
 
               <Route path='/Calendar/:id/AddEmployee' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <AddEmployeeToCalendar setCurrentUser={this.setCurrentUser} id={match.params.id} />
+                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>

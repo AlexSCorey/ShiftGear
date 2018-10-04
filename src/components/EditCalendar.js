@@ -28,6 +28,7 @@ class EditCalendar extends Component {
   render () {
     const { users } = this.state
     const { managers, employees, owners } = users
+    const { id } = this.props
     if (users && managers) {
       return (
         <div>
@@ -60,7 +61,7 @@ class EditCalendar extends Component {
                 </div>)}
             </div>
           </div>
-        <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
+          <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
         </div>)
     } else {
       return (

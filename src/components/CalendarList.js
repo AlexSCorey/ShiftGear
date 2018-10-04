@@ -12,7 +12,6 @@ class CalendarList extends Component {
       editing: false,
       name: ''
     }
-    this.editCalendar = this.editCalendar.bind(this)
   }
 
   deleteCalendar (e, id) {

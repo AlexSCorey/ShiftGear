@@ -95,7 +95,7 @@ class CreateCalendar extends Component {
         <DayPickerInput onDayChange={(day) => this.handleToDateChange(day)} />
       </span>
       <div>Shift Times
-      <div>
+        <div>
           <div>Start Time
 
             <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
@@ -126,7 +126,7 @@ class CreateCalendar extends Component {
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
             </select>
-        </div>
+          </div>
           <div>Stop Time
 
             <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
@@ -158,7 +158,7 @@ class CreateCalendar extends Component {
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
             </select>
-        </div>
+          </div>
           Shift Number
         </div>
         <div>
