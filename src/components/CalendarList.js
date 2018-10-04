@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import update from 'immutability-helper'
+
+import { Button } from 'bloomer'
+
 import api from './api'
 
 class CalendarList extends Component {
@@ -13,22 +15,18 @@ class CalendarList extends Component {
     this.editCalendar = this.editCalendar.bind(this)
   }
 
-  editCalendar (calendar) {
-    this.setState(state => {
-      return update(state, {
-        calendar: { editing: true }
-      })
-    }, () => {
-      api.updateCalendar(this.state.calendar)
-    })
+  deleteCalendar (e, id) {
+    e.preventDefault()
+    api.deleteCalendar(id)
+      .then(this.forceUpdate())
   }
-
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
       <Link to={`/Calendar/${id}`}>{name}
         <div className='fas fa-pencil-alt' />
       </Link>
+      <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
     </div>)
   }
 }

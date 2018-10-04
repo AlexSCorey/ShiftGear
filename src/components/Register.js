@@ -34,7 +34,7 @@ class Register extends Component {
       <div>
         <div className='links is-size-6 has-text-centered'>
           <NavLink to='/login'>Log In</NavLink>
-          &nbsp;<span className='pipe'>|</span>&nbsp;
+          <span className='pipe'>|</span>&nbsp;
           <NavLink to='/register'>Register</NavLink>
         </div>
         <Field>
