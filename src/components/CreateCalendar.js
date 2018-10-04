@@ -96,33 +96,38 @@ class CreateCalendar extends Component {
       </span>
       <div>Shift Times
         <div>
-        <div>Start Time
-          <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'>3</option>
-          <option value='4'>4</option>
-          <option value='5'>5</option>
-          <option value='6'>6</option>
-          <option value='7'>7</option>
-          <option value='8'>8</option>
-          <option value='9'>9</option>
-          <option value='10'>10</option>
-          <option value='11'>11</option>
-          <option value='12'>12</option>
-        </select>
-          <select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
-          <option value='00'>00</option>
-          <option value='15'>15</option>
-          <option value='30'>30</option>
-          <option value='45'>45</option>
-        </select>
-          <select className='timeSelector' placeholder='AM/PM'onBlur={(e) => this.setFromAmPm(e.target.value)}>
-          <option value='AM'>AM</option>
-          <option value='PM'>PM</option>
-        </select>
-        </div>
-        <div>Stop Time
+          <div>Start Time
+
+            <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select>
+
+            <select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
+
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select>
+
+            <select className='timeSelector' placeholder='AM/PM'onBlur={(e) => this.setFromAmPm(e.target.value)}>
+
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select>
+          </div>
+          <div>Stop Time
 
         <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
 
@@ -150,9 +155,10 @@ class CreateCalendar extends Component {
 
         <select className='timeSelector' placeholder='AM/PM' onBlur={(e) => this.setToAmPm(e.target.value)}>
 
-            <option value='AM'>AM</option>
-            <option value='PM'>PM</option>
-          </select>
+
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select>
           </div>
           Shift Number
       </div>

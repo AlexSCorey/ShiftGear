@@ -68,12 +68,9 @@ const api = {
       .set('Authorization', `Bearer ${id}`)
       .send({ 'name': `${name}`,
         'password': `${password}` })
-      .then(res => {
-        console.log(res.body)
-      })
+      .then(res => res.body.user.api_token)
   },
   addEmployeeToCalendar: (role, email, id) => {
-    console.log(id, 'calendar id')
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'email': `${email}`,

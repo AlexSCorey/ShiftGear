@@ -1,44 +1,42 @@
 import React, { Component } from 'react'
 import { Label, Input, Button, Field } from 'bloomer'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // import Register from './Register'
 import api from './api'
 
 class AddEmployeeToCalendar extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      role: '',
+      role: 'employee',
       email: ''
     }
   }
   componentDidMount () {
-
+    console.log(this.props.setCurrentUser, 'is it here?')
   }
   handleSubmit (e) {
-    console.log('here')
     e.preventDefault()
     const { id } = this.props
     const { role, email } = this.state
-    // const { setCurrentUser } = this.props
     api.addEmployeeToCalendar(role, email, id)
   }
+
   render () {
-    const { role, email } = this.state
+    const { email } = this.state
     return (
       <div>
         <Field>
-          <Label>Role
-            <select value={role} onChange={e => this.setState({ role: e.target.value })}>
-              <option value='employee'>Employee</option>
-              <option value='owner'>Owner</option>
-              <option value='manager'>Manager</option>
-            </select>
-          </Label>
+          <Label htmlFor='role'>Role</Label>
+          <select id='role' onChange={e => this.setState({ role: e.target.value })}>
+            <option value='employee'>Employee</option>
+            <option value='owner'>Owner</option>
+            <option value='manager'>Manager</option>
+          </select>
           <Label>Email</Label>
           <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-          <NavLink to='/CalendarList'><Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Submit</Button></NavLink>
+          <Link to='/CalendarList'><Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Submit</Button></Link>
         </Field>
       </div>
     )

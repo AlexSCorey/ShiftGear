@@ -28,6 +28,7 @@ class EditCalendar extends Component {
   render () {
     const { users } = this.state
     const { managers, employees, owners } = users
+    const { id } = this.props
     if (users && managers) {
       return (
         <div>
