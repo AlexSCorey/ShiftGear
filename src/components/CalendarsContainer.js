@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+
 import api from './api'
 import update from 'immutability-helper'
 import CalendarList from './CalendarList'
@@ -43,7 +45,7 @@ class CalendarsContainer extends Component {
     const { calendars } = this.state
     if (calendars) {
       const { managed_calendars, owned_calendars, employed_calendars } = calendars
-      return (<div>
+      return (<div><Link to='/CreateCalendar'>Add Calendar</Link>
         {managed_calendars && managed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
         {owned_calendars && owned_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
         {employed_calendars && employed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}

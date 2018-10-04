@@ -11,7 +11,8 @@ import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
 import CreateCalendar from './components/CreateCalendar'
 import EditCalendar from './components/EditCalendar'
-import UserRegister from './components/UserRegister'
+import NewUserRegister from './components/NewUserRegister'
+import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 
 class App extends Component {
   constructor () {
@@ -40,7 +41,7 @@ class App extends Component {
 
               <Route path='/welcome/:id' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <UserRegister setCurrentUser={this.setCurrentUser}
+                  <NewUserRegister setCurrentUser={this.setCurrentUser}
                     id={match.params.id} />
                 </Guard>} />
 
@@ -49,10 +50,10 @@ class App extends Component {
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              {/* <Route path='/Calendar/:id/RegisterUser' render={({ match }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <Register setCurrentUser={this.setCurrentUser} id={match.params.id} />
-                </Guard>} /> */}
+              <Route path='/Calendar/:id/AddEmployee' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <AddEmployeeToCalendar setCurrentUser={this.setCurrentUser} id={match.params.id} />
+                </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
@@ -65,7 +66,7 @@ class App extends Component {
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar />
                 </Guard>} />
 
