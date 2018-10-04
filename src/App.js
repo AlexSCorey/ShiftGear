@@ -11,6 +11,8 @@ import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
 import CreateCalendar from './components/CreateCalendar'
 import EditCalendar from './components/EditCalendar'
+import NewUserRegister from './components/NewUserRegister'
+import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 
 class App extends Component {
   constructor () {
@@ -37,9 +39,20 @@ class App extends Component {
                   <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
+              <Route path='/welcome/:id' render={({ match }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                  <NewUserRegister setCurrentUser={this.setCurrentUser}
+                    id={match.params.id} />
+                </Guard>} />
+
               <Route path='/Register' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Register setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+
+              <Route path='/Calendar/:id/AddEmployee' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <AddEmployeeToCalendar setCurrentUser={this.setCurrentUser} id={match.params.id} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
@@ -47,14 +60,14 @@ class App extends Component {
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calender/:id' render={({ match }) =>
+              <Route path='/Calendar/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
 
-              <Route path='/CreateCalendar' render={({ match }) =>
+              <Route path='/CreateCalendar' render={({ props }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CreateCalendar id={match.params.id} />
+                  <CreateCalendar />
                 </Guard>} />
 
             </div>

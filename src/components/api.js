@@ -44,21 +44,36 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send(this.calendar.id(calendar))
       .then(res => res.body.calendars)
-      // not sure why I need this
-      // .then(createdCalendar => {
-      //   return Object.assign({}, calendar, createdCalendar)
-      // })
   },
-  deleteCalendar (calendar) {
-    return request.delete()
+  createNewCalendar: () => {
+    console.log('im here')
+    return (request.post(`${domain}/calendars`))
       .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  deleteCalendar: (id) => {
+    console.log('im here', id)
+    return request.delete(`${domain}/calendars/${id}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => console.log(res.body, 'res')
+      )
+  },
+  newUserRegistrationCompletion: (name, password, id) => {
+    return request.post(`${domain}/invitations/complete`)
+      .set('Authorization', `Bearer ${id}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}` })
       .then(res => {
-        if (res.body.numDeleted > 0) {
-          return true
-        } else {
-          return false
-        }
+        console.log(res.body)
       })
+  },
+  addEmployeeToCalendar: (role, email, id) => {
+    console.log(id, 'calendar id')
+    return request.post(`${domain}/calendars/${id}/invitation`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'email': `${email}`,
+        'role': `${role}` })
+      .then(response => console.log(response.body, 'add emp response in api'))
   }
 }
 
