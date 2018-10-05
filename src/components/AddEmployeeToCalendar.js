@@ -14,7 +14,6 @@ class AddEmployeeToCalendar extends Component {
     }
   }
   componentDidMount () {
-    console.log(this.props.setCurrentUser, 'is it here?')
   }
   handleSubmit (e) {
     e.preventDefault()

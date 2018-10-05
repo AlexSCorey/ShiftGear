@@ -41,10 +41,10 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              <Route path='' render={({ match }) =>
+              {/* <Route path='' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <Login id={match.params.id} />
-                </Guard>} />
+                </Guard>} /> */}
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
@@ -71,7 +71,7 @@ class App extends Component {
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id' render={({ match }) =>
+              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
@@ -80,9 +80,9 @@ class App extends Component {
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar />
                 </Guard>} />
-              <Route path='/Calendar/:id/AddShifts' render={({ props }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <ShiftSelection />
+              <Route path='/Calendar/:id/AddShifts' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <ShiftSelection id={match.params.id} />
                 </Guard>} />
 
             </div>

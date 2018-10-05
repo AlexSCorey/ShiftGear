@@ -81,7 +81,17 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'email': `${email}`,
         'role': `${role}` })
-      .then(response => console.log(response.body, 'add emp response in api'))
+      .then(response => response.body)
+  },
+  createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
+    return request.post(`${domain}/calendars/${calendarId}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_time': `${startDateTime}`,
+        'end_time': `${endDateTime}`,
+        'calendar_id': `${calendarId}`,
+        'capacity': `${numOfShifts}`,
+        'published': `${published}` })
+      .then(res => res.body)
   }
 }
 

@@ -23,7 +23,7 @@ class CalendarList extends Component {
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
-      <Link to={`/Calendar/${id}`}>{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
+      <Link to={`/Calendar/${id}/EditCalendar`}>{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
     </div>)
   }

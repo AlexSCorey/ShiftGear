@@ -51,7 +51,7 @@ class CreateCalendar extends Component {
         <option value={timeZone} onBlur={e => this.setState({ timeZone: e.target.value })}>{'Central Time (US & Canada)'}</option>
       </select >
       <Label>Number of Shifts
-        <Input type='number' placeholder='Must Be a Number' value={numberOfShifts} required onChange={e => this.setState({ numberOfShifts: e.target.value })} />
+        <Input type='number' placeholder='Optional' value={numberOfShifts} required onChange={e => this.setState({ numberOfShifts: e.target.value })} />
       </Label>
       <Label>Daily Work Limit
         <Input type='number' placeholder='Optional' value={dailyWorkLimit} onChange={e => this.setState({ dailyWorkLimit: e.target.value })} />

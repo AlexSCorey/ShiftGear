@@ -7,7 +7,6 @@ class EditCalendar extends Component {
     super(props)
     this.state = {
       users: {}
-
     }
   }
 
@@ -61,6 +60,7 @@ class EditCalendar extends Component {
             </div>
           </div>
           <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
+          <Link to={`/Calendar/${id}/AddShifts`}>Add Shifts</Link>
         </div>)
     } else {
       return (
