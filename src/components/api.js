@@ -96,7 +96,7 @@ const api = {
   getShifts: (id) => {
     return request.get(`${domain}/calendars/${id}/shifts`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'get shifts res from api'))
+      .then(res => res.body)
   }
 }
 

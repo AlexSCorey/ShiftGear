@@ -9,19 +9,33 @@ class WeekView extends Component {
   constructor () {
     super()
     this.state = {
-      days: {}
+      shifts: []
     }
   }
-  getDays () {
+  componentDidMount () {
+    this.getShifts()
+  }
+  getShifts () {
     const { id } = this.props
     api.getShifts(id)
-      .then(res => console.log(res, 'res in weekview'))
+      .then(res => {
+        this.setState({ shifts: res.shifts })
+      })
   }
   render () {
-    // const { days } = this.state
-    return (<div>
-      {/* {days.map((day) => <div key={day.id}>{day.name})} */}
-    </div>)
+    const { shifts } = this.state
+    // return (
+    //   <div>{console.log(shifts)}</div>)
+    if (shifts) {
+      return (
+        <div>
+          {this.state.shifts.map((shift) => <div key={shift.shift_id}>{shift.start_time}</div>)}
+        </div>
+      )
+    } else {
+      return (<div>something went wrong</div>)
+    }
   }
 }
+
 export default WeekView

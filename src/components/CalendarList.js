@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Delete } from 'bloomer'
+import { Delete, Button } from 'bloomer'
 import moment from 'moment'
 
 // import { Buton } from 'bloomer'
@@ -34,8 +34,8 @@ class CalendarList extends Component {
       <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
       <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
-      <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button>
-      <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
+      {/* <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button> */}
+      {/* <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button> */}
     </div>)
   }
 }
