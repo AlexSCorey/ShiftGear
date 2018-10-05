@@ -63,9 +63,10 @@ const api = {
       .then(res => console.log(res.body, 'res')
       )
   },
-  deleteEmployee: (id, value) => {
-    console.log('delete employee', id)
-    return request.delete(`${domain}/calendars/${id}/users/${value}/role`)
+  deleteEmployee: (employeeId, calendarId) => {
+    console.log('delete employee', employeeId)
+    console.log('calendarId', calendarId)
+    return request.delete(`${domain}/calendars/${calendarId}/users/${employeeId}/role`)
       .set('Authorization', `Bearer ${userToken}`)
       // .send({ 'name': `${name}`,
       //   'password': `${password}` })
