@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Delete } from 'bloomer'
+import moment from 'moment'
+
 // import { Buton } from 'bloomer'
 
 import api from './api'
@@ -20,11 +22,17 @@ class CalendarList extends Component {
     api.deleteCalendar(id)
       .then(res => res)
   }
+  getDate () {
+    let date = moment().day(0)
+    console.log(date, 'date')
+  }
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
-      <Link to={`/Calendar/${id}/EditCalendar`}>{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
+      <button onClick={this.getDate}>get Date </button>
+      <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
+      <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
     </div>)
   }
 }

@@ -92,6 +92,11 @@ const api = {
         'capacity': `${numOfShifts}`,
         'published': `${published}` })
       .then(res => res.body)
+  },
+  getShifts: (id) => {
+    return request.get(`${domain}/calendars/${id}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => console.log(res.body, 'get shifts res from api'))
   }
 }
 

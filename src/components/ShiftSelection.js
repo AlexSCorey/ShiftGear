@@ -171,7 +171,7 @@ class ShiftSelection extends Component {
               </select>
               <Label>Done<input type='checkbox' placeholder='Publish?' onChange={(e) => this.readyToPublish(e)} /></Label>
               <Label>Staff Requied
-                <Input type='number' name='quantity' min='1' onClick={(e) => this.staffRequired(e.target.value)} />
+                <Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e.target.value)} />
               </Label>
             </div>
           </div>
