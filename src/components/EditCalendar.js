@@ -18,7 +18,7 @@ class EditCalendar extends Component {
         this.setState({
           users: response
         })
-        console.log(this.state.users, 'api')
+        console.log(Object.keys(this.state.users, 'api'))
       })
   }
 
@@ -28,14 +28,12 @@ class EditCalendar extends Component {
 
   // role and calendarId
 
-  handleDelete (event, id, value) {
-    console.log(this.state.users.employees, 'handleDelete')
-    console.log(id, 'handleDelete!')
-    console.log(value, 'handleDelete!!')
+  handleDelete (event, employeeId, role) {
+    let { id } = this.props
     event.preventDefault()
-    api.deleteEmployee(id, value)
-    console.log(value, 'handleDelete2')
-    console.log(id, 'handleDelete2')
+    console.log(role, 'employeeId!')
+    console.log(id, 'calendarId!!')
+    api.deleteEmployee(employeeId, id)
       .then(this.forceUpdate())
   }
 
@@ -62,10 +60,10 @@ class EditCalendar extends Component {
           <div>
             <div>
               {employees.map((employee) =>
-                <div key={employee.id} id={employee.id}>
+                <div key={employee.id} EmployeeId={employee.id}>
                   {employee.name}
-                  <Button value={employee.id} type='submit' onClick={event =>
-                    this.handleDelete(event, id, event.target.value)}>Delete Employee</Button>
+                  <Button value={employee.id} dataset='employee' type='submit' onClick={event =>
+                    this.handleDelete(event, event.target.value, event.target.dataset)}>Delete Employee</Button>
                 </div>)}
             </div>
             <div>

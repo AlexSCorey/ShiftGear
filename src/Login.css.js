@@ -1,6 +1,5 @@
 export default {
   button: {
-    border-radius: 
-
+    borderRadius: '3px'
   }
 }
