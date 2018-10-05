@@ -13,6 +13,7 @@ import CreateCalendar from './components/CreateCalendar'
 import EditCalendar from './components/EditCalendar'
 import NewUserRegister from './components/NewUserRegister'
 import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
+import ShiftSelection from './components/ShiftSelection'
 
 class App extends Component {
   constructor () {
@@ -40,6 +41,10 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
+              <Route path='' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <Login id={match.params.id} />
+                </Guard>} />
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
@@ -74,6 +79,10 @@ class App extends Component {
               <Route path='/CreateCalendar' render={({ props }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar />
+                </Guard>} />
+              <Route path='/Calendar/:id/AddShifts' render={({ props }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <ShiftSelection />
                 </Guard>} />
 
             </div>

@@ -35,7 +35,6 @@ class Login extends Component {
       )
     } else {
       return (
-
         <div>
           <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
