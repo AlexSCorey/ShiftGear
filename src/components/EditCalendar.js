@@ -17,7 +17,6 @@ class EditCalendar extends Component {
         this.setState({
           users: response
         })
-        console.log(this.state.users, 'api')
       })
   }
 

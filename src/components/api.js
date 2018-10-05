@@ -28,6 +28,17 @@ const api = {
         return { userToken }
       })
   },
+  newUserRegistrationCompletion: (name, password, id) => {
+    return request.post(`${domain}/invitations/complete`)
+      .set('Authorization', `Bearer ${id}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}` })
+      .then(res => res.body.user.api_token)
+      .then(token => {
+        api.setUserToken(token)
+        return { userToken }
+      })
+  },
   setUserToken: (token) => {
     userToken = token
   },
@@ -50,25 +61,20 @@ const api = {
       .send(this.calendar.id(calendar))
       .then(res => res.body.calendars)
   },
-  createNewCalendar: () => {
-    console.log('im here')
+  createNewCalendar: (title, timeZone, numberOfShifts, dailyWorkLimit, weeklyWorkLimit) => {
+    timeZone = 'Central Time (US & Canada)'
     return (request.post(`${domain}/calendars`))
       .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'name': `${title}`,
+        'time_zone': `${timeZone}`,
+        'employee_hour_threshold_daily': `${dailyWorkLimit}`,
+        'employee_hour_threshold_weekly': `${weeklyWorkLimit}` })
       .then(res => res.body)
   },
   deleteCalendar: (id) => {
-    console.log('im here', id)
     return request.delete(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'res')
-      )
-  },
-  newUserRegistrationCompletion: (name, password, id) => {
-    return request.post(`${domain}/invitations/complete`)
-      .set('Authorization', `Bearer ${id}`)
-      .send({ 'name': `${name}`,
-        'password': `${password}` })
-      .then(res => res.body.user.api_token)
+      .then(res => res.body)
   },
   addEmployeeToCalendar: (role, email, id) => {
     return request.post(`${domain}/calendars/${id}/invitation`)

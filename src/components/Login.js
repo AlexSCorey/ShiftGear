@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Label, Input, Notification, Button } from 'bloomer'
+
 import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
@@ -34,6 +35,7 @@ class Login extends Component {
       )
     } else {
       return (
+
         <div>
           <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>

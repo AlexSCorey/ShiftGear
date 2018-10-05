@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
-import { Button } from 'bloomer'
+import { Delete } from 'bloomer'
+// import { Buton } from 'bloomer'
 
 import api from './api'
 
@@ -12,20 +12,19 @@ class CalendarList extends Component {
       editing: false,
       name: ''
     }
+    this.deleteCalendar = this.deleteCalendar.bind(this)
   }
 
   deleteCalendar (e, id) {
     e.preventDefault()
     api.deleteCalendar(id)
-      .then(this.forceUpdate())
+      .then(res => res)
   }
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
-      <Link to={`/Calendar/${id}`}>{name}
-        <div className='fas fa-pencil-alt' />
+      <Link to={`/Calendar/${id}`}>{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
-      <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
     </div>)
   }
 }
