@@ -26,6 +26,7 @@ class CalendarList extends Component {
     let date = moment().day(0)
     console.log(date, 'date')
   }
+
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
@@ -33,6 +34,8 @@ class CalendarList extends Component {
       <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
       <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
+      <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button>
+      <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
     </div>)
   }
 }
