@@ -33,6 +33,7 @@ class CalendarList extends Component {
       <button onClick={this.getDate}>get Date </button>
       <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
+
       <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
       {/* <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button> */}
       {/* <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button> */}

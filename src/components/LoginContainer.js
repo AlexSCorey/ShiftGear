@@ -14,21 +14,12 @@ class LoginContainer extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              <Dashboard setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
+              <Login setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
             </div>
           </main>
         </div>
       )
     }
-    return (
-      <div className='App'>
-        <main className='main'>
-          <div className='board'>
-            <Login setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
-          </div>
-        </main>
-      </div>
-    )
   }
 }
 

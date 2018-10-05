@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from './api'
 import { Link } from 'react-router-dom'
+import { Button } from 'bloomer'
 
 class EditCalendar extends Component {
   constructor (props) {
@@ -21,6 +22,17 @@ class EditCalendar extends Component {
 
   componentDidMount () {
     this.getEmployees()
+  }
+
+  // role and calendarId
+
+  handleDelete (event, employeeId, role) {
+    let { id } = this.props
+    event.preventDefault()
+    console.log(role, 'employeeId!')
+    console.log(id, 'calendarId!!')
+    api.deleteEmployee(employeeId, id)
+      .then(this.forceUpdate())
   }
 
   render () {
@@ -44,11 +56,14 @@ class EditCalendar extends Component {
             <h2>Employee</h2>
           </div>
           <div>
-            {employees.map((employee) =>
-              <div key={employee.id}>
-                {employee.name}
-              </div>)}
-
+            <div>
+              {employees.map((employee) =>
+                <div key={employee.id} EmployeeId={employee.id}>
+                  {employee.name}
+                  <Button value={employee.id} dataset='employee' type='submit' onClick={event =>
+                    this.handleDelete(event, event.target.value, event.target.dataset)}>Delete Employee</Button>
+                </div>)}
+            </div>
             <div>
               <h2>Owner</h2>
             </div>

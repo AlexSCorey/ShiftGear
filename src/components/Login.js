@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
 import api from './api'
+import styles from '../Login.css.js'
 
 class Login extends Component {
   constructor () {
@@ -36,6 +37,7 @@ class Login extends Component {
     } else {
       return (
         <div>
+          <div className='header' />
           <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
             &nbsp;<span className='pipe'>|</span>&nbsp;
