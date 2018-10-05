@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
 import api from './api'
-import styles from '../Login.css.js'
+import styles from './App.css'
 
 class Login extends Component {
   constructor () {
