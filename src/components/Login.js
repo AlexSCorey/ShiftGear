@@ -35,6 +35,7 @@ class Login extends Component {
     } else {
       return (
         <div>
+          <div className='header' />
           <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
             &nbsp;<span className='pipe'>|</span>&nbsp;

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import api from './api'
 import { Link } from 'react-router-dom'
+import { Button } from 'bloomer'
 
 class EditCalendar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      users: {}
-
+      users: {},
+      deleteEmployee: null
     }
   }
 
@@ -23,6 +24,19 @@ class EditCalendar extends Component {
 
   componentDidMount () {
     this.getEmployees()
+  }
+
+  // role and calendarId
+
+  handleDelete (event, id, value) {
+    console.log(this.state.users.employees, 'handleDelete')
+    console.log(id, 'handleDelete!')
+    console.log(value, 'handleDelete!!')
+    event.preventDefault()
+    api.deleteEmployee(id, value)
+    console.log(value, 'handleDelete2')
+    console.log(id, 'handleDelete2')
+      .then(this.forceUpdate())
   }
 
   render () {
@@ -46,11 +60,14 @@ class EditCalendar extends Component {
             <h2>Employee</h2>
           </div>
           <div>
-            {employees.map((employee) =>
-              <div key={employee.id}>
-                {employee.name}
-              </div>)}
-
+            <div>
+              {employees.map((employee) =>
+                <div key={employee.id} id={employee.id}>
+                  {employee.name}
+                  <Button value={employee.id} type='submit' onClick={event =>
+                    this.handleDelete(event, id, event.target.value)}>Delete Employee</Button>
+                </div>)}
+            </div>
             <div>
               <h2>Owner</h2>
             </div>

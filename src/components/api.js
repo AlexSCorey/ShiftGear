@@ -63,6 +63,14 @@ const api = {
       .then(res => console.log(res.body, 'res')
       )
   },
+  deleteEmployee: (id, value) => {
+    console.log('delete employee', id)
+    return request.delete(`${domain}/calendars/${id}/users/${value}/role`)
+      .set('Authorization', `Bearer ${userToken}`)
+      // .send({ 'name': `${name}`,
+      //   'password': `${password}` })
+      .then(res => res.body.user.api_token)
+  },
   newUserRegistrationCompletion: (name, password, id) => {
     return request.post(`${domain}/invitations/complete`)
       .set('Authorization', `Bearer ${id}`)
