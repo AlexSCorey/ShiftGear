@@ -28,6 +28,17 @@ const api = {
         return { userToken }
       })
   },
+  newUserRegistrationCompletion: (name, password, id) => {
+    return request.post(`${domain}/invitations/complete`)
+      .set('Authorization', `Bearer ${id}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}` })
+      .then(res => res.body.user.api_token)
+      .then(token => {
+        api.setUserToken(token)
+        return { userToken }
+      })
+  },
   setUserToken: (token) => {
     userToken = token
   },
@@ -50,17 +61,21 @@ const api = {
       .send(this.calendar.id(calendar))
       .then(res => res.body.calendars)
   },
-  createNewCalendar: () => {
-    console.log('im here')
+  createNewCalendar: (title, timeZone, numberOfShifts, dailyWorkLimit, weeklyWorkLimit) => {
+    timeZone = 'Central Time (US & Canada)'
     return (request.post(`${domain}/calendars`))
       .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'name': `${title}`,
+        'time_zone': `${timeZone}`,
+        'employee_hour_threshold_daily': `${dailyWorkLimit}`,
+        'employee_hour_threshold_weekly': `${weeklyWorkLimit}` })
       .then(res => res.body)
   },
   deleteCalendar: (id) => {
-    console.log('im here', id)
     return request.delete(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'res')
+
+      .then(res => res.body)
       )
   },
   deleteEmployee: (employeeId, calendarId) => {
@@ -78,13 +93,29 @@ const api = {
       .send({ 'name': `${name}`,
         'password': `${password}` })
       .then(res => res.body.user.api_token)
+
   },
   addEmployeeToCalendar: (role, email, id) => {
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'email': `${email}`,
         'role': `${role}` })
-      .then(response => console.log(response.body, 'add emp response in api'))
+      .then(response => response.body)
+  },
+  createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
+    return request.post(`${domain}/calendars/${calendarId}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_time': `${startDateTime}`,
+        'end_time': `${endDateTime}`,
+        'calendar_id': `${calendarId}`,
+        'capacity': `${numOfShifts}`,
+        'published': `${published}` })
+      .then(res => res.body)
+  },
+  getShifts: (id) => {
+    return request.get(`${domain}/calendars/${id}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
   }
 }
 

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'bloomer'
+import { Delete, Button } from 'bloomer'
+import moment from 'moment'
+
+// import { Buton } from 'bloomer'
+
 import api from './api'
 
 class CalendarList extends Component {
@@ -10,21 +14,29 @@ class CalendarList extends Component {
       editing: false,
       name: ''
     }
+    this.deleteCalendar = this.deleteCalendar.bind(this)
   }
 
   deleteCalendar (e, id) {
     e.preventDefault()
     api.deleteCalendar(id)
-      .then(this.forceUpdate())
+      .then(res => res)
+  }
+  getDate () {
+    let date = moment().day(0)
+    console.log(date, 'date')
   }
 
   render () {
     let { name, id } = this.props
     return (<div className='calendarItem'>
-      <Link to={`/Calendar/${id}`}>{name}
-        <div className='fas fa-pencil-alt' />
+      <button onClick={this.getDate}>get Date </button>
+      <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
       </Link>
-      <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button>
+
+      <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
+      {/* <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button> */}
+      {/* <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button> */}
     </div>)
   }
 }

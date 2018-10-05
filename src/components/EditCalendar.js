@@ -7,8 +7,7 @@ class EditCalendar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      users: {},
-      deleteEmployee: null
+      users: {}
     }
   }
 
@@ -18,7 +17,6 @@ class EditCalendar extends Component {
         this.setState({
           users: response
         })
-        console.log(Object.keys(this.state.users, 'api'))
       })
   }
 
@@ -77,6 +75,7 @@ class EditCalendar extends Component {
             </div>
           </div>
           <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
+          <Link to={`/Calendar/${id}/AddShifts`}>Add Shifts</Link>
         </div>)
     } else {
       return (

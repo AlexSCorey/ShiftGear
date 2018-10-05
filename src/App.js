@@ -13,6 +13,8 @@ import CreateCalendar from './components/CreateCalendar'
 import EditCalendar from './components/EditCalendar'
 import NewUserRegister from './components/NewUserRegister'
 import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
+import ShiftSelection from './components/ShiftSelection'
+import WeekView from './components/WeekView'
 
 class App extends Component {
   constructor () {
@@ -40,6 +42,10 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
+              {/* <Route path='' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <Login id={match.params.id} />
+                </Guard>} /> */}
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
@@ -66,7 +72,7 @@ class App extends Component {
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id' render={({ match }) =>
+              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
@@ -74,6 +80,14 @@ class App extends Component {
               <Route path='/CreateCalendar' render={({ props }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar />
+                </Guard>} />
+              <Route path='/Calendar/:id/AddShifts' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <ShiftSelection id={match.params.id} />
+                </Guard>} />
+              <Route path='/Calendar/:id/WeeklyView' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <WeekView id={match.params.id} />
                 </Guard>} />
 
             </div>

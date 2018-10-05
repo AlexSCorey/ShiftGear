@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Label, Input, Notification, Button } from 'bloomer'
+
 import { NavLink } from 'react-router-dom'
 
 import Register from './Register'
