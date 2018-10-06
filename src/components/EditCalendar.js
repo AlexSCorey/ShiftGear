@@ -19,22 +19,27 @@ class EditCalendar extends Component {
         })
       })
   }
-
   componentDidMount () {
     this.getEmployees()
   }
-
-  // role and calendarId
-
-  handleDelete (event, employeeId, role) {
+  deleteOwner (event, ownerId) {
     let { id } = this.props
     event.preventDefault()
-    console.log(role, 'employeeId!')
-    console.log(id, 'calendarId!!')
-    api.deleteEmployee(employeeId, id)
+    api.deleteEmployee(ownerId, 'manager', id)
       .then(this.forceUpdate())
   }
-
+  deleteManager (event, managerId) {
+    let { id } = this.props
+    event.preventDefault()
+    api.deleteEmployee(managerId, 'manager', id)
+      .then(this.forceUpdate())
+  }
+  deleteEmployee (event, employeeId) {
+    let { id } = this.props
+    event.preventDefault()
+    api.deleteEmployee(employeeId, 'employee', id)
+      .then(this.forceUpdate())
+  }
   render () {
     const { users } = this.state
     const { managers, employees, owners } = users
@@ -42,35 +47,32 @@ class EditCalendar extends Component {
     if (users && managers) {
       return (
         <div>
-          <div>
-            <h2>Manager</h2>
-          </div>
+          <h2>Manager</h2>
           <div>
             {managers.map((manager) =>
-              <div key={manager.id}>
+              <div key={manager.id} id={manager.id}>
                 {manager.name}
+                <Button value={manager.id} dataset='employee' type='submit' onClick={event =>
+                  this.deleteManager(event, event.target.value)}>Delete Manager</Button>
               </div>)}
           </div>
-
-          <div>
-            <h2>Employee</h2>
-          </div>
+          <h2>Employee</h2>
           <div>
             <div>
               {employees.map((employee) =>
-                <div key={employee.id} EmployeeId={employee.id}>
+                <div key={employee.id} id={employee.id}>
                   {employee.name}
                   <Button value={employee.id} dataset='employee' type='submit' onClick={event =>
-                    this.handleDelete(event, event.target.value, event.target.dataset)}>Delete Employee</Button>
+                    this.deleteEmployee(event, event.target.value)}>Delete Employee</Button>
                 </div>)}
             </div>
-            <div>
-              <h2>Owner</h2>
-            </div>
+            <h2>Owner</h2>
             <div>
               {owners.map((owner) =>
-                <div key={owner.id}>
+                <div key={owner.id} id={owner.id}>
                   {owner.name}
+                  <Button value={owner.id} dataset='owner' type='submit' onClick={event =>
+                    this.deleteEmployee(event, event.target.value)}>Delete Owner</Button>
                 </div>)}
             </div>
           </div>

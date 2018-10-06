@@ -3,10 +3,9 @@ import { Label, Input, Notification, Button } from 'bloomer'
 
 import { NavLink } from 'react-router-dom'
 
-import Register from './Register'
 import api from './api'
+import Register from './Register'
 // import styles from '../Login.css.js'
-
 class Login extends Component {
   constructor () {
     super()
@@ -40,7 +39,7 @@ class Login extends Component {
           <div className='header' />
           <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
-            &nbsp;<span className='pipe'>|</span>&nbsp;
+            <span className='pipe'>|</span>&nbsp;
             <NavLink to='/register' onClick={e => this.setRegistering(e, true)}>Register</NavLink>
           </div>
           { errMsg &&

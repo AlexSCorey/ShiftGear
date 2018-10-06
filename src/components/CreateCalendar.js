@@ -34,7 +34,7 @@ class CreateCalendar extends Component {
       })
   }
   render () {
-    // let { title, timeZone, numberOfShifts, dailyWorkLimit, weeklyWorkLimit, newCalendarId } = this.state
+    let { title, timeZone, numberOfShifts, dailyWorkLimit, weeklyWorkLimit, newCalendarId } = this.state
     // const modifiers = { start: from, end: to }
     return (<div >
       <label>Calendar Title
@@ -118,7 +118,7 @@ class CreateCalendar extends Component {
         </div>
         <Link to='/Calendar/:id/AddEmployee'>Add Employees</Link>
       </div>
-      {/* <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link> */}
+      <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
     </div>)
   }
 }

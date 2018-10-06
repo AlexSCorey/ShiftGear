@@ -12,10 +12,9 @@ const api = {
         'email': `${email}`,
         'password': `${password}`,
         'phone_number': `${phoneNum}` })
-      .then(userToken =>
-        userToken.body.user.api_token)
+      .then(res => res.body.user.api_token)
       .then(api.login(email, password))
-      .then(api.setUserToken(userToken.body.user.api_token))
+      // .then(api.setUserToken(res.body.user.api_token))
   },
   login: (email, password) => {
     return request.post(`${domain}/logins`)
@@ -47,6 +46,7 @@ const api = {
   //     .then(res => res.body.user.api_token)
   // },
   setUserToken: (token) => {
+    console.log(token, 'token')
     userToken = token
   },
   getUserToken: () => {
@@ -58,6 +58,7 @@ const api = {
       .then(response => response.body)
   },
   getCalendars: () => {
+    console.log(userToken, 'user token in getCalendars')
     return request.get(`${domain}/calendars`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => response.body)
@@ -84,14 +85,11 @@ const api = {
 
       .then(res => res.body)
   },
-  deleteEmployee: (employeeId, calendarId) => {
-    console.log('delete employee', employeeId)
-    console.log('calendarId', calendarId)
+  deleteEmployee: (employeeId, role, calendarId) => {
     return request.delete(`${domain}/calendars/${calendarId}/users/${employeeId}/role`)
       .set('Authorization', `Bearer ${userToken}`)
-      // .send({ 'name': `${name}`,
-      //   'password': `${password}` })
-      .then(res => res.body.user.api_token)
+      .send({ 'role': `${role}` })
+      .then(res => console.log(res.body, 'delete employee response'))
   },
   // newUserRegistrationCompletion: (name, password, id) => {
   //   return request.post(`${domain}/invitations/complete`)
@@ -119,6 +117,11 @@ const api = {
   },
   getShifts: (id) => {
     return request.get(`${domain}/calendars/${id}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  deleteShift: (id, shiftId) => {
+    return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   }

@@ -25,40 +25,22 @@ class ShiftSelection extends Component {
     }
     this.setFromAmPm = this.setFromAmPm.bind(this)
   }
-  // componentDidMount () {
-  //   this.getCalendar(this.props.id)
-  // }
-  // getCalendar (id) {
-  //   api.getCalendar(id)
-  //     .then(calendar => {
-  //       this.setState({ calendar })
-  //     })
-  // }
-  // configureTimes () {
-  //   let startTime = moment().hour(this.state.fromHour).minute(this.state.fromMinute)
-  //   let stopTime = moment().hour(this.state.toHour).minute(this.state.toMinute)
-  // }
   configureDate (e) {
     e.preventDefault()
     const { toHour, fromHour, toMin, fromMin } = this.state
-    // let startTime = (((fromHour) * (1000) * (60) * (60)) + (fromMin * (1000) * (60)))
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin)
-    // let endTime = (((toHour) * (1000) * (60) * (60)) + (toMin * (1000) * (60)))
-    // let startDateTime = startDate + startTime
-    // let endDateTime = endDate + endTime
-    // console.log(startMoment.format(), 'ISO start')
-    // console.log(endMoment.format(), 'ISO start')
     this.createShift(startMoment.format(), endMoment.format())
   }
   createShift (startMoment, endMoment) {
     let calendarId = this.props.id
     let { staffRequired, published } = this.state
-    console.log(staffRequired, 'num of shifts')
-    console.log(published, 'published')
     api.createShift(startMoment, endMoment, calendarId, staffRequired, published)
       .then(res => console.log(res, 'res in shift selector'))
   }
+  // setSetState (key, value) {
+  //   this.setState[key] = value
+  // }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })
   }
@@ -126,7 +108,6 @@ class ShiftSelection extends Component {
                 <option value='11'>11</option>
                 <option value='12'>12</option>
               </select>
-
               <select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
                 <option>--Select--</option>
                 <option value='00'>00</option>
@@ -134,7 +115,6 @@ class ShiftSelection extends Component {
                 <option value='30'>30</option>
                 <option value='45'>45</option>
               </select>
-
               <select onChange={(e) => this.setFromAmPm(e.target.value)}>
                 <option placeholder='AM/PM' >--Select--</option>
                 <option value='AM' className='timeSelector'>AM</option>

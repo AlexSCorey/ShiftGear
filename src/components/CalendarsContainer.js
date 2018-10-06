@@ -8,23 +8,23 @@ class CalendarsContainer extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      calendars: {},
-      owned: undefined,
-      managed: undefined,
-      employed: undefined
+      calendars: {}
     }
   }
   componentDidMount () {
     this.getCalendars()
   }
   getCalendars () {
-    api.getCalendars().then(calendars => {
-      this.setState({ calendars: calendars })
-    })
+    console.log('here')
+    api.getCalendars()
+      .then(calendars => {
+        this.setState({ calendars: calendars })
+      })
   }
 
   render () {
     const { calendars } = this.state
+    console.log(calendars, 'calendars in calendar container')
     if (calendars) {
       const { managed_calendars, owned_calendars, employed_calendars } = calendars
       return (<div><Link to='/CreateCalendar'>Add Calendar</Link>
