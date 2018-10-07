@@ -21,9 +21,9 @@ class AddEmployeeToCalendar extends Component {
     const { role, email } = this.state
     api.addEmployeeToCalendar(role, email, id)
   }
-
   render () {
     const { email } = this.state
+    const { id } = this.props
     return (
       <div>
         <Field>
@@ -35,7 +35,7 @@ class AddEmployeeToCalendar extends Component {
           </select>
           <Label>Email</Label>
           <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-          <Link to='/CalendarList'><Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Submit</Button></Link>
+          <Button className='is-warning' onClick={e => { this.handleSubmit(e) }}><Link to={`/CalendarList/${id}`}>Submit</Link></Button>
         </Field>
       </div>
     )
