@@ -73,7 +73,7 @@ class App extends Component {
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
+              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
@@ -87,7 +87,7 @@ class App extends Component {
                   <ShiftSelection id={match.params.id} />
                 </Guard>} />
 
-              <Route exact path='/Calendar/:id/:type' render={({ match }) =>
+              <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <WeekView id={match.params.id} type={match.params.type} />
                 </Guard>} />

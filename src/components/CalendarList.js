@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { Delete } from 'bloomer'
 // import moment from 'moment'
 
-// import { Buton } from 'bloomer'
-
 import api from './api'
 
 class CalendarList extends Component {
@@ -25,7 +23,6 @@ class CalendarList extends Component {
 
   render () {
     let { calendarGroup, type } = this.props
-    console.log(type, 'calendar type')
     if (calendarGroup && calendarGroup.length > 0) {
       return (
         calendarGroup.map((calendar) => {
@@ -33,9 +30,8 @@ class CalendarList extends Component {
             return (<div className='calendarItem'>
               <Link to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
                 {calendar.name}
-                {/* <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} /> */}
               </Link>
-              <Link to={`/Calendar/${calendar.id}/${type}`}>Week View</Link>
+              <Link to={`/Calendar/${calendar.id}/type/${type}`}>Week View</Link>
             </div>
             )
           } else {
@@ -45,7 +41,7 @@ class CalendarList extends Component {
                   {calendar.name}
                   <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
                 </Link>
-                <Link to={`/Calendar/${calendar.id}/${type}`}>Week View</Link>
+                <Link to={`/Calendar/${calendar.id}/type/${type}`}>Week View</Link>
               </div>)
           }
         })

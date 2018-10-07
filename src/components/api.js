@@ -131,12 +131,12 @@ const api = {
       .then(res => res.body)
   },
   createNote: (note, id, date) => {
-    console.log(note, 'note')
+    // console.log(note, 'note')
     // console.log(id, 'id')
     // console.log(date, 'date')
     return request.post(`${domain}/calendars/${id}/notes`)
       .set('Authorization', `Bearer ${userToken}`)
-      .send({ 'note': `${note}`,
+      .send({ 'text': `${note}`,
         'date': `${date}` })
       .then(res => console.log(res.body))
   }
