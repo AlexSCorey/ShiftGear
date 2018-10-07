@@ -16,10 +16,12 @@ class WeekView extends Component {
       shifts: [],
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
       nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
-      lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD')
+      lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD'),
+      notesExist: false
     }
   }
   componentDidMount () {
+    // this.getNotes()
     this.getShifts()
   }
   getShifts () {
@@ -30,6 +32,12 @@ class WeekView extends Component {
         this.setState({ shifts: res })
       })
   }
+  // getNotes () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   api.getNotes(id, thisWeek, nextWeek)
+  //     .then(res => this.setState({ notesExist: true }))
+  // }
   nextWeek (e) {
     e.preventDefault()
     let nextWeek = moment(this.state.lasWeek).add(1, 'week')
@@ -103,7 +111,6 @@ class WeekView extends Component {
           </div>)}
         </div>)
       }
-      // 0: {Day: "2018-09-30 00:00:00", total_shifts: 2, total_capacity: 6, total_assigned_capacity: "8", published_shifts: 1, …
     } else {
       return (<div>Loading</div>)
     }

@@ -15,10 +15,8 @@ class CalendarsContainer extends Component {
     this.getCalendars()
   }
   getCalendars () {
-    console.log('getCalendars')
     api.getCalendars()
       .then(calendars => {
-        console.log('getCalendars calendars', calendars)
         this.setState({ calendars: calendars })
       })
   }
@@ -36,7 +34,6 @@ class CalendarsContainer extends Component {
         <div>
           <Link to='/CreateCalendar'>Add Calendar</Link>
           { calendarTypes.map((calendarType) => {
-            console.log(calendarType, 'calTypes')
             let calendarGroup = calendars[calendarType]
             if (calendarGroup.length > 0) {
               return (

@@ -140,6 +140,11 @@ const api = {
       .send({ 'text': `${note}`,
         'date': `${date}` })
       .then(res => console.log(res.body))
+  },
+  getNotes: (id, thisWeek, nextWeek) => {
+    request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
   }
 }
 
