@@ -118,12 +118,16 @@ const api = {
         'published': `${published}` })
       .then(res => res.body)
   },
-  getShifts: (id, thisWeek, nextWeek) => {
-    // console.log(thisWeek, 'this week in api')
-    // console.log(nextWeek, 'next week in api')
+  getWeekShiftInfo: (id, thisWeek, nextWeek) => {
     return request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body, 'get shifts res')
+  },
+  getShifts: (id) => {
+    console.log(id, 'cal id in api')
+    return request.post(`${domain}/calendars/${id}/shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
   },
   deleteShift: (id, shiftId) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
@@ -131,9 +135,6 @@ const api = {
       .then(res => res.body)
   },
   createNote: (note, id, date) => {
-    // console.log(note, 'note')
-    // console.log(id, 'id')
-    // console.log(date, 'date')
     return request.post(`${domain}/calendars/${id}/notes`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'text': `${note}`,

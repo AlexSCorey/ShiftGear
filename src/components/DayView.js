@@ -10,6 +10,14 @@ class DayView extends Component {
       note: ''
     }
   }
+  componentDidMount () {
+    this.getShifts()
+  }
+  getShifts () {
+    let { id } = this.props
+    api.getShifts(id)
+      .then(res => console.log(res, 'res in Day View'))
+  }
   handleSubmit (e) {
     e.preventDefault()
     const { note } = this.state

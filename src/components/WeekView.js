@@ -25,7 +25,7 @@ class WeekView extends Component {
   getShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
-    api.getShifts(id, thisWeek, nextWeek)
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
         this.setState({ shifts: res })
       })
