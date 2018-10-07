@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Label, Input, Column, Columns, Notification, Button } from 'bloomer'
+import { Label, Input, Notification, Button } from 'bloomer'
 import { NavLink } from 'react-router-dom'
-
-import Register from './Register'
-import api from './api'
+import api from './api
 // import styles from './App.css'
 
 class Login extends Component {
