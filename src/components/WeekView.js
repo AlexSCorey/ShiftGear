@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Delete, Button } from 'bloomer'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import api from './api'
 
@@ -15,7 +15,7 @@ class WeekView extends Component {
     this.state = {
       shifts: [],
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
-      nextWeek: moment(new Date()).add(7, 'days').format('YYYY-MM-DD'),
+      nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
       lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD')
     }
   }
@@ -27,7 +27,6 @@ class WeekView extends Component {
     const { thisWeek, nextWeek } = this.state
     api.getShifts(id, thisWeek, nextWeek)
       .then(res => {
-        console.log(res, 'res')
         this.setState({ shifts: res })
       })
   }
@@ -57,27 +56,53 @@ class WeekView extends Component {
   }
 
   render () {
-    const { shifts, thisWeek, nextWeek, lastWeek } = this.state
+    const { shifts, thisWeek } = this.state
+    const { id, type } = this.props
     if (shifts && shifts.length > 0) {
-      return (
-        <div>
-          <Button onClick={(e) => this.lastWeek(e)}>{moment(lastWeek).format('MMM Do YYYY')}</Button>
+      if (type === 'Employed Calendars') {
+        return (
+          <div>
+            <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
 
+            <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
+
+            <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
+            {shifts.map((shift) => <div key={shift.shift_id}>
+              <Link to={`/Calendar/${id}/Shifts/${shift.Day}`}>
+                {<div className='weekViewButton'>
+                  <div>{moment(shift.Day).format('ddd, Do')}
+                    <div>
+                      <div>Total Shifts:({shift.total_shifts})</div>
+                      <div>Capacity:({shift.total_capacity})</div>
+                      <div>Assigned Cap:({shift.total_assigned_capacity})</div>
+                    </div>
+                  </div>
+                </div>}
+              </Link>
+            </div>)}
+          </div>
+        )
+      } else {
+        return (<div>
+          <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
           <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
-
-          <Button onClick={(e) => this.nextWeek(e)}>{moment(nextWeek).format('MMM Do YYYY')}</Button>
-
+          <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
           {shifts.map((shift) => <div key={shift.shift_id}>
-            <div>
-              <div>{moment(shift.Day).format('ddd, Do')}</div>
-              Total Shifts:({shift.total_shifts})
-              Capacity:({shift.total_capacity})
-              Assigned Cap:({shift.total_assigned_capacity})
-              <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
-            </div>
+            <Link to={`/Calendar/${id}/Shifts/${shift.Day}`}>
+              { <div className='weekViewButton'>
+                <div>{moment(shift.Day).format('ddd, Do')}
+                  <div>
+                    <div>Total Shifts:({shift.total_shifts})</div>
+                    <div>Capacity:({shift.total_capacity})</div>
+                    <div>Assigned Cap:({shift.total_assigned_capacity})</div>
+                  </div>
+                </div>
+              </div>}
+            </Link>
+            <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
           </div>)}
-        </div>
-      )
+        </div>)
+      }
       // 0: {Day: "2018-09-30 00:00:00", total_shifts: 2, total_capacity: 6, total_assigned_capacity: "8", published_shifts: 1, …
     } else {
       return (<div>Loading</div>)

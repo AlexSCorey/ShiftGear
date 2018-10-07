@@ -35,7 +35,7 @@ class CalendarList extends Component {
                 {calendar.name}
                 {/* <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} /> */}
               </Link>
-              <Link to={`/Calendar/${calendar.id}/WeeklyView`}>Week View</Link>
+              <Link to={`/Calendar/${calendar.id}/${type}`}>Week View</Link>
             </div>
             )
           } else {
@@ -45,7 +45,7 @@ class CalendarList extends Component {
                   {calendar.name}
                   <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
                 </Link>
-                <Link to={`/Calendar/${calendar.id}/WeeklyView`}>Week View</Link>
+                <Link to={`/Calendar/${calendar.id}/${type}`}>Week View</Link>
               </div>)
           }
         })
