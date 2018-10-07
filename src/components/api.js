@@ -21,6 +21,7 @@ const api = {
     return request.post(`${domain}/logins`)
       .send({ 'email': `${email}`,
         'password': `${password}` })
+
       .then(response =>
         response.body.token)
       .then(token => {
