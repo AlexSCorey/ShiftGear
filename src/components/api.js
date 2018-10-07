@@ -74,9 +74,7 @@ const api = {
   deleteCalendar: (id) => {
     return request.delete(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
-
       .then(res => res.body)
-      )
   },
   deleteEmployee: (employeeId, calendarId) => {
     console.log('delete employee', employeeId)
@@ -87,14 +85,13 @@ const api = {
       //   'password': `${password}` })
       .then(res => res.body.user.api_token)
   },
-  newUserRegistrationCompletion: (name, password, id) => {
-    return request.post(`${domain}/invitations/complete`)
-      .set('Authorization', `Bearer ${id}`)
-      .send({ 'name': `${name}`,
-        'password': `${password}` })
-      .then(res => res.body.user.api_token)
-
-  },
+  // newUserRegistrationCompletion: (name, password, id) => {
+  //   return request.post(`${domain}/invitations/complete`)
+  //     .set('Authorization', `Bearer ${id}`)
+  //     .send({ 'name': `${name}`,
+  //       'password': `${password}` })
+  //     .then(res => res.body.user.api_token)
+  // },
   addEmployeeToCalendar: (role, email, id) => {
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
