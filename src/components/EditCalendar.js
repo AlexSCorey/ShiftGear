@@ -25,7 +25,7 @@ class EditCalendar extends Component {
   deleteOwner (event, ownerId) {
     let { id } = this.props
     event.preventDefault()
-    api.deleteEmployee(ownerId, 'manager', id)
+    api.deleteEmployee(ownerId, 'owner', id)
       .then(this.forceUpdate())
   }
   deleteManager (event, managerId) {

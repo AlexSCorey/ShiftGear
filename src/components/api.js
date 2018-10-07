@@ -27,24 +27,24 @@ const api = {
         return { userToken }
       })
   },
-  newUserRegistrationCompletion: (name, password, id) => {
-    return request.post(`${domain}/invitations/complete`)
-      .set('Authorization', `Bearer ${id}`)
-      .send({ 'name': `${name}`,
-        'password': `${password}` })
-      .then(res => res.body.user.api_token)
-      .then(token => {
-        api.setUserToken(token)
-        return { userToken }
-      })
-  },
   // newUserRegistrationCompletion: (name, password, id) => {
   //   return request.post(`${domain}/invitations/complete`)
   //     .set('Authorization', `Bearer ${id}`)
   //     .send({ 'name': `${name}`,
   //       'password': `${password}` })
   //     .then(res => res.body.user.api_token)
+  //     .then(token => {
+  //       api.setUserToken(token)
+  //       return { userToken }
+  //     })
   // },
+  newUserRegistrationCompletion: (name, password, id) => {
+    return request.post(`${domain}/invitations/complete`)
+      .set('Authorization', `Bearer ${id}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}` })
+      .then(res => res.body.user.api_token)
+  },
   setUserToken: (token) => {
     console.log(token, 'token')
     userToken = token
@@ -99,11 +99,14 @@ const api = {
   //     .then(res => res.body.user.api_token)
   // },
   addEmployeeToCalendar: (role, email, id) => {
+    console.log(role, 'role')
+    console.log(email, 'email')
+    console.log(id, 'id')
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'email': `${email}`,
         'role': `${role}` })
-      .then(response => response.body)
+      .then(response => console.log(response.body, 'res add amp'))
   },
   createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
     return request.post(`${domain}/calendars/${calendarId}/shifts`)
@@ -115,10 +118,12 @@ const api = {
         'published': `${published}` })
       .then(res => res.body)
   },
-  getShifts: (id) => {
-    return request.get(`${domain}/calendars/${id}/shifts`)
+  getShifts: (id, thisWeek, nextWeek) => {
+    console.log(thisWeek, 'this week in api')
+    console.log(nextWeek, 'next week in api')
+    return request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body)
+      .then(res => res.body, 'get shifts res')
   },
   deleteShift: (id, shiftId) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)

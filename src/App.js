@@ -15,7 +15,7 @@ import NewUserRegister from './components/NewUserRegister'
 import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 import ShiftSelection from './components/ShiftSelection'
 import WeekView from './components/WeekView'
-
+import UpdateProfile from './components/UpdateProfile'
 class App extends Component {
   constructor () {
     super()
@@ -85,11 +85,15 @@ class App extends Component {
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <ShiftSelection id={match.params.id} />
                 </Guard>} />
+
               <Route path='/Calendar/:id/WeeklyView' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <WeekView id={match.params.id} />
                 </Guard>} />
-
+              <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <UpdateProfile id={match.params.id} />
+                </Guard>} />
             </div>
           </main>
         </div>

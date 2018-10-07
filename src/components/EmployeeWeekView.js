@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Delete, Button } from 'bloomer'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import { Label, Input, Button } from 'bloomer'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 
 // import { Link } from 'react-router-dom'
 
@@ -27,7 +27,6 @@ class WeekView extends Component {
     const { thisWeek, nextWeek } = this.state
     api.getShifts(id, thisWeek, nextWeek)
       .then(res => {
-        console.log(res, 'res')
         this.setState({ shifts: res })
       })
   }
@@ -49,12 +48,6 @@ class WeekView extends Component {
       thisWeek: thisWeek,
       lastWeek: lastWeek })
   }
-  deleteShift (e, shiftId) {
-    e.preventDefault()
-    let { id } = this.props
-    api.deleteShift(id, shiftId)
-      .then(res => res)
-  }
 
   render () {
     const { shifts, thisWeek, nextWeek, lastWeek } = this.state
@@ -70,11 +63,12 @@ class WeekView extends Component {
           {shifts.map((shift) => <div key={shift.shift_id}>
             <div>
               <div>{moment(shift.Day).format('ddd, Do')}</div>
-              Total Shifts:({shift.total_shifts})
-              Capacity:({shift.total_capacity})
-              Assigned Cap:({shift.total_assigned_capacity})
-              <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
+              Avail:({shift.total_shifts})
+              Stop Time:({shift.total_capacity})
             </div>
+            <Label>Note:
+              <Input type='textarea' />
+            </Label>
           </div>)}
         </div>
       )

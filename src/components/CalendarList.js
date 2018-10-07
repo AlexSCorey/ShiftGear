@@ -24,15 +24,35 @@ class CalendarList extends Component {
   }
 
   render () {
-    let { name, id } = this.props
-    return (<div className='calendarItem'>
-      <Link to={`/Calendar/${id}/EditCalendar`} >{name}<Delete type='submit' onClick={e => this.deleteCalendar(e, id)} />
-      </Link>
-
-      <Link to={`/Calendar/${id}/WeeklyView`}>Week View</Link>
-      {/* <Button type='submit' onClick={e => this.handleEdit(e, id)}>Edit Calendar</Button> */}
-      {/* <Button type='submit' onClick={e => this.handleDelete(e, id)}>Delete Calendar</Button> */}
-    </div>)
+    let { calendarGroup, type } = this.props
+    console.log(type, 'calendar type')
+    if (calendarGroup && calendarGroup.length > 0) {
+      return (
+        calendarGroup.map((calendar) => {
+          if (type === 'Employed Calendars') {
+            return (<div className='calendarItem'>
+              <Link to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                {calendar.name}
+                {/* <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} /> */}
+              </Link>
+              <Link to={`/Calendar/${calendar.id}/WeeklyView`}>Week View</Link>
+            </div>
+            )
+          } else {
+            return (
+              <div className='calendarItem'>
+                <Link to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                  {calendar.name}
+                  <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
+                </Link>
+                <Link to={`/Calendar/${calendar.id}/WeeklyView`}>Week View</Link>
+              </div>)
+          }
+        })
+      )
+    } else {
+      return ('')
+    }
   }
 }
 
