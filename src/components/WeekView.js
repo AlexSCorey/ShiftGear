@@ -17,11 +17,14 @@ class WeekView extends Component {
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
       nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
       lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD'),
-      notesExist: false
+      notesExist: false,
+      shiftSwapsIndex: []
+
     }
   }
   componentDidMount () {
     this.getShifts()
+    this.getShiftSwapIndex()
   }
   getShifts () {
     const { id } = this.props
@@ -31,15 +34,8 @@ class WeekView extends Component {
         this.setState({ shifts: res })
       })
   }
-  // getNotes () {
-  //   const { id } = this.props
-  //   const { thisWeek, nextWeek } = this.state
-  //   api.getNotes(id, thisWeek, nextWeek)
-  //     .then(res => this.setState({ notesExist: true }))
-  // }
   nextWeek (e) {
     e.preventDefault()
-    // console.log(this.state.shifts, 'shifts')
     let nextWeek = moment(this.state.lasWeek).add(1, 'week')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week')
     let lastWeek = moment(this.state.nextWeek).add(1, 'week')
@@ -64,19 +60,59 @@ class WeekView extends Component {
     api.deleteShift(id, shiftId)
       .then(res => res)
   }
-
+  getShiftSwapIndex () {
+    let { id } = this.props
+    api.getShiftSwapIndex(id)
+      .then(res => {
+        this.setState({ shiftSwapsIndex: res })
+      })
+  }
+  acceptShiftSwap (e, shiftID) {
+    e.preventDefault()
+    // console.log(shiftID, 'shift id')
+    let { id } = this.props
+    api.acceptShiftSwap(id, shiftID)
+      .then(res => window.alert('Swap sent for approval by manager'))
+  }
+  // 1
+  // calendar_name:
+  // "Chief Beef's Burger Stop"
+  // id:
+  // 13
+  // requesting_user_id:
+  // 2
+  // requesting_user_name:
+  // "Sohel Patel"
+  // shift_end_time:
+  // "2018-11-24T18:30:00.000Z"
+  // shift_id:
+  // 130
+  // shift_start_time:
+  // "2018-11-24T09:30:00.000Z"
   render () {
-    const { shifts, thisWeek } = this.state
+    const { shifts, thisWeek, shiftSwapsIndex } = this.state
     const { id, type } = this.props
     if (shifts && shifts.length > 0) {
       if (type === 'Employed Calendars') {
         return (
+
           <div>
             <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
 
             <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
 
             <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
+            <div>
+             Click on a Shift to Accept It
+              {shiftSwapsIndex.map((shiftSwap) =>
+                <div key={shiftSwap.id}>
+                  <Button value={shiftSwap.id}
+                    onClick={(e) => { if (window.confirm('Accept this shift?')) this.acceptShiftSwap(e, e.target.value) }}
+                  >{moment(shiftSwap.shift_start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift_end_time).format('MMM Do YYYY hh:mm a')}</Button>
+                </div>
+              )}
+              <div />
+            </div>
             {shifts.map((shift) => <div key={shift.shift_id}>
               <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                 {<div className='weekViewButton'>

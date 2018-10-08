@@ -155,8 +155,6 @@ const api = {
         'published': `${published}` })
   },
   getStaff: (id, shiftsId) => {
-    // console.log(id, 'id')
-    // console.log(shiftsId, 'shiftsId')
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
@@ -174,15 +172,19 @@ const api = {
         'shift_id': `${shiftsId}`
       })
       .then(res => res.body)
+  },
+  getShiftSwapIndex: (id) => {
+    return request.get(`${domain}/calendars/${id}/swaps`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body.swaps)
+  },
+  acceptShiftSwap: (id, swapID) => {
+    return request.patch(`${domain}/calendars/${id}/swaps/${swapID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => console.log(res.body, 'res'))
   }
+  // PATCH	https://fierce-forest-56311.herokuapp.com/calendars/:calendar_id/swaps/:id
 
-  //     POST https://fierce-forest-56311.herokuapp.com/calendars/:calendar_id/shifts/:id/usershifts
-
-  // api_token required (must be owner or manager to create employee shift)
-
-  // required keys:
-
-  // user_id
-  // shift_id
+  // api_token required - must be user of calendar
 }
 export default api

@@ -69,7 +69,7 @@ class App extends Component {
                   <EditCalendar id={match.params.id} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id' render={({ match }) =>
+              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} />
                 </Guard>} />
@@ -83,9 +83,15 @@ class App extends Component {
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar />
                 </Guard>} />
+
+              <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <ShiftSelection id={match.params.id} />
+                </Guard>} />
+
               <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <ShiftSelection shifID={match.params.shiftID} id={match.params.id} />
+                  <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
                 </Guard>} />
 
               <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>

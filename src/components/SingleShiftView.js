@@ -57,8 +57,11 @@ class SingleShiftView extends Component {
         <div>
           <div>Assigned Staff</div>
           <div>{assignedUsers.map((user) =>
-            <div>{user.name}
-              <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+            <div>
+              <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
+              <div>{user.name}
+                <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+              </div>
             </div>
           )}</div>
           <div>
