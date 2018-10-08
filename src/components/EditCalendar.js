@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import api from './api'
 import { Link } from 'react-router-dom'
-import { Button } from 'bloomer'
+import { Delete } from 'bloomer'
 
 class EditCalendar extends Component {
   constructor (props) {
@@ -47,41 +47,40 @@ class EditCalendar extends Component {
     if (users && managers) {
       return (
         <div>
-          <h2>Manager</h2>
+          <h1>Manager</h1>
           <div>
             {managers.map((manager) =>
               <div key={manager.id} id={manager.id}>
                 {manager.name}
-                <Button value={manager.id} dataset='employee' type='submit' onClick={event =>
-                  this.deleteManager(event, event.target.value)}>Delete Manager</Button>
+                <Delete value={manager.id} dataset='employee' type='submit' onClick={event =>
+                  this.deleteManager(event, event.target.value)} />
               </div>)}
           </div>
-          <h2>Employee</h2>
+          <h1>Employee</h1>
           <div>
             <div>
               {employees.map((employee) =>
                 <div key={employee.id} id={employee.id}>
                   {employee.name}
-                  <Button value={employee.id} dataset='employee' type='submit' onClick={event =>
-                    this.deleteEmployee(event, event.target.value)}>Delete Employee</Button>
+                  <Delete value={employee.id} dataset='employee' type='submit' onClick={event =>
+                    this.deleteEmployee(event, event.target.value)} />
                 </div>)}
             </div>
-            <h2>Owner</h2>
+            <h1>Owner</h1>
             <div>
               {owners.map((owner) =>
                 <div key={owner.id} id={owner.id}>
                   {owner.name}
-                  <Button value={owner.id} dataset='owner' type='submit' onClick={event =>
-                    this.deleteEmployee(event, event.target.value)}>Delete Owner</Button>
+                  <Delete value={owner.id} dataset='owner' type='submit' onClick={event =>
+                    this.deleteEmployee(event, event.target.value)} />
                 </div>)}
             </div>
           </div>
-          <Link to={`/Calendar/${id}/AddEmployee`}>Add Employee</Link>
           <Link to={`/Calendar/${id}/AddShifts`}>Add Shifts</Link>
         </div>)
     } else {
       return (
-        <div> something went wrong </div>
+        <div> loading...</div>
       )
     }
   }

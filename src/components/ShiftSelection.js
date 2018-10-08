@@ -25,22 +25,23 @@ class ShiftSelection extends Component {
     }
     this.setFromAmPm = this.setFromAmPm.bind(this)
   }
-  configureDate (e) {
+
+  saveShift (e) {
     e.preventDefault()
-    const { toHour, fromHour, toMin, fromMin } = this.state
+    let { id, shiftID } = this.props
+    let { staffRequired, published, toHour, fromHour, toMin, fromMin } = this.state
+
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin)
-    this.createShift(startMoment.format(), endMoment.format())
+
+    if (shiftID) {
+      api.updateShift(id, shiftID, startMoment, endMoment, staffRequired, published)
+        .then(res => res)
+    } else {
+      api.createShift(startMoment, endMoment, id, staffRequired, published)
+        .then(res => console.log(res, 'res in shift selector'))
+    }
   }
-  createShift (startMoment, endMoment) {
-    let calendarId = this.props.id
-    let { staffRequired, published } = this.state
-    api.createShift(startMoment, endMoment, calendarId, staffRequired, published)
-      .then(res => console.log(res, 'res in shift selector'))
-  }
-  // setSetState (key, value) {
-  //   this.setState[key] = value
-  // }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })
   }
@@ -155,7 +156,7 @@ class ShiftSelection extends Component {
               </Label>
             </div>
           </div>
-          <Button><Link to='/CalendarList' onClick={e => this.configureDate(e)}>Save Shift</Link></Button>
+          <Button><Link to='/CalendarList' onClick={e => this.saveShift(e)}>Save Shift</Link></Button>
           <Button><Link to='/Calendar/:id/AddEmployee'>Add Employees</Link></Button>
         </div>
       </div>)
