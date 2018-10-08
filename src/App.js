@@ -19,6 +19,7 @@ import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import SingleShiftView from './components/SingleShiftView'
 import ManageApproveSwap from './components/ManagerApproveSwap'
+import AcceptShiftRequest from './components/AcceptShiftRequest'
 class App extends Component {
   constructor () {
     super()
@@ -98,6 +99,7 @@ class App extends Component {
               <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <WeekView id={match.params.id} type={match.params.type} />
+                  <AcceptShiftRequest id={match.params.id} type={match.params.type} />
                 </Guard>} />
 
               <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
@@ -116,7 +118,7 @@ class App extends Component {
                 </Guard>} />
 
               <Route path='/complete/:token' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <ManageApproveSwap token={match.params.id} />
                 </Guard>} />
             </div>

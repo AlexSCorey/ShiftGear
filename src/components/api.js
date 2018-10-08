@@ -181,10 +181,7 @@ const api = {
   acceptShiftSwap: (id, swapID) => {
     return request.patch(`${domain}/calendars/${id}/swaps/${swapID}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'res'))
+      .then(res => res.body, 'res')
   }
-  // PATCH	https://fierce-forest-56311.herokuapp.com/calendars/:calendar_id/swaps/:id
-
-  // api_token required - must be user of calendar
 }
 export default api
