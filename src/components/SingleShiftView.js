@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Delete } from 'bloomer'
 
 import api from './api'
 
@@ -7,7 +8,8 @@ class SingleShiftView extends Component {
     super()
     this.state = {
       assignedUsers: [],
-      unassignedUsers: []
+      unassignedUsers: [],
+      msg: null
     }
   }
   componentDidMount () {
@@ -15,12 +17,19 @@ class SingleShiftView extends Component {
   }
   getStaff () {
     let { id, shiftsId } = this.props
-    console.log(id, ' cal id')
-    console.log(shiftsId, 'shiftsId')
     api.getStaff(id, shiftsId)
       .then(res => {
         this.setState({ assignedUsers: res.assigned_users,
           unassignedUsers: res.unassigned_users })
+      })
+  }
+  removeStaff (e, userID, userName) {
+    e.preventDefault()
+    let { id, shiftsId } = this.props
+    let calendarID = id
+    api.removeStaffFromShift(calendarID, shiftsId, userID)
+      .then(res => {
+        this.setState({ msg: `You Successfully removed ${userName}` })
       })
   }
   render () {
@@ -30,7 +39,9 @@ class SingleShiftView extends Component {
         <div>
           <div>Assigned Staff</div>
           <div>{assignedUsers.map((user) =>
-            <div>{user.name}</div>
+            <div>{user.name}
+              <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+            </div>
           )}</div>
           <div>
             <div>Unassigned Staff</div>

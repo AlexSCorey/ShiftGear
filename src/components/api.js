@@ -160,10 +160,20 @@ const api = {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
+  },
+  removeStaffFromShift: (calendarID, shiftsId, userID) => {
+    return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
   }
-//   2  cal id
-// SingleShiftView.js:18 198 shiftsId
-// api.js:158 198 id
-// api.js:159 undefined "shiftsId"
+  // calendars/:calendar_id/shifts/:id/usershifts/:id
+
+  // api_token required (must be owner or manager to delete employee shift)
+
+  // required keys:
+
+  // user_id
+  // shift_id
+  // calendar
 }
 export default api
