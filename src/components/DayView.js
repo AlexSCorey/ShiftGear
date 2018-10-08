@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Label, Input, Button } from 'bloomer'
+import { Button } from 'bloomer'
 import moment from 'moment'
 
 import api from './api'
@@ -33,9 +33,10 @@ class DayView extends Component {
     return (<div>
       <h2>{moment(date).format('ddd, Do')}</h2>
       <div>{id}</div>
-      <Label>Note:
-        <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
-      </Label>
+      <label className='emailLabel'>
+      Note:
+        <input type='emailInput' onChange={e => this.setState({ note: e.target.value })} required />
+      </label>
       <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
     </div>)
   }

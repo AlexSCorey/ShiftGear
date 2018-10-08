@@ -8,24 +8,21 @@ body {
   margin: 0;
   padding: 0;
 }
-
  /* login and register page */
 
 .loginContainer {
   height: 100%;
-  z-index: -1;
-  vertical-align: center;
 }
-.header {
-  background: #3A2D51;
-  height: 8rem;
-  opacity: 0.9
+#finalLogo {
+  width: 100%;
+  height: 7rem;
+  padding: 1rem;
+  background-color: #3A2D51;
 }
 .toggleLogin {
   text-align: center;
+  vertical-align: center;
   color: #593EBC;
-  padding-top: 1rem;
-  padding-bottom: .8rem;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.7rem
 }
@@ -36,7 +33,7 @@ body {
   display: inline-block;
   vertical-align: center;
   color: #2C46DD;
-  padding: .5rem;
+  padding: .4rem;
   font-size: 1.5rem;
   font-family: 'Montserrat', sans-serif;
 }
@@ -60,16 +57,17 @@ body {
   padding: .5rem;
 }
 .loginButton {
-  border: 1px solid black;
-  height: 4rem;
-  width: 4rem;
+  height: 5rem;
+  width: 5rem;
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  color: black;
-  background-color: white;
+  color: #2C46DD;
+  background-color: #FFBA08;
   border-radius: 50%;
-  font-size: 1.5rem;
-  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-family: 'Montserrat', sans-serif;
   margin-top: 2rem;
+  background-image: url(/components/Shape.svg)
+
 }
