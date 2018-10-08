@@ -165,15 +165,24 @@ const api = {
     return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
+  },
+  assignShift: (userID, id, shiftsId) => {
+    return request.post(`${domain}/calendars/${id}/shifts/${shiftsId}/usershifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+        'user_id': `${userID}`,
+        'shift_id': `${shiftsId}`
+      })
+      .then(res => res.body)
   }
-  // calendars/:calendar_id/shifts/:id/usershifts/:id
 
-  // api_token required (must be owner or manager to delete employee shift)
+  //     POST https://fierce-forest-56311.herokuapp.com/calendars/:calendar_id/shifts/:id/usershifts
+
+  // api_token required (must be owner or manager to create employee shift)
 
   // required keys:
 
   // user_id
   // shift_id
-  // calendar
 }
 export default api

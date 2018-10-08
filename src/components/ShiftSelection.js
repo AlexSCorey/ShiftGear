@@ -42,9 +42,6 @@ class ShiftSelection extends Component {
         .then(res => console.log(res, 'res in shift selector'))
     }
   }
-  // setSetState (key, value) {
-  //   this.setState[key] = value
-  // }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })
   }
