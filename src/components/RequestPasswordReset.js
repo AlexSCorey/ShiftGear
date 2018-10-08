@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Label, Input, Button } from 'bloomer'
 import { Link } from 'react-router-dom'
 
 import api from './api'
@@ -23,9 +22,9 @@ class RequestPasswordReset extends Component {
     const { email } = this.state
     return (
       <div>
-        <Label>Email</Label>
-        <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <Link to='/CalendarList'><Button className='button is-warning' onClick={e => { this.handleSubmit(e) }}>Login</Button></Link>
+        <label className='emailLabel'>email</label>
+        <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+        <Link to='/CalendarList'><button className='loginButton' onClick={e => { this.handleSubmit(e) }}>login</button></Link>
       </div>
     )
   }

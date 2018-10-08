@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Label, Input, Button, Delete } from 'bloomer'
+import { Button } from 'bloomer'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
@@ -77,13 +77,7 @@ class DayView extends Component {
       )
     } else {
       return (<div>Not Today AssHole</div>)
-    }
-    // //     calendar_id: 3
-    // // capacity: 1
-    // // end_time: "2018-10-08T15:00:00.000Z"
-    // // published: false
-    // // shift_id: 333
-    // // start_time: "2018-10-08T13:00:00.000Z"
+}
   }
 }
 export default DayView

@@ -45,18 +45,18 @@ class CreateCalendar extends Component {
     // const modifiers = { start: from, end: to }
     return (<div >
       <Label>Calendar Title
-        <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
+      <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
       </Label>
       <div>
         <Label>Time Zone
-          <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
-            <option>--Select--</option>
-            <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
-            <option value='Alaska'>Alaska</option>
-            <option value='Hawaii'>Hawaii</option>
-            <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
-            <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
-          </select>
+        <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
+          <option>--Select--</option>
+          <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
+          <option value='Alaska'>Alaska</option>
+          <option value='Hawaii'>Hawaii</option>
+          <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
+          <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
+        </select>
         </Label>
         <div>
           <Label>Shift Number</Label>

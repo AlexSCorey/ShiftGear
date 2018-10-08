@@ -17,9 +17,11 @@ import ShiftSelection from './components/ShiftSelection'
 import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
+import RequestPasswordReset from './components/RequestPasswordReset'
 import SingleShiftView from './components/SingleShiftView'
 import ManageApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
+
 class App extends Component {
   constructor () {
     super()
@@ -28,6 +30,7 @@ class App extends Component {
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
     this.setNewUser = this.setNewUser.bind(this)
+    this.onLogout = this.onLogout.bind(this)
   }
   setNewUser (user) {
     console.log(user, 'user in app js new user')
@@ -38,6 +41,10 @@ class App extends Component {
     // window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', `${user.token}`)
     this.setState({ currentUser: user })
+  }
+  onLogout () {
+    window.localStorage.removeItem('token')
+    this.setState({ currentUser: false })
   }
 
   render () {
@@ -73,22 +80,27 @@ class App extends Component {
 
               <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} />
+                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CalendarsContainer setCurrentUser={this.setCurrentUser} />
+                  <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                </Guard>} />
+
+              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <EditCalendar id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CreateCalendar />
+                  <CreateCalendar onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <ShiftSelection id={match.params.id} />
+                  <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
@@ -104,7 +116,7 @@ class App extends Component {
 
               <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <DayView id={match.params.id} date={match.params.date} />
+                  <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
@@ -114,7 +126,12 @@ class App extends Component {
 
               <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <UpdateProfile id={match.params.id} />
+                  <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
+                </Guard>} />
+
+              <Route path='/RequestPassword' render={(props) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                  <RequestPasswordReset setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/complete/:token' render={({ match }) =>
