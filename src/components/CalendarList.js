@@ -33,20 +33,19 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (<div className='calendarItem'>
-              <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                {calendar.name}
-              </Link>
-              <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>Week View</Link>
+              <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>Edit</Link>
+              <div />
+              <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
             </div>
             )
           } else {
             return (
               <div className='calendarItem'>
                 <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                  {calendar.name}
-                  <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
+                  Edit
                 </Link>
-                <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>Week View</Link>
+                <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+                <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
                 <Button className='is-warning' onClick={this.props.onLogout}>logout</Button>
               </div>)
           }

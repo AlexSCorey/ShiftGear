@@ -47,7 +47,6 @@ const api = {
       .then(res => res.body.user.api_token)
   },
   setUserToken: (token) => {
-    console.log(token, 'token')
     userToken = token
   },
   getUserToken: () => {
@@ -98,14 +97,11 @@ const api = {
   //     .then(res => res.body.user.api_token)
   // },
   addEmployeeToCalendar: (role, email, id) => {
-    console.log(role, 'role')
-    console.log(email, 'email')
-    console.log(id, 'id')
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'email': `${email}`,
         'role': `${role}` })
-      .then(response => console.log(response.body, 'res add amp'))
+      .then(response => response.body)
   },
   createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
     return request.post(`${domain}/calendars/${calendarId}/shifts`)
@@ -123,7 +119,6 @@ const api = {
       .then(res => res.body, 'get shifts res')
   },
   getShifts: (id) => {
-    console.log(id, 'cal id in api')
     return request.post(`${domain}/calendars/${id}/shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
@@ -139,7 +134,54 @@ const api = {
       .send({ 'text': `${note}`,
         'date': `${date}` })
       .then(res => console.log(res.body))
+  },
+  getNotes: (id, thisWeek, nextWeek) => {
+    request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  getShiftsForADay: (calId, id) => {
+    return request.get(`${domain}/calendars/${calId}/shifts?start_date=${id}&end_date=${id}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body.shifts)
+  },
+  updateShifts: (id, shiftId, startTime, endTime, capacity, published) => {
+    return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'id': `${shiftId}`,
+        'calendar_id': `${id}`,
+        'start_time': `${startTime}`,
+        'end_time': `${endTime}`,
+        'published': `${published}` })
+  },
+  getStaff: (id, shiftsId) => {
+    return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  removeStaffFromShift: (calendarID, shiftsId, userID) => {
+    return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  assignShift: (userID, id, shiftsId) => {
+    return request.post(`${domain}/calendars/${id}/shifts/${shiftsId}/usershifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({
+        'user_id': `${userID}`,
+        'shift_id': `${shiftsId}`
+      })
+      .then(res => res.body)
+  },
+  getShiftSwapIndex: (id) => {
+    return request.get(`${domain}/calendars/${id}/swaps`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body.swaps)
+  },
+  acceptShiftSwap: (id, swapID) => {
+    return request.patch(`${domain}/calendars/${id}/swaps/${swapID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body, 'res')
   }
 }
-
 export default api

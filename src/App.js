@@ -18,6 +18,10 @@ import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import RequestPasswordReset from './components/RequestPasswordReset'
+import SingleShiftView from './components/SingleShiftView'
+import ManageApproveSwap from './components/ManagerApproveSwap'
+import AcceptShiftRequest from './components/AcceptShiftRequest'
+
 class App extends Component {
   constructor () {
     super()
@@ -69,7 +73,12 @@ class App extends Component {
                   <Register setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id/AddEmployee' render={({ match }) =>
+              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <EditCalendar id={match.params.id} />
+                </Guard>} />
+
+              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
@@ -88,19 +97,31 @@ class App extends Component {
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CreateCalendar onLogout={this.onLogout} />
                 </Guard>} />
-              <Route path='/Calendar/:id/AddShifts' render={({ match }) =>
+
+              <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
+              <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
+                </Guard>} />
+
               <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <WeekView id={match.params.id} type={match.params.type} onLogout={this.onLogout} />
+                  <WeekView id={match.params.id} type={match.params.type} />
+                  <AcceptShiftRequest id={match.params.id} type={match.params.type} />
                 </Guard>} />
 
               <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                </Guard>} />
+
+              <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <SingleShiftView id={match.params.id} shiftsId={match.params.shiftid} />
                 </Guard>} />
 
               <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
@@ -111,6 +132,11 @@ class App extends Component {
               <Route path='/RequestPassword' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/Login'>
                   <RequestPasswordReset setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                </Guard>} />
+
+              <Route path='/complete/:token' render={({ match }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                  <ManageApproveSwap token={match.params.id} />
                 </Guard>} />
             </div>
           </main>
