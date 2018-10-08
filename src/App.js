@@ -18,6 +18,7 @@ import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import SingleShiftView from './components/SingleShiftView'
+import ManageApproveSwap from './components/ManagerApproveSwap'
 class App extends Component {
   constructor () {
     super()
@@ -112,6 +113,11 @@ class App extends Component {
               <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <UpdateProfile id={match.params.id} />
+                </Guard>} />
+
+              <Route path='/complete/:token' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <ManageApproveSwap token={match.params.id} />
                 </Guard>} />
             </div>
           </main>
