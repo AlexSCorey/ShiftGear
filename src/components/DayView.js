@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'bloomer'
+import { Button, Label, Input, Delete } from 'bloomer'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
@@ -70,14 +70,14 @@ class DayView extends Component {
             </div>
           )}
           <Label>Note:
-            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+          <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
           </Label>
           <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
         </div>
       )
     } else {
       return (<div>Not Today AssHole</div>)
-}
+    }
   }
 }
 export default DayView
