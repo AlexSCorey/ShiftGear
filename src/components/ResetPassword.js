@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Label, Input } from 'bloomer'
 import api from './api'
 
 class ResetPassword extends Component {
@@ -26,12 +25,12 @@ class ResetPassword extends Component {
     const { password, passwordConf, email } = this.state
     return (
       <div>
-        <Label>Email</Label>
-        <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <Label>Password</Label>
-        <Input value={password} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
-        <Label>Confirm Password</Label>
-        <Input value={passwordConf} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
+        <label className='emailLabel'>email</label>
+        <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+        <label className='emailLabel'>password</label>
+        <input className='emailInput' value={password} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
+        <label className='emailLabel'>confirm password</label>
+        <input className='emailInput' value={passwordConf} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
       </div>)
   }
 }

@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { Label, Input, Notification, Button } from 'bloomer'
+import { Notification } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 import api from './api'
+<<<<<<< HEAD
 // import Register from './register'
+=======
+import Register from './Register'
+>>>>>>> 45a721716a8e28b6af5eef668ca74cad7da47325
 // import styles from './App.css'
 
 class Login extends Component {

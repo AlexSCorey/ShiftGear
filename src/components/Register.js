@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Button, Label, Input, Field } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 import 'bulma/css/bulma.css'
 
@@ -32,24 +31,26 @@ class Register extends Component {
     const { name, password, passwordConf, email, phoneNum } = this.state
     return (
       <div>
-        <div className='links is-size-6 has-text-centered'>
-          <NavLink to='/login'>Log In</NavLink>
-          <span className='pipe'>|</span>&nbsp;
-          <NavLink to='/register'>Register</NavLink>
+        <div className='loginContainer'>
+          <div className='toggleLogin'>
+            <NavLink className='toggleLogin' to='/login'>login</NavLink>
+            <span className='pipe'> |</span>&nbsp;
+            <span to='/register'><strong className='toggleLogin'>register</strong></span>
+          </div>
+          <div className='loginField'>
+            <label className='emailLabel'>name</label>
+            <input className='emailInput' value={name} onChange={e => this.setState({ name: e.target.value })} required />
+            <label className='emailLabel'>email</label><br />
+            <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+            <label className='emailLabel'>password</label><br />
+            <input className='emailInput' value={password} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
+            <label className='emailLabel'>confirm password</label>
+            <input className='emailInput' value={passwordConf} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
+            <label className='emailLabel'>phone number</label><br />
+            <input className='emailInput' value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} />
+            <NavLink to='/CalendarList'><button className='loginButton' onClick={e => { this.handleSubmit(e) }}><strong>register</strong></button></NavLink>
+          </div>
         </div>
-        <Field>
-          <Label>Name</Label>
-          <Input value={name} onChange={e => this.setState({ name: e.target.value })} required />
-          <Label>Email</Label>
-          <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-          <Label>Password</Label>
-          <Input value={password} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
-          <Label>Confirm Password</Label>
-          <Input value={passwordConf} placeholder='Must be at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
-          <Label>Phone Number</Label>
-          <Input value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} />
-          <NavLink to='/CalendarList'><Button className='is-warning' onClick={e => { this.handleSubmit(e) }}>Register</Button></NavLink>
-        </Field>
       </div>
     )
   }

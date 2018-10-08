@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Label, Input, Button, Field } from 'bloomer'
 import { Link } from 'react-router-dom'
 
 // import Register from './Register'
@@ -25,18 +24,16 @@ class AddEmployeeToCalendar extends Component {
     const { email } = this.state
     const { id } = this.props
     return (
-      <div>
-        <Field>
-          <Label htmlFor='role'>Role</Label>
-          <select id='role' onChange={e => this.setState({ role: e.target.value })}>
-            <option value='employee'>Employee</option>
-            <option value='owner'>Owner</option>
-            <option value='manager'>Manager</option>
-          </select>
-          <Label>Email</Label>
-          <Input placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-          <Button className='is-warning' onClick={e => { this.handleSubmit(e) }}><Link to={`/CalendarList/${id}`}>Submit</Link></Button>
-        </Field>
+      <div className='loginField'>
+        <label className='emailLabel' htmlFor='role'>role</label>
+        <select id='role' onChange={e => this.setState({ role: e.target.value })}>
+          <option value='employee'>Employee</option>
+          <option value='owner'>Owner</option>
+          <option value='manager'>Manager</option>
+        </select><br />
+        <label className='emailLabel'>email</label>
+        <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+        <button className='loginButton' onClick={e => { this.handleSubmit(e) }}><Link to={`/CalendarList/${id}`}><strong>submit</strong></Link></button>
       </div>
     )
   }

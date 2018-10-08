@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Delete } from 'bloomer'
+import { Delete, Button } from 'bloomer'
 // import moment from 'moment'
 
 import api from './api'
@@ -13,12 +13,17 @@ class CalendarList extends Component {
       name: ''
     }
     this.deleteCalendar = this.deleteCalendar.bind(this)
+    // this.onLogout = this.onLogout.bind(this)
   }
 
   deleteCalendar (e, id) {
     e.preventDefault()
     api.deleteCalendar(id)
       .then(res => res)
+  }
+
+  componentDidMount () {
+    console.log(this.props)
   }
 
   render () {
@@ -28,19 +33,20 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (<div className='calendarItem'>
-              <Link to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>Edit</Link>
+              <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>Edit</Link>
               <div />
-              <Link to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+              <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
             </div>
             )
           } else {
             return (
               <div className='calendarItem'>
-                <Link to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}> Edit</Link>
-                <div />
-                <Link to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}
-                  <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
+                <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                  Edit
                 </Link>
+                <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+                <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
+                <Button className='is-warning' onClick={this.props.onLogout}>logout</Button>
               </div>)
           }
         })
