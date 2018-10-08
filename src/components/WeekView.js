@@ -21,7 +21,6 @@ class WeekView extends Component {
     }
   }
   componentDidMount () {
-    // this.getNotes()
     this.getShifts()
   }
   getShifts () {
@@ -40,12 +39,14 @@ class WeekView extends Component {
   // }
   nextWeek (e) {
     e.preventDefault()
+    // console.log(this.state.shifts, 'shifts')
     let nextWeek = moment(this.state.lasWeek).add(1, 'week')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week')
     let lastWeek = moment(this.state.nextWeek).add(1, 'week')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
+    this.getShifts()
   }
   lastWeek (e) {
     e.preventDefault()
@@ -55,6 +56,7 @@ class WeekView extends Component {
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
+    this.getShifts()
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
@@ -76,7 +78,7 @@ class WeekView extends Component {
 
             <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
             {shifts.map((shift) => <div key={shift.shift_id}>
-              <Link to={`/Calendar/${id}/Shifts/${shift.Day}`}>
+              <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                 {<div className='weekViewButton'>
                   <div>{moment(shift.Day).format('ddd, Do')}
                     <div>
