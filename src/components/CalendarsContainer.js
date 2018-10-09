@@ -38,7 +38,7 @@ class CalendarsContainer extends Component {
             if (calendarGroup.length > 0) {
               return (
                 <div>
-                  <h1>{calendarNames[calendarType]}</h1>
+                  <h1 className='titles'>{calendarNames[calendarType]}</h1>
                   <CalendarList key={calendarType} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
                 </div>
               )
