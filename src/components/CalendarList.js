@@ -24,7 +24,6 @@ class CalendarList extends Component {
   }
 
   componentDidMount () {
-    console.log(this.props)
   }
 
   render () {
@@ -34,13 +33,9 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (<div>
-              <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>
-                {calendar.name}
-              </Link><div>
-                <button className='loginButton' onClick={this.props.onLogout}>
-                logout
-                </button>
-              </div>
+              <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
+                {calendar.name} 
+              </Link>
             </div>
             )
           } else {
@@ -50,7 +45,7 @@ class CalendarList extends Component {
                   <button class='btn'><i class='far fa-edit' /></button>
                 </Link>
                 <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                <delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)}>
+                <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
                   <button class='btn'><i class='far fa-trash-alt' /></button></delete>
               </div>)
           }

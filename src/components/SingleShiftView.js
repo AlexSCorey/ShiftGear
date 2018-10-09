@@ -13,6 +13,7 @@ class SingleShiftView extends Component {
     }
   }
   componentDidMount () {
+    console.log(this.props)
     this.getStaff()
   }
   getStaff () {
