@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import 'react-day-picker/lib/style.css'
 import { Button, Input, Label } from 'bloomer'
 import { Link } from 'react-router-dom'
-
 import api from './api'
 
 // import { formatDate, parseDate } from 'react-day-picker/moment'
@@ -45,11 +44,11 @@ class CreateCalendar extends Component {
     // const modifiers = { start: from, end: to }
     return (<div >
       <Label>Calendar Title
-      <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
+        <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
       </Label>
       <div>
         <Label>Time Zone
-        <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
+          <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
           <option>--Select--</option>
           <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
           <option value='Alaska'>Alaska</option>

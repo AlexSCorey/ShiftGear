@@ -67,7 +67,7 @@ class WeekView extends Component {
               Stop Time:({shift.total_capacity})
             </div>
             <Label>Note:
-              <Input type='textarea' />
+            <Input type='textarea' />
             </Label>
           </div>)}
         </div>

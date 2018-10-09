@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Delete, Button } from 'bloomer'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 // import moment from 'moment'
 
 import api from './api'
@@ -31,24 +32,25 @@ class CalendarList extends Component {
       return (
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
-            return (<div className='calendarItem'>
-              <Link className='emailLabel' key={calendar.id} to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+            return (<div>
+              <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
+                {calendar.name} 
+              </Link>
             </div>
             )
           } else {
             return (
               <div className='calendarItem'>
-                <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                  Edit
+                <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                  <button class='btn'><i class='far fa-edit' /></button>
                 </Link>
-                <Link className='emailLabel' key={calendar.id} to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                <Delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }} />
+                <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+                <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
+                  <button class='btn'><i class='far fa-trash-alt' /></button></delete>
               </div>)
           }
-        })
-      )
-    } else {
-      return ('')
+        }
+        ))
     }
   }
 }
