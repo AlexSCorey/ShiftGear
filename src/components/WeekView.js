@@ -119,7 +119,7 @@ class WeekView extends Component {
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
             <span className='datePicker'>
-              <Button onClick={e => this.pasteWeek(e)}>Copy week of:</Button>
+              <Button onClick={e => this.pasteWeek(e)}>Copy to:</Button>
               <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
             </span>
           </div>
@@ -144,7 +144,7 @@ class WeekView extends Component {
               </Link>
             </div>)}
             <span className='datePicker'>
-              <Button onClick={e => { this.pasteWeek(e) }}>Copy week this week To:</Button>
+              <Button onClick={e => { this.pasteWeek(e) }}>Copy to:</Button>
               <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
             </span>
           </div>
