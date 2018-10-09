@@ -16,11 +16,9 @@ class AcceptShiftRequest extends Component {
     this.getShiftSwapIndex()
   }
   getShiftSwapIndex () {
-    console.log('here')
     let { id } = this.props
     api.getShiftSwapIndex(id)
       .then(res => {
-        console.log(res)
         this.setState({ shiftSwapsIndex: res,
           loaded: true })
       })

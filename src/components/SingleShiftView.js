@@ -40,16 +40,6 @@ class SingleShiftView extends Component {
       .then(res => {
         window.alert(res)
       })
-    console.log(value, 'value')
-
-    //     POST https://fierce-forest-56311.herokuapp.com/calendars/:calendar_id/shifts/:id/usershifts
-
-    // api_token required (must be owner or manager to create employee shift)
-
-    // required keys:
-
-    // user_id
-    // shift_id
   }
   render () {
     let { assignedUsers, unassignedUsers } = this.state

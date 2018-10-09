@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { confirmAlert } from 'react-confirm-alert'
-import 'react-confirm-alert/src/react-confirm-alert.css'
+// import { confirmAlert } from 'react-confirm-alert'
+// import 'react-confirm-alert/src/react-confirm-alert.css'
 // import moment from 'moment'
 
 import api from './api'
@@ -34,7 +34,7 @@ class CalendarList extends Component {
           if (type === 'Employed Calendars') {
             return (<div>
               <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
-                {calendar.name} 
+                {calendar.name}
               </Link>
             </div>
             )

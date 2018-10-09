@@ -133,10 +133,10 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'text': `${note}`,
         'date': `${date}` })
-      .then(res => console.log(res.body))
+      .then(res => res.body)
   },
-  getNotes: (id, thisWeek, nextWeek) => {
-    request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
+  getNotes: (id, today) => {
+    return request.get(`${domain}/calendars/${id}/notes?start_date=${today}&end_date=${today}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
@@ -158,7 +158,7 @@ const api = {
   getStaff: (id, shiftsId) => {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body)
+      .then(res => console.log(res.body, 'res'))
   },
   removeStaffFromShift: (calendarID, shiftsId, userID) => {
     return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
