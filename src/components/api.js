@@ -208,7 +208,11 @@ const api = {
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
-    return (`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
+    // console.log(id, 'id')
+    // console.log(startWeek, 'startWeek')
+    // console.log(endWeek, 'endWeek')
+    // console.log(copyWeekStart, 'copyWeekStart')
+    return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => console.log(res.body, 'res'))
   }

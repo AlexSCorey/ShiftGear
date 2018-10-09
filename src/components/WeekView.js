@@ -38,8 +38,8 @@ class WeekView extends Component {
   pasteWeek (e) {
     const { id } = this.props
     let { copyWeekStart, thisWeek } = this.state
-    let startWeek = thisWeek
-    let endWeek = moment(startWeek).add(6, 'days')
+    let startWeek = moment(thisWeek).format('YYYY-MM-DD')
+    let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
     api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
       .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
@@ -119,7 +119,7 @@ class WeekView extends Component {
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
             <span className='datePicker'>
-              <Button>Copy week of:</Button>
+              <Button onClick={e => this.pasteWeek(e)}>Copy week of:</Button>
               <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
             </span>
           </div>
