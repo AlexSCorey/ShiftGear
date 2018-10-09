@@ -13,13 +13,13 @@ class SingleShiftView extends Component {
     }
   }
   componentDidMount () {
-    console.log(this.props)
     this.getStaff()
   }
   getStaff () {
     let { id, shiftsId } = this.props
     api.getStaff(id, shiftsId)
       .then(res => {
+        console.log(res, 'res')
         this.setState({ assignedUsers: res.assigned_users,
           unassignedUsers: res.unassigned_users })
       })

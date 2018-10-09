@@ -14,11 +14,9 @@ class Notes extends Component {
     this.getNotes = this.getNotes.bind(this)
   }
   componentDidMount () {
-    console.log('here')
     this.getNotes()
   }
   getNotes () {
-    console.log('here')
     let { id, date } = this.props
     let today = moment(date).format('YYYY-MM-DD')
     api.getNotes(id, today)

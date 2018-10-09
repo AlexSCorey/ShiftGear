@@ -116,7 +116,7 @@ const api = {
   getWeekShiftInfo: (id, thisWeek, nextWeek) => {
     return request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body, 'get shifts res')
+      .then(res => res.body)
   },
   getShifts: (id) => {
     return request.post(`${domain}/calendars/${id}/shifts`)
@@ -158,7 +158,7 @@ const api = {
   getStaff: (id, shiftsId) => {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'res'))
+      .then(res => res.body)
   },
   removeStaffFromShift: (calendarID, shiftsId, userID) => {
     return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
@@ -195,6 +195,23 @@ const api = {
         'password': `${password}`,
         'token': `${token}` })
       .then(res => res)
+  },
+  editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
+    dlts) => {
+    return request.patch(`${domain}/calendars/${id}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'name': `${name}`,
+        'time_zone': `${timeZone}`,
+        'employee_hour_threshold_daily': `${employeeHourThresholdDaily}`,
+        'employee_hour_threshold_weekly': `${employeeHourThresholdWeekly}`,
+        'daylight_savings': `${dlts}` })
+      .then(res => res.body)
+  },
+  copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
+    return (`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => console.log(res.body, 'res'))
   }
 }
+// calendars/:calendar_id/copy?start_date=:start_date&end_date=:end_date&target_date=:target_date
 export default api

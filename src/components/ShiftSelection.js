@@ -36,10 +36,10 @@ class ShiftSelection extends Component {
 
     if (shiftID) {
       api.updateShift(id, shiftID, startMoment, endMoment, staffRequired, published)
-        .then(res => res)
+        .then(res => window.alert('You updated a shift'))
     } else {
       api.createShift(startMoment, endMoment, id, staffRequired, published)
-        .then(res => console.log(res, 'res in shift selector'))
+        .then(res => window.alert('You created a shift'))
     }
   }
   handleFromDateChange (day) {

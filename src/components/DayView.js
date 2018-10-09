@@ -11,19 +11,29 @@ class DayView extends Component {
       note: '',
       shiftsToday: {},
       users: {},
-      loaded: false
+      loaded: false,
+      unassignedUsers: []
     }
   }
   componentDidMount () {
     this.getShifts()
     this.getNotes()
+    this.getStaff()
+  }
+  getStaff () {
+    let { id, shiftsId } = this.props
+    api.getStaff(id, shiftsId)
+      .then(res => {
+        console.log(res, 'res in day view')
+        this.setState({ assignedUsers: res.assigned_users,
+          unassignedUsers: res.unassigned_users })
+      })
   }
   getNotes () {
     let { id, date } = this.props
     let today = moment(date).format('YYYY-MM-DD')
     api.getNotes(id, today)
       .then(res => {
-        console.log(res, 'res body')
         this.setState({ employeeNotes: res })
       })
   }
@@ -57,7 +67,7 @@ class DayView extends Component {
   }
   render () {
     let { id, date } = this.props
-    let { shiftsToday, loaded } = this.state
+    let { shiftsToday, loaded, unassignedUsers } = this.state
     if (loaded) {
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
@@ -79,6 +89,16 @@ class DayView extends Component {
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
+                <div>
+                  <div>
+                    <div>Unassigned Staff</div>
+                    <div>{unassignedUsers.map((user) =>
+                      <div>{user.name}
+                        <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
+                      </div>
+                    )}</div>
+                  </div>
+                </div>
               </div>
             )}
             <Label>Note:
@@ -103,8 +123,6 @@ class DayView extends Component {
                     <div>{moment(shift.end_time).format('h:mm:a')}</div>
                     <Label>Published</Label>
                     <div>{shift.published}</div>
-                    <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
-                    <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
               </div>
