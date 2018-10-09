@@ -11,7 +11,6 @@ class DayView extends Component {
       note: '',
       shiftsToday: {},
       users: {},
-      employeeNotes: {},
       loaded: false
     }
   }
@@ -58,91 +57,11 @@ class DayView extends Component {
   }
   render () {
     let { id, date } = this.props
-    let { shiftsToday, loaded, employeeNotes } = this.state
+    let { shiftsToday, loaded } = this.state
     if (loaded) {
-      console.log(shiftsToday, 'roles in render')
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
-        if (employeeNotes) {
-          return (
-            <div>
-              <div>
-                <div>Notes:</div>
-                <div>
-                  {employeeNotes.notes.map((note) =>
-                    <div>
-                      <div>{note.user_name}: </div>
-                      <div>{note.text}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-              {shiftsToday.shifts.map((shift) =>
-                <div>
-                  <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                    <h2>{moment(date).format('ddd, Do')}</h2>
-                    <div id={shift.shift_id} className='shiftNode'>
-                      <Label>Capacity</Label>
-                      <div>{shift.capacity}</div>
-                      <Label>Start</Label>
-                      <div>{moment(shift.start_time).format('h:mm:a')}</div>
-                      <Label>End</Label>
-                      <div>{moment(shift.end_time).format('h:mm:a')}</div>
-                      <Label>Published</Label>
-                      <div>{shift.published}</div>
-                      <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
-                      <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
-                    </div>
-                  </Link>
-                </div>
-              )}
-              <Label>Note:
-                <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
-              </Label>
-              <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
-            </div>
-          )
-        } else {
-          return (
-            <div>
-              {shiftsToday.shifts.map((shift) =>
-                <div>
-                  <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                    <h2>{moment(date).format('ddd, Do')}</h2>
-                    <div id={shift.shift_id} className='shiftNode'>
-                      <Label>Capacity</Label>
-                      <div>{shift.capacity}</div>
-                      <Label>Start</Label>
-                      <div>{moment(shift.start_time).format('h:mm:a')}</div>
-                      <Label>End</Label>
-                      <div>{moment(shift.end_time).format('h:mm:a')}</div>
-                      <Label>Published</Label>
-                      <div>{shift.published}</div>
-                      <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
-                      <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
-                    </div>
-                  </Link>
-                </div>
-              )}
-              <Label>Note:
-                <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
-              </Label>
-              <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
-            </div>
-          )
-        }
-      } else if ((!shiftsToday.roles.indexOf('owner') > -1) && (!shiftsToday.roles.indexOf('manager') > -1)) {
-        if (employeeNotes) {
-          return (<div>
-            <div>
-              <div>Notes:</div>
-              <div>
-                {employeeNotes.notes.map((note) =>
-                  <div>
-                    <div>{note.text}</div>
-                  </div>
-                )}
-              </div>
-            </div>
+        return (
+          <div>
             {shiftsToday.shifts.map((shift) =>
               <div>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
@@ -156,6 +75,8 @@ class DayView extends Component {
                     <div>{moment(shift.end_time).format('h:mm:a')}</div>
                     <Label>Published</Label>
                     <div>{shift.published}</div>
+                    <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
+                    <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
               </div>
@@ -164,9 +85,11 @@ class DayView extends Component {
               <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
-          </div>)
-        } else {
-          return (<div>
+          </div>
+        )
+      } else {
+        return (
+          <div>
             {shiftsToday.shifts.map((shift) =>
               <div>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
@@ -180,6 +103,8 @@ class DayView extends Component {
                     <div>{moment(shift.end_time).format('h:mm:a')}</div>
                     <Label>Published</Label>
                     <div>{shift.published}</div>
+                    <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
+                    <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
               </div>
@@ -188,12 +113,13 @@ class DayView extends Component {
               <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
-          </div>)
-        }
+          </div>
+        )
       }
     } else {
       return (<div>Not Today AssHole</div>)
     }
   }
 }
+
 export default DayView

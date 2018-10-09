@@ -34,7 +34,6 @@ class SingleShiftView extends Component {
       })
   }
   assignStaff (value) {
-    // e.preventDefault()
     let { id, shiftsId } = this.props
     api.assignShift(value, id, shiftsId)
       .then(res => {

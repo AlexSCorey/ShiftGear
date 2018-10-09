@@ -21,6 +21,7 @@ import RequestPasswordReset from './components/RequestPasswordReset'
 import SingleShiftView from './components/SingleShiftView'
 import ManageApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
+import Notes from './components/Notes'
 
 class App extends Component {
   constructor () {
@@ -107,6 +108,7 @@ class App extends Component {
 
               <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <Notes id={match.params.id} date={match.params.date} />
                   <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
                 </Guard>} />
 
