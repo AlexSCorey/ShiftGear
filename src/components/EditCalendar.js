@@ -52,8 +52,7 @@ class EditCalendar extends Component {
             {managers.map((manager) =>
               <div key={manager.id} id={manager.id}>
                 {manager.name}
-                <Delete value={manager.id} dataset='employee' type='submit' onClick={event =>
-                  this.deleteManager(event, event.target.value)} />
+                <Delete value={manager.id} dataset='employee' type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this employee from this calendar?')) this.deleteEmployee(e, e.target.value) }} />
               </div>)}
           </div>
           <h1>Employee</h1>
@@ -62,8 +61,7 @@ class EditCalendar extends Component {
               {employees.map((employee) =>
                 <div key={employee.id} id={employee.id}>
                   {employee.name}
-                  <Delete value={employee.id} dataset='employee' type='submit' onClick={event =>
-                    this.deleteEmployee(event, event.target.value)} />
+                  <Delete value={employee.id} dataset='employee' type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this employee from this calendar?')) this.deleteEmployee(e, e.target.value) }} />
                 </div>)}
             </div>
             <h1>Owner</h1>
@@ -71,8 +69,7 @@ class EditCalendar extends Component {
               {owners.map((owner) =>
                 <div key={owner.id} id={owner.id}>
                   {owner.name}
-                  <Delete value={owner.id} dataset='owner' type='submit' onClick={event =>
-                    this.deleteEmployee(event, event.target.value)} />
+                  <Delete value={owner.id} dataset='owner' type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this employee from this calendar?')) this.deleteEmployee(e, e.target.value) }} />
                 </div>)}
             </div>
           </div>

@@ -75,22 +75,13 @@ class App extends Component {
 
               <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <EditCalendar id={match.params.id} />
-                </Guard>} />
-
-              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
+                  <EditCalendar id={match.params.id} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                </Guard>} />
-
-              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <EditCalendar id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
@@ -121,7 +112,7 @@ class App extends Component {
 
               <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <SingleShiftView id={match.params.id} shiftsId={match.params.shiftid} />
+                  <SingleShiftView id={match.params.id} type={match.params.type} shiftsId={match.params.shiftid} />
                 </Guard>} />
 
               <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
@@ -129,9 +120,9 @@ class App extends Component {
                   <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
-              <Route path='/RequestPassword' render={(props) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
-                  <RequestPasswordReset setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+              <Route path='/RequestPassword/:id' render={(match) =>
+                <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                  <RequestPasswordReset id={match.params.id} setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/complete/:token' render={({ match }) =>
