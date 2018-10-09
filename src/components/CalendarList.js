@@ -42,7 +42,7 @@ class CalendarList extends Component {
                   Edit
                 </Link>
                 <Link className='emailLabel' key={calendar.id} to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
+                <Delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }} />
               </div>)
           }
         })

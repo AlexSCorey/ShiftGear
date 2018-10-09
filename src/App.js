@@ -75,22 +75,13 @@ class App extends Component {
 
               <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <EditCalendar id={match.params.id} />
-                </Guard>} />
-
-              <Route path='/Calendar/:id/EditCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
+                  <EditCalendar id={match.params.id} />
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                </Guard>} />
-
-              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <EditCalendar id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
