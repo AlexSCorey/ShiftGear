@@ -15,31 +15,47 @@ class WeekView extends Component {
       nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
       lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD'),
       notesExist: false,
-      shiftSwapsIndex: []
+      shiftSwapsIndex: [],
+      loaded: false
 
     }
   }
+  approvetShiftSwap (e, value) {
+    let { token } = this.props
+    e.preventDefault()
+    api.approveRequest(value, token)
+  }
   componentDidMount () {
     this.getShifts()
-    this.getShiftSwapIndex()
   }
   getShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
-        this.setState({ shifts: res })
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
+  getNewShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
       })
   }
   nextWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).add(1, 'week')
-    let thisWeek = moment(this.state.thisWeek).add(1, 'week')
-    let lastWeek = moment(this.state.nextWeek).add(1, 'week')
+    let nextWeek = moment(this.state.lasWeek).add(1, 'week').format('YYYY-MM-DD')
+    let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getShifts()
+    this.getNewShifts()
   }
   lastWeek (e) {
     e.preventDefault()
@@ -49,20 +65,13 @@ class WeekView extends Component {
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getShifts()
+    this.getNewShifts()
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
     let { id } = this.props
     api.deleteShift(id, shiftId)
       .then(res => res)
-  }
-  getShiftSwapIndex () {
-    let { id } = this.props
-    api.getShiftSwapIndex(id)
-      .then(res => {
-        this.setState({ shiftSwapsIndex: res })
-      })
   }
   acceptShiftSwap (e, shiftID) {
     e.preventDefault()
@@ -71,16 +80,38 @@ class WeekView extends Component {
       .then(res => window.alert('Swap sent for approval by manager'))
   }
   render () {
-    const { shifts, thisWeek, shiftSwapsIndex } = this.state
-    const { id, type } = this.props
-    if (shifts && shifts.length > 0) {
-      if (type === 'Employed Calendars') {
+    const { shifts, thisWeek, loaded } = this.state
+    const { id } = this.props
+    if (loaded) {
+      if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         return (
           <div>
             <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
             <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
             <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
-            {shifts.map((shift) => <div key={shift.shift_id}>
+            {shifts.summaries.map((shift) => <div key={shift.shift_id}>
+              <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                { <div className='weekViewButton'>
+                  <div>{moment(shift.Day).format('ddd, Do')}
+                    <div>
+                      <div>Total Shifts:({shift.total_shifts})</div>
+                      <div>Capacity:({shift.total_capacity})</div>
+                      <div>Assigned Cap:({shift.total_assigned_capacity})</div>
+                    </div>
+                  </div>
+                </div>}
+              </Link>
+              <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
+            </div>)}
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
+            <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
+            <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
+            {shifts.summaries.map((shift) => <div key={shift.shift_id}>
               <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                 {<div className='weekViewButton'>
                   <div>{moment(shift.Day).format('ddd, Do')}
@@ -95,26 +126,6 @@ class WeekView extends Component {
             </div>)}
           </div>
         )
-      } else {
-        return (<div>
-          <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
-          <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
-          <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
-          {shifts.map((shift) => <div key={shift.shift_id}>
-            <Link to={`/Calendar/${id}/Shifts/${shift.Day}`}>
-              { <div className='weekViewButton'>
-                <div>{moment(shift.Day).format('ddd, Do')}
-                  <div>
-                    <div>Total Shifts:({shift.total_shifts})</div>
-                    <div>Capacity:({shift.total_capacity})</div>
-                    <div>Assigned Cap:({shift.total_assigned_capacity})</div>
-                  </div>
-                </div>
-              </div>}
-            </Link>
-            <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
-          </div>)}
-        </div>)
       }
     } else {
       return (<div>Loading</div>)
