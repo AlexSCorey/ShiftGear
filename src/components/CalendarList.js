@@ -23,7 +23,6 @@ class CalendarList extends Component {
   }
 
   componentDidMount () {
-    console.log(this.props)
   }
 
   render () {
@@ -33,9 +32,7 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (<div className='calendarItem'>
-              <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>Edit</Link>
-              <div />
-              <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+              <Link className='emailLabel' key={calendar.id} to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
             </div>
             )
           } else {
@@ -44,9 +41,8 @@ class CalendarList extends Component {
                 <Link className='emailLabel' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
                   Edit
                 </Link>
-                <Link className='emailLabel' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                <Delete type='submit' onClick={e => this.deleteCalendar(e, calendar.id)} />
-                <Button className='is-warning' onClick={this.props.onLogout}>logout</Button>
+                <Link className='emailLabel' key={calendar.id} to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+                <Delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }} />
               </div>)
           }
         })

@@ -143,8 +143,9 @@ const api = {
   getShiftsForADay: (calId, id) => {
     return request.get(`${domain}/calendars/${calId}/shifts?start_date=${id}&end_date=${id}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body.shifts)
+      .then(res => res.body)
   },
+  // request.get(/calendars/:id/summary?start_date=:start_date&end_date=:end_date)
   updateShifts: (id, shiftId, startTime, endTime, capacity, published) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -176,12 +177,24 @@ const api = {
   getShiftSwapIndex: (id) => {
     return request.get(`${domain}/calendars/${id}/swaps`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body.swaps)
+      .then(res => res.body, 'res')
   },
   acceptShiftSwap: (id, swapID) => {
     return request.patch(`${domain}/calendars/${id}/swaps/${swapID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body, 'res')
+  },
+  approveShiftSwap: (response, token) => {
+    return request.patch(`${domain}/swaps/complete`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ 'decision': `${response}` })
+  },
+  requestPasswordReset: (email, password, token) => {
+    request.post(`${domain}/passwords/reset `)
+      .send({ 'email': `${email}`,
+        'password': `${password}`,
+        'token': `${token}` })
+      .then(res => res)
   }
 }
 export default api
