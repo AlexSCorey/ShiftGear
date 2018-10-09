@@ -76,8 +76,9 @@ class App extends Component {
 
               <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
-                  <EditCalendar id={match.params.id} />
+                  {/* <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} /> */}
+                  <CreateCalendar id={match.params.id} />
+                  {/* <EditCalendar id={match.params.id} /> */}
                 </Guard>} />
 
               <Route path='/CalendarList' render={(props) =>
@@ -100,16 +101,16 @@ class App extends Component {
                   <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
                 </Guard>} />
 
-              <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <WeekView id={match.params.id} type={match.params.type} />
-                  <AcceptShiftRequest id={match.params.id} type={match.params.type} />
-                </Guard>} />
-
               <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <Notes id={match.params.id} date={match.params.date} />
                   <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                </Guard>} />
+
+              <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                  <WeekView id={match.params.id} type={match.params.type} />
+                  <AcceptShiftRequest id={match.params.id} type={match.params.type} />
                 </Guard>} />
 
               <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Delete, Button } from 'bloomer'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 
 import { Link } from 'react-router-dom'
 
@@ -14,6 +16,7 @@ class WeekView extends Component {
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
       nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
       lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD'),
+      copyWeekStart: undefined,
       notesExist: false,
       shiftSwapsIndex: [],
       loaded: false
@@ -27,6 +30,18 @@ class WeekView extends Component {
   }
   componentDidMount () {
     this.getShifts()
+  }
+  copyWeekStart (date) {
+    let copyWeekStart = moment(date).add(1, 'week').format('YYYY-MM-DD')
+    this.setState({ copyWeekStart: copyWeekStart })
+  }
+  pasteWeek (e) {
+    const { id } = this.props
+    let { copyWeekStart, thisWeek } = this.state
+    let startWeek = moment(thisWeek).format('YYYY-MM-DD')
+    let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
+    api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
+      .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
   getShifts () {
     const { id } = this.props
@@ -103,6 +118,10 @@ class WeekView extends Component {
               </Link>
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
+            <span className='datePicker'>
+              <Button onClick={e => this.pasteWeek(e)}>Copy week of:</Button>
+              <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
+            </span>
           </div>
         )
       } else {
@@ -124,6 +143,10 @@ class WeekView extends Component {
                 </div>}
               </Link>
             </div>)}
+            <span className='datePicker'>
+              <Button onClick={e => { this.pasteWeek(e) }}>Copy week this week To:</Button>
+              <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
+            </span>
           </div>
         )
       }
