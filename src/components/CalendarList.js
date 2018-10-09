@@ -33,15 +33,19 @@ class CalendarList extends Component {
       return (
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
-            return (<div>
-              <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>
-                {calendar.name}
-              </Link><div>
-                <button className='loginButton' onClick={this.props.onLogout}>
+            return (
+              <div>
+                <div className='calendarItem'>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>
+                    {calendar.name}
+                  </Link>
+                </div>
+                <div>
+                  <button className='loginButton' onClick={this.props.onLogout}>
                 logout
-                </button>
+                  </button>
+                </div>
               </div>
-            </div>
             )
           } else {
             return (
