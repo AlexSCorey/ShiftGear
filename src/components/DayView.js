@@ -65,14 +65,6 @@ class DayView extends Component {
     api.createNote(note, id, formattedDate)
       .then(res => res)
   }
-  giveAvailability (e, value) {
-    e.preventDefault()
-    console.log(value, 'value')
-  }
-  denyAvailability (e, value) {
-    e.preventDefault()
-    console.log(value, 'value')
-  }
   render () {
     let { id, date } = this.props
     let { shiftsToday, loaded, unassignedUsers } = this.state
@@ -97,8 +89,6 @@ class DayView extends Component {
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
-                <Button value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</Button>
-                <Button value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</Button>
                 <div>
                   <div>
                     <div>Unassigned Staff</div>
@@ -109,7 +99,7 @@ class DayView extends Component {
                     )}</div>
                   </div>
                 </div>
-              </div>
+              </button>
             )}
             <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
             <Label>Note:

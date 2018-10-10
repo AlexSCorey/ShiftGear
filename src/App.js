@@ -22,6 +22,7 @@ import SingleShiftView from './components/SingleShiftView'
 import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
+import AvailabilityResponse from './components/AvailabilityRespnse'
 
 class App extends Component {
   constructor () {
@@ -61,6 +62,11 @@ class App extends Component {
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+
+              <Route path='/calendars/:id/availability_response/:token' render={({ match }) =>
+                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                  <AvailabilityResponse id={match.params.id} token={match.params.token} />
                 </Guard>} />
 
               <Route path='/welcome/:id' render={({ match }) =>

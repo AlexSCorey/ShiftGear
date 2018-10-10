@@ -144,14 +144,13 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
-  updateShifts: (id, shiftId, startTime, endTime, capacity, published) => {
-    return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
+  updateShifts: (id, startTime, endTime, capacity) => {
+    return request.post(`${domain}/calendars/${id}/shifts/`)
       .set('Authorization', `Bearer ${userToken}`)
-      .send({ 'id': `${shiftId}`,
+      .send({ 'capacity': `${capacity}`,
         'calendar_id': `${id}`,
         'start_time': `${startTime}`,
-        'end_time': `${endTime}`,
-        'published': `${published}` })
+        'end_time': `${endTime}` })
   },
   getStaff: (id, shiftsId) => {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
@@ -215,7 +214,19 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'start_date': `${thisWeek}`,
         'end_date': `${nextWeek}` })
-      .then(res => res.body)
+      .then(res => {
+        console.log(res.body, 'res body')
+        return res.body
+      })
+  },
+  getAvailabilityRequests: (id, token) => {
+    console.log(id, token, 'request avail')
+    return request.get(`${domain}/calendars/${id}/availability_response`)
+      .set('Authorization', `Bearer ${token}`)
+      .then(res => {
+        console.log(res.body, 'res body')
+        return res.body
+      })
   }
 }
 export default api
