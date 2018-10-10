@@ -114,6 +114,8 @@ const api = {
       .then(res => res.body)
   },
   getWeekShiftInfo: (id, thisWeek, nextWeek) => {
+    console.log('this week', thisWeek)
+    console.log('next week', nextWeek)
     return request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
