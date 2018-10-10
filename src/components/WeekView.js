@@ -15,7 +15,7 @@ class WeekView extends Component {
       shifts: [],
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
       nextWeek: moment(this.thisWeek).add(6, 'days').startOf('week').format('YYYY-MM-DD'),
-      lastWeek: moment(new Date()).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
+      lastWeek: moment(this.thisWeek).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
       copyWeekStart: undefined,
       notesExist: false,
       shiftSwapsIndex: [],
@@ -74,9 +74,9 @@ class WeekView extends Component {
   }
   lastWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).subtract(1, 'week')
-    let thisWeek = moment(this.state.thisWeek).subtract(1, 'week')
-    let lastWeek = moment(this.state.nextWeek).subtract(1, 'week')
+    let nextWeek = moment(this.state.lasWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
