@@ -20,15 +20,16 @@ class AvailabilityResponse extends Component {
     api.getAvailabilityRequests(id, token)
       .then(res => {
         console.log(res, 'res')
-        this.setState({ availabilityRequests: res })
+        this.setState({ availabilityRequests: res,
+          loaded: true })
       })
   }
-  acceptRequest (e, value) {
-    e.preventDefault()
-    let response = { 'id': `${value}`,
-      'available': true }
-    this.setState({ availabilityRequest: response })
-  }
+  // acceptRequest (e, value) {
+  //   e.preventDefault()
+  //   let response = { 'id': `${value}`,
+  //     'available': true }
+  //   this.setState({ availabilityRequest: response })
+  // }
   submitResponses () {
 
   }
@@ -36,14 +37,15 @@ class AvailabilityResponse extends Component {
     let { loaded, availabilityRequests } = this.state
     if (loaded) {
       return (<div>hi
-        {availabilityRequests.responses.map((availabilityRequest) =>
-          <div id={availabilityRequest.id}>
-            <div>Start: {moment(availabilityRequest.start_time).format('MM-DD-YY hh:mma')}</div>
-            <div>End: {moment(availabilityRequest.end_time).format('MM-DD-YY hh:mma')}</div>
-            <Button value={availabilityRequest.id} onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
-            <Button value={availabilityRequest.id} onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
+        {availabilityRequests.availability_process.request.responses.map((request) =>
+          <div id={request.id}>
+            <div>Start: {moment(request.start_time).format('MM-DD-YY hh:mma')}</div>
+            <div>End: {moment(request.end_time).format('MM-DD-YY hh:mma')}</div>
+            <Button value={request.id} isActive='true'onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
+            <Button value={request.id} isActive='true' onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
           </div>
         )}
+        <Button>Submit</Button>
       </div>)
     } else {
       return (<div>Loading</div>)

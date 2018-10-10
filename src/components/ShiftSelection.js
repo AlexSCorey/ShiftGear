@@ -33,7 +33,6 @@ class ShiftSelection extends Component {
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin).format('YYYY-MM-DD HH:mm:ss')
     let formatStartMoment = moment(startMoment).format('YYYY-MM-DD HH:mm:ss')
     let formatEndMoment = moment(endMoment).format('YYYY-MM-DD HH:mm:ss')
-    console.log(endMoment, 'end moment')
     if (id) {
       api.updateShifts(id, formatStartMoment, formatEndMoment, staffRequired)
         .then(res => window.alert('You updated a shift'))
@@ -55,7 +54,6 @@ class ShiftSelection extends Component {
     this.setState({ fromMin: value })
   }
   setFromAmPm (value) {
-    console.log(value, 'AM/PM')
     if (value === 'PM') {
       let stringify = parseInt(this.state.fromHour, 10) + 12
       this.setState({ fromHour: stringify })
