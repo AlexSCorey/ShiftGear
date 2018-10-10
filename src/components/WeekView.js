@@ -32,7 +32,7 @@ class WeekView extends Component {
     this.getShifts()
   }
   copyWeekStart (date) {
-    let copyWeekStart = moment(date).add(1, 'week').format('YYYY-MM-DD')
+    let copyWeekStart = moment(date).format('YYYY-MM-DD')
     this.setState({ copyWeekStart: copyWeekStart })
   }
   pasteWeek (e) {
@@ -52,35 +52,54 @@ class WeekView extends Component {
           loaded: true })
       })
   }
-  getNewShifts () {
+  getNextWeekShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+    api.getWeekShiftInfo(id, startDate, endDate)
       .then(res => {
+        console.log(res, 'res new shifts')
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
+  getLastWeekShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, startDate, endDate)
+      .then(res => {
+        console.log(res, 'res new shifts')
         this.setState({ shifts: res,
           loaded: true })
       })
   }
   nextWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).add(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let lastWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    console.log(nextWeek, 'next week')
+    console.log(thisWeek, 'this week')
+    console.log(lastWeek, 'last week')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNewShifts()
+    this.getNextWeekShifts()
   }
   lastWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
-    let lastWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNewShifts()
+    this.getLastWeekShifts()
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
