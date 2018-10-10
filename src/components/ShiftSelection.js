@@ -20,23 +20,24 @@ class ShiftSelection extends Component {
       fromHour: '',
       toMin: '',
       fromMin: '',
-      staffRequired: undefined,
-      published: false
+      staffRequired: undefined
     }
     this.setFromAmPm = this.setFromAmPm.bind(this)
   }
 
   saveShift (e) {
     e.preventDefault()
-    let { id, shiftID } = this.props
-    let { staffRequired, published, toHour, fromHour, toMin, fromMin } = this.state
+    let { id } = this.props
+    let { staffRequired, toHour, fromHour, toMin, fromMin } = this.state
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
-    let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin)
-    if (shiftID) {
-      api.updateShift(id, shiftID, startMoment, endMoment, staffRequired, published)
+    let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin).format('YYYY-MM-DD HH:mm:ss')
+    let formatStartMoment = moment(startMoment).format('YYYY-MM-DD HH:mm:ss')
+    let formatEndMoment = moment(endMoment).format('YYYY-MM-DD HH:mm:ss')
+    if (id) {
+      api.updateShifts(id, formatStartMoment, formatEndMoment, staffRequired)
         .then(res => window.alert('You updated a shift'))
     } else {
-      api.createShift(startMoment, endMoment, id, staffRequired, published)
+      api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
         .then(res => window.alert('You created a shift'))
     }
   }
@@ -70,12 +71,8 @@ class ShiftSelection extends Component {
       this.setState({ toHour: stringify })
     }
   }
-  readyToPublish () {
-    this.setState(prevState => ({
-      published: !prevState.publish
-    }))
-  }
-  staffRequired (value) {
+  staffRequired (e, value) {
+    e.preventDefault()
     this.setState({ staffRequired: value })
   }
   render () {
@@ -140,8 +137,7 @@ class ShiftSelection extends Component {
             <option>--Select--</option>
             <option value='AM'>AM</option>
             <option value='PM'>PM</option>
-          </select><Label>Done<input type='checkbox' placeholder='Publish?' onChange={(e) => this.readyToPublish(e)} />
-          </Label><Label>Staff Requied<Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e.target.value)} />
+          </select><Label>Staff Requied<Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
           </Label>
           </div>
         </div><Button>
