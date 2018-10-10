@@ -98,7 +98,7 @@ class DayView extends Component {
                       </div>
                     )}</div>
                   </div>
-                  <Button>Add A Shift<Link to={`/Calendar/${id}/AddShifts/`} /></Button>
+                  <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
                 </div>
               </div>
             )}

@@ -56,11 +56,9 @@ class CreateCalendar extends Component {
               <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
               <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
             </select>
-          </Label>
-          <div>
-            <Label>Day Light Savings Time</Label>
-            <Input type='checkbox' onChange={e => this.setState({ dlts: true })} />
-          </div>
+          </Label> 
+          <Label>Day Light Savings Time</Label>
+          <input type='checkbox' onChange={e => this.setState({ dlts: true })} />
           <div>
             <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Update Calendar</Button>
           </div>
@@ -84,10 +82,8 @@ class CreateCalendar extends Component {
               <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
             </select>
           </Label>
-          <div>
-            <Label>Day Light Savings Time</Label>
-            <Input type='checkbox' onChange={e => this.setState({ dlts: true })} />
-          </div>
+          <Label>Day Light Savings Time</Label>
+          <input type='checkbox' onChange={e => this.setState({ dlts: true })} />
           <div>
             <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Submit Calendar</Button>
           </div>

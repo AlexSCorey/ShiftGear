@@ -12,7 +12,7 @@ import CalendarsContainer from './components/CalendarsContainer'
 import CreateCalendar from './components/CreateCalendar'
 // import EditCalendar from './components/EditCalendar'
 import NewUserRegister from './components/NewUserRegister'
-// import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
+import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 import ShiftSelection from './components/ShiftSelection'
 import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
@@ -76,7 +76,7 @@ class App extends Component {
 
               <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  {/* <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} /> */}
+                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
                   <CreateCalendar id={match.params.id} />
                   {/* <EditCalendar id={match.params.id} /> */}
                 </Guard>} />
