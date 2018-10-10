@@ -128,15 +128,19 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
               <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
-            {shifts.summaries.map((shift) => <div key={shift.shift_id}>
-              <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                <div>{moment(shift.Day).format('ddd, Do')}
-                  <span className='columns'>
-                    <span className='column'><div>Total Shifts({shift.total_shifts})</div></span>
-                    <span className='column'><div>Shift Capacity({shift.total_capacity})</div></span>
-                    <span className='column'><div>Assigned Staff({shift.total_assigned_capacity})</div></span>
-                  </span>
-                </div>
+            <div>
+              {shifts.summaries.map((shift) => <div key={shift.shift_id}>
+                <button className='columns3'>
+                  <div>
+                    <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                      <button className='delete' class='btn'><i class='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
+                      <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
+                      <div>
+                        <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
+                        <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
+                        <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
+                      </div>
+                    
               </Link>
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
@@ -145,6 +149,12 @@ class WeekView extends Component {
               <Button onClick={e => this.pasteWeek(e)}>Copy to:</Button>
               <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
             </span>
+                  </div>
+                </button>
+              </div>
+              )
+              }
+            </div>
           </div>
         )
       } else {
