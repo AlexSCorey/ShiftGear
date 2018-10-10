@@ -73,7 +73,6 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, startDate, endDate)
       .then(res => {
-        console.log(res, 'res new shifts')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -83,9 +82,6 @@ class WeekView extends Component {
     let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
-    console.log(nextWeek, 'next week')
-    console.log(thisWeek, 'this week')
-    console.log(lastWeek, 'last week')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
@@ -113,6 +109,13 @@ class WeekView extends Component {
     api.acceptShiftSwap(id, shiftID)
       .then(res => window.alert('Swap sent for approval by manager'))
   }
+  requestAvailability (e) {
+    e.preventDefault()
+    let { id } = this.props
+    let { thisWeek, nextWeek } = this.state
+    api.requestAvailability(id, thisWeek, nextWeek)
+      .then(res => res)
+  }
   render () {
     const { shifts, thisWeek, loaded } = this.state
     const { id } = this.props
@@ -137,6 +140,7 @@ class WeekView extends Component {
               </Link>
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
+            <Button onClick={e => this.requestAvailability(e)}>Request Availability</Button>
             <span className='datePicker'>
               <Button onClick={e => this.pasteWeek(e)}>Copy to:</Button>
               <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
