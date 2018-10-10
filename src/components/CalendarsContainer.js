@@ -13,11 +13,22 @@ class CalendarsContainer extends Component {
   }
   componentDidMount () {
     this.getCalendars()
+    this.getShifts()
   }
   getCalendars () {
     api.getCalendars()
       .then(calendars => {
         this.setState({ calendars: calendars })
+      })
+  }
+  getShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+        console.log(res, 'response')
       })
   }
 
@@ -31,8 +42,9 @@ class CalendarsContainer extends Component {
         employed_calendars: 'Employed Calendars'
       }
       return (
-        <div className='listItems'>
-          <Link className='title' to='/CreateCalendar'><button className='titleButton'>New Calendar</button></Link>
+        <div>
+          <div className='listItems'>
+            <Link className='title' to='/CreateCalendar'><button className='titleButton'>New Calendar</button></Link></div>
           { calendarTypes.map((calendarType) => {
             let calendarGroup = calendars[calendarType]
             if (calendarGroup.length > 0) {
@@ -48,7 +60,7 @@ class CalendarsContainer extends Component {
           }) }
         </div>
       )
-      // for each key in keys
+      /* // for each key in keys
       //
       // return (
       //   <div><Link to='/CreateCalendar'>Add Calendar</Link>
@@ -57,7 +69,7 @@ class CalendarsContainer extends Component {
       //     <h2>Owned Calendars</h2>
       //     {owned_calendars && owned_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
       //     {employed_calendars && employed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
-      //   </div>)
+      //   </div>) */
     } else {
       return ('loading')
     }
