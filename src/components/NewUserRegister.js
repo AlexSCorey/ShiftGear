@@ -31,6 +31,7 @@ class NewUserRegister extends Component {
   render () {
     const { password, passwordConf, name } = this.state
     return (<div>
+      <h1 className='emaillabel'>Welcome! Please complete the form below to finalize the registration process</h1>
       <label className='emailLabel'>name</label>
       <input className='emailInput' value={name} placeholder='Provide First and Last Name' type='text' onChange={e => this.setState({ name: e.target.value })} required />
       <label className='emailLabel'>password</label>

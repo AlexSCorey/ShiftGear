@@ -14,7 +14,6 @@ const api = {
         'phone_number': `${phoneNum}` })
       .then(res => res.body.user.api_token)
       .then(api.login(email, password))
-      // .then(api.setUserToken(res.body.user.api_token))
   },
   login: (email, password) => {
     return request.post(`${domain}/logins`)
@@ -145,7 +144,6 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
-  // request.get(/calendars/:id/summary?start_date=:start_date&end_date=:end_date)
   updateShifts: (id, shiftId, startTime, endTime, capacity, published) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -208,14 +206,16 @@ const api = {
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
-    // console.log(id, 'id')
-    // console.log(startWeek, 'startWeek')
-    // console.log(endWeek, 'endWeek')
-    // console.log(copyWeekStart, 'copyWeekStart')
     return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body, 'res'))
+      .then(res => res.body)
+  },
+  requestAvailability: (id, thisWeek, nextWeek) => {
+    return request.post(`${domain}/calendars/${id}/availability_process`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_date': `${thisWeek}`,
+        'end_date': `${nextWeek}` })
+      .then(res => res.body)
   }
 }
-// calendars/:calendar_id/copy?start_date=:start_date&end_date=:end_date&target_date=:target_date
 export default api

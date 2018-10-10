@@ -10,7 +10,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import CalendarsContainer from './components/CalendarsContainer'
 import CreateCalendar from './components/CreateCalendar'
-import EditCalendar from './components/EditCalendar'
+// import EditCalendar from './components/EditCalendar'
 import NewUserRegister from './components/NewUserRegister'
 import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 import ShiftSelection from './components/ShiftSelection'
@@ -19,7 +19,7 @@ import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import RequestPasswordReset from './components/RequestPasswordReset'
 import SingleShiftView from './components/SingleShiftView'
-import ManageApproveSwap from './components/ManagerApproveSwap'
+import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 
@@ -76,7 +76,7 @@ class App extends Component {
 
               <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  {/* <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} /> */}
+                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
                   <CreateCalendar id={match.params.id} />
                   {/* <EditCalendar id={match.params.id} /> */}
                 </Guard>} />
@@ -130,7 +130,7 @@ class App extends Component {
 
               <Route path='/complete/:token' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <ManageApproveSwap token={match.params.id} />
+                  <ManagerApproveSwap token={match.params.id} />
                 </Guard>} />
             </div>
           </main>
