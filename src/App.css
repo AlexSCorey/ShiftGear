@@ -149,15 +149,14 @@ body {
   }
 
   .titleButtonToggle {
-      background-color: #2C46DD; 
-      color: white; 
-      padding: .5rem;
-      margin: .3rem;
-
-      font-size: 1rem;
-      border-radius: 5px;
-      font-family: 'Roboto', sans-serif;
-      -moz-border-radius: 10px;
+    background-color: #2C46DD; 
+    color: white; 
+    padding: .5rem;
+    margin: .3rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border: 1px solid #000000;
@@ -179,11 +178,33 @@ body {
     font-size: 1.5rem;
     font-family: 'Roboto Slab', serif;
   }
-  .column {
+  .columns3 {
     width: 100%;
     display: block
   }
-  .column {
+  .column3 {
     width: 33.3333%;
     float: left;
+    text-align: center;
+    font-size: 1.2rem
+  }
+  .columns2 {
+    width: 100%;
+    display: block
+  }
+  .column2 {
+    width: 50%;
+    float: left;
+    text-align: center
+  }
+  .btn {
+    border: 0;
+    margin-bottom: .5rem
+  }
+  .day {
+    margin: 0 auto;
+    text-align: center;
+    color: #2C46DD;
+    font-size: 1.5rem;
+    font-family: 'Nunito Sans', sans-serif
   }
