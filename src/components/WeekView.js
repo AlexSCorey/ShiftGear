@@ -86,20 +86,20 @@ class WeekView extends Component {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         return (
           <div>
-            <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
-            <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
-            <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
+            <div className='weekRange'>
+              <span><button className='titleButtonToggle' onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
+              <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
+              <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
+            </div>
             {shifts.summaries.map((shift) => <div key={shift.shift_id}>
               <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                { <div className='weekViewButton'>
-                  <div>{moment(shift.Day).format('ddd, Do')}
-                    <div>
-                      <div>Total Shifts:({shift.total_shifts})</div>
-                      <div>Capacity:({shift.total_capacity})</div>
-                      <div>Assigned Cap:({shift.total_assigned_capacity})</div>
-                    </div>
-                  </div>
-                </div>}
+                <div>{moment(shift.Day).format('ddd, Do')}
+                  <span className='columns'>
+                    <span className='column'><div>Total Shifts({shift.total_shifts})</div></span>
+                    <span className='column'><div>Shift Capacity({shift.total_capacity})</div></span>
+                    <span className='column'><div>Assigned Staff({shift.total_assigned_capacity})</div></span>
+                  </span>
+                </div>
               </Link>
               <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
             </div>)}
