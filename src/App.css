@@ -208,3 +208,29 @@ body {
     font-size: 1.5rem;
     font-family: 'Nunito Sans', sans-serif
   }
+  .navButtons {
+      background-color: #2C46DD; 
+      color: white; 
+      padding: .5rem;
+      margin: .3rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;    
+  }
+  .DayPickerInput {
+    margin: .3rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;    
+}
+  .requestOffAndCopy {
+    text-align: center;
+  }
+  .itemList1 {
+    padding-top: 1.5rem;
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
+    font-family: 'Nunito Sans', sans-serif
+  }
