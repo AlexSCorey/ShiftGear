@@ -47,19 +47,16 @@ class Login extends Component {
           <input className='emailInput' value={email} placeholder='manager@example.com' type='email' onChange={e => this.setState({ email: e.target.value })} required /><br />
           <label className='passwordLabel'>password</label><span className='forgotPassword'><a>Forgot password?</a></span><br />
           <input className='passwordInput' value={password} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required /><br />
+          <NavLink to='/CalendarList'>
+            <button className='loginButton' onClick={e => { this.handleSubmit(e) }}>Login</button>
+          </NavLink>
           <div className='introMessage'>
             <h1 className='description'>
                 Shift work coordination meets online <br />
                 solutions customized for small business. <br />
-                Login or sign up to
-              <NavLink className='register' to='/register'
-                onClick={e => this.setRegistering(e, true)}
-              > register</NavLink>!</h1>
+            </h1>
           </div>
         </div>
-        <NavLink to='/CalendarList'>
-          <button className='loginButton' onClick={e => { this.handleSubmit(e) }}>Login</button>
-        </NavLink>
       </div>
     )
   }

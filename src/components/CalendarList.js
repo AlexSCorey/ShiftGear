@@ -32,7 +32,7 @@ class CalendarList extends Component {
       return (
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
-            return (<div>
+            return (<div className='calendarItem'>
               <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
                 {calendar.name}
               </Link>
@@ -40,13 +40,15 @@ class CalendarList extends Component {
             )
           } else {
             return (
-              <div className='calendarItem'>
-                <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                  <button className='btn'><i className='far fa-edit' /></button>
-                </Link>
-                <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
-                  <button className='btn'><i className='far fa-trash-alt' /></button></div>
+              <div>
+                <div className='calendarItem'>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                    <button class='btn'><i class='far fa-edit' /></button>
+                  </Link>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
+                  <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
+                    <button class='btn'><i class='far fa-trash-alt' /></button></delete>
+                </div>
               </div>)
           }
         }

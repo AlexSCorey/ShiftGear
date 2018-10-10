@@ -81,7 +81,7 @@ class DayView extends Component {
         return (
           <div>
             {shiftsToday.shifts.map((shift) =>
-              <div>
+              <button className='columns'>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                   <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>
