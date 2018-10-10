@@ -8,7 +8,8 @@ class AvailabilityResponse extends Component {
     super()
     this.state = {
       availabilityRequests: {},
-      loaded: false
+      loaded: false,
+      responses: []
     }
   }
   componentDidMount () {
