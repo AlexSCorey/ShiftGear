@@ -11,11 +11,31 @@ class DayView extends Component {
       note: '',
       shiftsToday: {},
       users: {},
-      loaded: false
+      loaded: false,
+      unassignedUsers: []
     }
   }
   componentDidMount () {
     this.getShifts()
+    this.getNotes()
+    this.getStaff()
+  }
+  getStaff () {
+    let { id, shiftsId } = this.props
+    api.getStaff(id, shiftsId)
+      .then(res => {
+        console.log(res, 'res in day view')
+        this.setState({ assignedUsers: res.assigned_users,
+          unassignedUsers: res.unassigned_users })
+      })
+  }
+  getNotes () {
+    let { id, date } = this.props
+    let today = moment(date).format('YYYY-MM-DD')
+    api.getNotes(id, today)
+      .then(res => {
+        this.setState({ employeeNotes: res })
+      })
   }
   getShifts () {
     let { id, date } = this.props
@@ -45,11 +65,18 @@ class DayView extends Component {
     api.createNote(note, id, formattedDate)
       .then(res => res)
   }
+  giveAvailability (e, value) {
+    e.preventDefault()
+    console.log(value, 'value')
+  }
+  denyAvailability (e, value) {
+    e.preventDefault()
+    console.log(value, 'value')
+  }
   render () {
     let { id, date } = this.props
-    let { shiftsToday, loaded } = this.state
+    let { shiftsToday, loaded, unassignedUsers } = this.state
     if (loaded) {
-      console.log(shiftsToday.roles, 'roles in render')
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
           <div>
@@ -70,43 +97,60 @@ class DayView extends Component {
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
-              </button>
+                <Button value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</Button>
+                <Button value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</Button>
+                <div>
+                  <div>
+                    <div>Unassigned Staff</div>
+                    <div>{unassignedUsers.map((user) =>
+                      <div>{user.name}
+                        <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
+                      </div>
+                    )}</div>
+                  </div>
+                </div>
+              </div>
             )}
-            <Label>Note:<Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
+            <Label>Note:
+              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
           </div>
         )
       } else {
-        return (<div>
-          {shiftsToday.shifts.map((shift) =>
-            <button className='columns'>
-              <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                <h2>{moment(date).format('ddd, Do')}</h2>
-                <div className='1-wrap'>
-                  <div id={shift.shift_id} className='shiftNode' />
-                  <div className='four-col-grid'>
-                    <label className='column'>Capacity</label>
-                    <div className='grid-item'>{shift.capacity}</div>
-                    <label className='column'>Start</label>
-                    <div className='grid-item'>{moment(shift.start_time).format('h:mm:a')}</div>
-                    <label className='column'>End</label>
-                    <div className='grid-item'>{moment(shift.end_time).format('h:mm:a')}</div>
-                    <label className='column'>Published</label>
-                    <div className='grid-item'>{shift.published}</div>
+        return (
+          <div>
+            {shiftsToday.shifts.map((shift) =>
+              <div>
+                <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
+                  <h2>{moment(date).format('ddd, Do')}</h2>
+                  <div id={shift.shift_id} className='shiftNode'>
+                    <Label>Capacity</Label>
+                    <div>{shift.capacity}</div>
+                    <Label>Start</Label>
+                    <div>{moment(shift.start_time).format('h:mm:a')}</div>
+                    <Label>End</Label>
+                    <div>{moment(shift.end_time).format('h:mm:a')}</div>
+                    <Label>Published</Label>
+                    <div>{shift.published}</div>
                   </div>
-                </div>
-              </Link>
-            </button>
-          )}
-          <Label>Note:<Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
-          </Label>
-          <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
-        </div>)
+                </Link>
+                <Button value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</Button>
+                <Button value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</Button>
+              </div>
+            )}
+            <Label>Note:
+              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            </Label>
+            <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
+          </div>
+        )
       }
     } else {
       return (<div>Not Today AssHole</div>)
     }
   }
 }
+
 export default DayView

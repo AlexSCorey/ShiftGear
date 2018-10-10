@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { confirmAlert } from 'react-confirm-alert'
-import 'react-confirm-alert/src/react-confirm-alert.css'
+// import { confirmAlert } from 'react-confirm-alert'
+// import 'react-confirm-alert/src/react-confirm-alert.css'
 // import moment from 'moment'
 
 import api from './api'

@@ -16,11 +16,9 @@ class AcceptShiftRequest extends Component {
     this.getShiftSwapIndex()
   }
   getShiftSwapIndex () {
-    console.log('here')
     let { id } = this.props
     api.getShiftSwapIndex(id)
       .then(res => {
-        console.log(res)
         this.setState({ shiftSwapsIndex: res,
           loaded: true })
       })
@@ -46,7 +44,7 @@ class AcceptShiftRequest extends Component {
                 return (<div>
                   <div key={shiftSwap.id}>
                     <div id={shiftSwap.requesting_user.id}>Requested By:{shiftSwap.requesting_user.name}</div>
-                    <div id={shiftSwap.accepting_user.id}>Accepted By:{shiftSwap.accepting_user.name}</div>}
+                    <div id={shiftSwap.accepting_user.id}>Accepted By:{shiftSwap.accepting_user.name}</div>
                     <Button isColor='danger' isStatic='false' isOutlined='true' value={shiftSwap.id}
                       onClick={(e) => { if (window.confirm('Click to approve this shift swap.')) this.approveShiftSwap() }}>
                       <div>

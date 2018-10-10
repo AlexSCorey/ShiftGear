@@ -14,7 +14,6 @@ const api = {
         'phone_number': `${phoneNum}` })
       .then(res => res.body.user.api_token)
       .then(api.login(email, password))
-      // .then(api.setUserToken(res.body.user.api_token))
   },
   login: (email, password) => {
     return request.post(`${domain}/logins`)
@@ -116,7 +115,7 @@ const api = {
   getWeekShiftInfo: (id, thisWeek, nextWeek) => {
     return request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body, 'get shifts res')
+      .then(res => res.body)
   },
   getShifts: (id) => {
     return request.post(`${domain}/calendars/${id}/shifts`)
@@ -133,10 +132,10 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'text': `${note}`,
         'date': `${date}` })
-      .then(res => console.log(res.body))
+      .then(res => res.body)
   },
-  getNotes: (id, thisWeek, nextWeek) => {
-    request.get(`${domain}/calendars/${id}/summary?start_date=${thisWeek}&end_date=${nextWeek}`)
+  getNotes: (id, today) => {
+    return request.get(`${domain}/calendars/${id}/notes?start_date=${today}&end_date=${today}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
@@ -145,7 +144,6 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
-  // request.get(/calendars/:id/summary?start_date=:start_date&end_date=:end_date)
   updateShifts: (id, shiftId, startTime, endTime, capacity, published) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -195,6 +193,29 @@ const api = {
         'password': `${password}`,
         'token': `${token}` })
       .then(res => res)
+  },
+  editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
+    dlts) => {
+    return request.patch(`${domain}/calendars/${id}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'name': `${name}`,
+        'time_zone': `${timeZone}`,
+        'employee_hour_threshold_daily': `${employeeHourThresholdDaily}`,
+        'employee_hour_threshold_weekly': `${employeeHourThresholdWeekly}`,
+        'daylight_savings': `${dlts}` })
+      .then(res => res.body)
+  },
+  copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
+    return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+  requestAvailability: (id, thisWeek, nextWeek) => {
+    return request.post(`${domain}/calendars/${id}/availability_process`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_date': `${thisWeek}`,
+        'end_date': `${nextWeek}` })
+      .then(res => res.body)
   }
 }
 export default api

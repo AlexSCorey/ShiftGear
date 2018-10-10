@@ -30,16 +30,14 @@ class ShiftSelection extends Component {
     e.preventDefault()
     let { id, shiftID } = this.props
     let { staffRequired, published, toHour, fromHour, toMin, fromMin } = this.state
-
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin)
-
     if (shiftID) {
       api.updateShift(id, shiftID, startMoment, endMoment, staffRequired, published)
-        .then(res => res)
+        .then(res => window.alert('You updated a shift'))
     } else {
       api.createShift(startMoment, endMoment, id, staffRequired, published)
-        .then(res => console.log(res, 'res in shift selector'))
+        .then(res => window.alert('You created a shift'))
     }
   }
   handleFromDateChange (day) {
