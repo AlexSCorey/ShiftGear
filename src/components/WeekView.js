@@ -143,10 +143,6 @@ class WeekView extends Component {
                 </div>}
               </Link>
             </div>)}
-            <span className='datePicker'>
-              <Button onClick={e => { this.pasteWeek(e) }}>Copy to:</Button>
-              <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
-            </span>
           </div>
         )
       }

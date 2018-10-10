@@ -9,7 +9,9 @@ class SingleShiftView extends Component {
     this.state = {
       assignedUsers: [],
       unassignedUsers: [],
-      msg: null
+      msg: null,
+      loaded: false,
+      roles: {}
     }
   }
   componentDidMount () {
@@ -21,7 +23,9 @@ class SingleShiftView extends Component {
       .then(res => {
         console.log(res, 'res')
         this.setState({ assignedUsers: res.assigned_users,
-          unassignedUsers: res.unassigned_users })
+          unassignedUsers: res.unassigned_users,
+          roles: res.roles,
+          loaded: true })
       })
   }
   removeStaff (e, userID, userName) {
@@ -41,31 +45,52 @@ class SingleShiftView extends Component {
       })
   }
   render () {
-    let { assignedUsers, unassignedUsers } = this.state
-    if (assignedUsers.length > 0) {
-      return (
-        <div>
-          <div>Assigned Staff</div>
-          <div>{assignedUsers.map((user) =>
-            <div>
-              <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
-              <div>{user.name}
-                <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
-              </div>
-            </div>
-          )}</div>
+    let { assignedUsers, unassignedUsers, loaded, roles } = this.state
+    if (loaded) {
+      if ((roles.indexOf('owner') > -1) || (roles.indexOf('manager') > -1)) {
+        return (
           <div>
-            <div>Unassigned Staff</div>
-            <div>{unassignedUsers.map((user) =>
-              <div>{user.name}
-                <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
+            <div>Assigned Staff</div>
+            <div>{assignedUsers.map((user) =>
+              <div>
+                <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
+                <div>{user.name}
+                  <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+                </div>
               </div>
             )}</div>
+            <div>
+              <div>Unassigned Staff</div>
+              <div>{unassignedUsers.map((user) =>
+                <div>{user.name}
+                  <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
+                </div>
+              )}</div>
+            </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        return (
+          <div>
+            <div>Assigned Staff</div>
+            <div>{assignedUsers.map((user) =>
+              <div>
+                <div>{user.name}
+                </div>
+              </div>
+            )}</div>
+            <div>
+              <div>Unassigned Staff</div>
+              <div>{unassignedUsers.map((user) =>
+                <div>{user.name}
+                </div>
+              )}</div>
+            </div>
+          </div>
+        )
+      }
     } else {
-      return (<div>No Staff Assigned to This Shift</div>)
+      return (<div>Loading</div>)
     }
   }
 }
