@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
-// import moment from 'moment'
-// import DayPickerInput from 'react-day-picker/DayPickerInput'
+
 import 'react-day-picker/lib/style.css'
 import { Button, Input, Label } from 'bloomer'
 import { Link } from 'react-router-dom'
 import api from './api'
-
-// import { formatDate, parseDate } from 'react-day-picker/moment'
-// import api from './api'
 
 class CreateCalendar extends Component {
   constructor () {
@@ -16,17 +12,21 @@ class CreateCalendar extends Component {
       title: '',
       timeZone: 'Eastern Time',
       dlst: false,
-      numberOfShifts: '',
       newCalendarId: '',
       msg: ''
     }
-    // this.handleFromDateChange = this.handleFromDateChange.bind(this)
   }
 
   submitCalendar (e) {
-    let { title, timeZone, numberOfShifts } = this.state
+    let { title, timeZone, dlts } = this.state
+    let { id } = this.props
     e.preventDefault()
-    api.createNewCalendar(title, timeZone, numberOfShifts)
+    if (id) {
+      api.editCalendar(id, title, timeZone,
+        dlts)
+        .then(res => window.alert('Calendar successfully updated'))
+    }
+    api.createNewCalendar(title, timeZone)
       .then(res => {
         this.setState({ newCalendarId: res.id,
           msg: 'You Have Successfully Created A Calendar' })
@@ -38,36 +38,60 @@ class CreateCalendar extends Component {
   }
   render () {
     let { newCalendarId, msg } = this.state
+    let { id } = this.props
     if (this.state.msg) {
       return (<div>Alert:`${msg}` </div>)
-    }
-    // const modifiers = { start: from, end: to }
-    return (<div >
-      <Label>Calendar Title
-        <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
-      </Label>
-      <div>
-        <Label>Time Zone
-          <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
-          <option>--Select--</option>
-          <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
-          <option value='Alaska'>Alaska</option>
-          <option value='Hawaii'>Hawaii</option>
-          <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
-          <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
-        </select>
+    } else if (id) {
+      return (<div >
+        <Label>Calendar Title
+          <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
         </Label>
         <div>
-          <Label>Shift Number</Label>
-          <Input type='number' placehold='Number of Shifts' onChange={e => this.setState({ numberOfShifts: e.target.value })} />
+          <Label>Time Zone
+            <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
+              <option>--Select--</option>
+              <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
+              <option value='Alaska'>Alaska</option>
+              <option value='Hawaii'>Hawaii</option>
+              <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
+              <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
+            </select>
+          </Label> 
+          <Label>Day Light Savings Time</Label>
+          <input type='checkbox' onChange={e => this.setState({ dlts: true })} />
+          <div>
+            <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Update Calendar</Button>
+          </div>
+          <Link to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link>
         </div>
+        <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
+      </div>)
+    } else {
+      return (<div >
+        <Label>Calendar Title
+          <Input className='input' type='text' placeholder='Provide calendar Title' onChange={e => this.setState({ title: e.target.value })} />
+        </Label>
         <div>
-          <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Submit Calendar</Button>
+          <Label>Time Zone
+            <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
+              <option>--Select--</option>
+              <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
+              <option value='Alaska'>Alaska</option>
+              <option value='Hawaii'>Hawaii</option>
+              <option value='Mountain Time (US & Canada)'>Mountain Time (US & Canada)</option>
+              <option value='Central Time (US & Canada)'>Central Time (US & Canada)</option>
+            </select>
+          </Label>
+          <Label>Day Light Savings Time</Label>
+          <input type='checkbox' onChange={e => this.setState({ dlts: true })} />
+          <div>
+            <Button to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Submit Calendar</Button>
+          </div>
+          <Link to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link>
         </div>
-        <Link to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link>
-      </div>
-      <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
-    </div>)
+        <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
+      </div>)
+    }
   }
 }
 export default CreateCalendar

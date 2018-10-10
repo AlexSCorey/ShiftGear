@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Delete, Button } from 'bloomer'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 
 import { Link } from 'react-router-dom'
 
@@ -12,8 +14,9 @@ class WeekView extends Component {
     this.state = {
       shifts: [],
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
-      nextWeek: moment(new Date()).add(6, 'days').format('YYYY-MM-DD'),
-      lastWeek: moment(new Date()).subtract(7, 'days').format('YYYY-MM-DD'),
+      nextWeek: moment(this.thisWeek).add(6, 'days').startOf('week').format('YYYY-MM-DD'),
+      lastWeek: moment(this.thisWeek).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
+      copyWeekStart: undefined,
       notesExist: false,
       shiftSwapsIndex: [],
       loaded: false
@@ -28,6 +31,18 @@ class WeekView extends Component {
   componentDidMount () {
     this.getShifts()
   }
+  copyWeekStart (date) {
+    let copyWeekStart = moment(date).format('YYYY-MM-DD')
+    this.setState({ copyWeekStart: copyWeekStart })
+  }
+  pasteWeek (e) {
+    const { id } = this.props
+    let { copyWeekStart, thisWeek } = this.state
+    let startWeek = moment(thisWeek).format('YYYY-MM-DD')
+    let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
+    api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
+      .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
+  }
   getShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
@@ -37,11 +52,26 @@ class WeekView extends Component {
           loaded: true })
       })
   }
-  getNewShifts () {
+  getNextWeekShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+    api.getWeekShiftInfo(id, startDate, endDate)
+      .then(res => {
+        console.log(res, 'res new shifts')
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
+  getLastWeekShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, startDate, endDate)
       .then(res => {
         this.setState({ shifts: res,
           loaded: true })
@@ -49,23 +79,23 @@ class WeekView extends Component {
   }
   nextWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).add(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let lastWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNewShifts()
+    this.getNextWeekShifts()
   }
   lastWeek (e) {
     e.preventDefault()
-    let nextWeek = moment(this.state.lasWeek).subtract(1, 'week')
-    let thisWeek = moment(this.state.thisWeek).subtract(1, 'week')
-    let lastWeek = moment(this.state.nextWeek).subtract(1, 'week')
+    let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNewShifts()
+    this.getLastWeekShifts()
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
@@ -78,6 +108,13 @@ class WeekView extends Component {
     let { id } = this.props
     api.acceptShiftSwap(id, shiftID)
       .then(res => window.alert('Swap sent for approval by manager'))
+  }
+  requestAvailability (e) {
+    e.preventDefault()
+    let { id } = this.props
+    let { thisWeek, nextWeek } = this.state
+    api.requestAvailability(id, thisWeek, nextWeek)
+      .then(res => res)
   }
   render () {
     const { shifts, thisWeek, loaded } = this.state
@@ -103,7 +140,15 @@ class WeekView extends Component {
                         <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
                         <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
                       </div>
-                    </Link>
+                    
+              </Link>
+              <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
+            </div>)}
+            <Button onClick={e => this.requestAvailability(e)}>Request Availability</Button>
+            <span className='datePicker'>
+              <Button onClick={e => this.pasteWeek(e)}>Copy to:</Button>
+              <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
+            </span>
                   </div>
                 </button>
               </div>

@@ -45,7 +45,7 @@ class Login extends Component {
         <div className='loginField'>
           <label className='emailLabel'>email</label><br />
           <input className='emailInput' value={email} placeholder='manager@example.com' type='email' onChange={e => this.setState({ email: e.target.value })} required /><br />
-          <label className='passwordLabel'>password</label><span className='forgotPassword'><a href='#'>Forgot password?</a></span><br />
+          <label className='passwordLabel'>password</label><span className='forgotPassword'><a>Forgot password?</a></span><br />
           <input className='passwordInput' value={password} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required /><br />
           <NavLink to='/CalendarList'>
             <button className='loginButton' onClick={e => { this.handleSubmit(e) }}>Login</button>
