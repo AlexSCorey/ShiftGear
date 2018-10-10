@@ -19,7 +19,7 @@ import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import RequestPasswordReset from './components/RequestPasswordReset'
 import SingleShiftView from './components/SingleShiftView'
-import ManageApproveSwap from './components/ManagerApproveSwap'
+import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 
@@ -130,7 +130,7 @@ class App extends Component {
 
               <Route path='/complete/:token' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <ManageApproveSwap token={match.params.id} />
+                  <ManagerApproveSwap token={match.params.id} />
                 </Guard>} />
             </div>
           </main>
