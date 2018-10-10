@@ -112,17 +112,17 @@ class WeekView extends Component {
             <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
             <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
             {shifts.summaries.map((shift) => <div key={shift.shift_id}>
-              <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                {<div className='weekViewButton'>
-                  <div>{moment(shift.Day).format('ddd, Do')}
-                    <div>
+              <Button className='rows'>
+                <Link className='rows'to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                  {<div className='weekViewButton'>
+                    <div>{moment(shift.Day).format('ddd, Do')}
                       <div>Total Shifts:({shift.total_shifts})</div>
                       <div>Capacity:({shift.total_capacity})</div>
                       <div>Assigned Cap:({shift.total_assigned_capacity})</div>
                     </div>
-                  </div>
-                </div>}
-              </Link>
+                  </div>}
+                </Link>
+              </Button>
             </div>)}
           </div>
         )

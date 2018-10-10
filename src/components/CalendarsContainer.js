@@ -26,9 +26,7 @@ class CalendarsContainer extends Component {
     const { thisWeek, nextWeek } = this.state
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-        console.log(res, 'response')
+        this.setState(console.log(res, 'response'))
       })
   }
 

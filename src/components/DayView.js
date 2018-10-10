@@ -54,7 +54,7 @@ class DayView extends Component {
         return (
           <div>
             {shiftsToday.shifts.map((shift) =>
-              <div>
+              <button className='columns'>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                   <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>
@@ -70,10 +70,9 @@ class DayView extends Component {
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
-              </div>
+              </button>
             )}
-            <Label>Note:
-              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            <Label>Note:<Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
           </div>
@@ -81,24 +80,26 @@ class DayView extends Component {
       } else {
         return (<div>
           {shiftsToday.shifts.map((shift) =>
-            <div>
+            <button className='columns'>
               <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                 <h2>{moment(date).format('ddd, Do')}</h2>
-                <div id={shift.shift_id} className='shiftNode'>
-                  <Label>Capacity</Label>
-                  <div>{shift.capacity}</div>
-                  <Label>Start</Label>
-                  <div>{moment(shift.start_time).format('h:mm:a')}</div>
-                  <Label>End</Label>
-                  <div>{moment(shift.end_time).format('h:mm:a')}</div>
-                  <Label>Published</Label>
-                  <div>{shift.published}</div>
+                <div className='1-wrap'>
+                  <div id={shift.shift_id} className='shiftNode' />
+                  <div className='four-col-grid'>
+                    <label className='column'>Capacity</label>
+                    <div className='grid-item'>{shift.capacity}</div>
+                    <label className='column'>Start</label>
+                    <div className='grid-item'>{moment(shift.start_time).format('h:mm:a')}</div>
+                    <label className='column'>End</label>
+                    <div className='grid-item'>{moment(shift.end_time).format('h:mm:a')}</div>
+                    <label className='column'>Published</label>
+                    <div className='grid-item'>{shift.published}</div>
+                  </div>
                 </div>
               </Link>
-            </div>
+            </button>
           )}
-          <Label>Note:
-            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+          <Label>Note:<Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
           </Label>
           <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
         </div>)
