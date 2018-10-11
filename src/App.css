@@ -9,9 +9,9 @@ body {
   padding: 0;
 }
  /* login and register page */
-header {
+/* header {
   padding-bottom: .5rem
-}
+} */
 .loginContainer {
   height: 100%;
 }
@@ -352,19 +352,18 @@ header {
   .loginField {
     width: 100%
   }
-  div.box {
-    padding: 0; 
+  .container {
     width: 350px;
     height: 80px;
-    border: 1px solid #3A2D51;
+    border: 1px solid lightgrey;
     border-radius: .5rem;
     overflow: auto;
-    background-color: lightgrey;
+    background-color: linen;
     text-align: center;
-    margin-bottom: .1rem;
+    margin: 0 auto 0
   }
   .itemList3 {
-    padding-top:.5rem;
+    padding-top:.2rem;
     margin: 0 auto;
     text-align: center;
     color: black;

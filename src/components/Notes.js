@@ -32,8 +32,8 @@ class Notes extends Component {
         <div className='titles'>Notes:</div>
         <div>
           {employeeNotes.notes.map((note) =>
-            <div className='box'>
-              <div className='itemList3'>{note.user_name}: {note.text}</div>
+            <div className='container'>
+              <div className='itemList3'><strong>{note.user_name}: </strong>{note.text}</div>
             </div>
           )}
         </div>
