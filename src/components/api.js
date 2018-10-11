@@ -220,11 +220,21 @@ const api = {
       })
   },
   getAvailabilityRequests: (id, token) => {
-    console.log(id, token, 'request avail')
     return request.get(`${domain}/calendars/${id}/availability_response`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => {
         console.log(res.body, 'res body')
+        return res.body
+      })
+  },
+  submitRequestAvailbility: (availabilitiesResponses, token, id) => {
+    console.log(id, token, availabilitiesResponses, domain)
+    return request.patch('https://fierce-forest-56311.herokuapp.com/calendars/3/availability_response')
+    // return request.patch(`${domain}/calendars/${id}/availability_response`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ 'responses': availabilitiesResponses })
+      .then(res => {
+        console.log(res.body)
         return res.body
       })
   }
