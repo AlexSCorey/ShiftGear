@@ -156,7 +156,7 @@ header {
   .titleButtonToggle {
     background-color: #2C46DD; 
     color: white; 
-    padding: .5rem;
+    padding: .4rem;
     margin: .3rem;
     font-size: 1rem;
     border-radius: 5px;
@@ -346,4 +346,33 @@ header {
     max-width: 600px;
     font-size: 1rem;
     margin-top:.6rem
+  }
+  .loginField {
+    width: 100%
+  }
+  div.box {
+    padding: 0; 
+    width: 350px;
+    height: 80px;
+    border: 1px solid #3A2D51;
+    border-radius: .5rem;
+    overflow: auto;
+    background-color: lightgrey;
+    text-align: center;
+    margin-bottom: .1rem;
+  }
+  .itemList3 {
+    padding-top:.5rem;
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    font-size: 1rem;
+    font-family: 'Nunito Sans', sans-serif
+  }
+  .titles {
+    margin: 0 auto 0;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #3A2D51;
+    font-family: 'Roboto Slab', serif;
   }

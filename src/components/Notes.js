@@ -30,12 +30,11 @@ class Notes extends Component {
     let { employeeNotes, loaded } = this.state
     if (loaded) {
       return (<div>
-        <div>Notes:</div>
+        <div className='titles'>Notes:</div>
         <div>
           {employeeNotes.notes.map((note) =>
-            <div>
-              <div>{note.user_name}: </div>
-              <div>{note.text}</div>
+            <div className='box'>
+              <div className='itemList3'>{note.user_name}: {note.text}</div>
             </div>
           )}
         </div>
