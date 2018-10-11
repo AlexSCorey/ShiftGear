@@ -187,3 +187,9 @@ body {
     width: 33.3333%;
     float: left;
   }
+  .request-unavailable-btn  {
+    background-color: red !important;
+  }
+  .request-available-btn {
+    background-color:green !important;
+  }

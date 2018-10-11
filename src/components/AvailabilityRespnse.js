@@ -9,44 +9,57 @@ class AvailabilityResponse extends Component {
     this.state = {
       availabilityRequests: {},
       loaded: false,
-      responses: []
+      availabilities: []
     }
   }
   componentDidMount () {
-    console.log('here')
     this.getAvailabilityRequests()
   }
   getAvailabilityRequests () {
     let { id, token } = this.props
     api.getAvailabilityRequests(id, token)
       .then(res => {
-        console.log(res, 'res')
-        this.setState({ availabilityRequests: res,
+        let availabilities = res.availability_process.request.responses
+        this.setState({ availabilities: availabilities,
+          availabilityRequests: res,
           loaded: true })
       })
   }
-  // acceptRequest (e, value) {
-  //   e.preventDefault()
-  //   let response = { 'id': `${value}`,
-  //     'available': true }
-  //   this.setState({ availabilityRequest: response })
-  // }
-  submitResponses () {
-
+  acceptRequest (e, value) {
+    e.preventDefault()
+    let { availabilities } = this.state
+    let availability = availabilities.find((a) => a.id.toString() === value)
+    availability.available = true
+    this.setState({ availabilities: availabilities })
+  }
+  denyRequest (e, value) {
+    e.preventDefault()
+    let { availabilities } = this.state
+    let availability = availabilities.find((a) => a.id.toString() === value)
+    availability.available = false
+    this.setState({ availabilities: availabilities })
+  }
+  submitForm (e) {
+    e.preventDefault()
+    console.log(this.state.availabilities, 'availabilities')
   }
   render () {
-    let { loaded, availabilityRequests } = this.state
+    let { loaded, availabilities, availabilityRequests } = this.state
     if (loaded) {
-      return (<div>hi
-        {availabilityRequests.availability_process.request.responses.map((request) =>
+      return (<div>
+        <div>{availabilityRequests.availability_process.calendar_name}</div>
+        {availabilities.map((request) =>
           <div id={request.id}>
-            <div>Start: {moment(request.start_time).format('MM-DD-YY hh:mma')}</div>
-            <div>End: {moment(request.end_time).format('MM-DD-YY hh:mma')}</div>
-            <Button value={request.id} isActive='true'onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
-            <Button value={request.id} isActive='true' onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
+            <div>{moment(request.start_time).format('MMM Do, YYYY')}</div>
+            <div>Start:{moment(request.start_time).format('h:mma')}</div>
+            <div>End: {moment(request.end_time).format('h:mma')}</div>
+            <div>{console.log(request.available, 'availabel')}
+              <Button className={request.available ? 'request-available-btn' : ''} name='availability' value={request.id} isActive='true'onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
+              <Button className={request.available ? '' : 'request-unavailable-btn'} name='availability' value={request.id} isActive='true' onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
+            </div>
           </div>
         )}
-        <Button>Submit</Button>
+        <Button onClick={e => this.submitForm(e)}>Submit</Button>
       </div>)
     } else {
       return (<div>Loading</div>)
