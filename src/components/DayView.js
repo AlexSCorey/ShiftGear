@@ -73,19 +73,17 @@ class DayView extends Component {
         return (
           <div>
             {shiftsToday.shifts.map((shift) =>
-              <button className='columns'>
+              <button className='columns2'>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                   <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>
-                    <Label>Capacity</Label>
-                    <div>{shift.capacity}</div>
-                    <Label>Start</Label>
-                    <div>{moment(shift.start_time).format('h:mm:a')}</div>
-                    <Label>End</Label>
-                    <div>{moment(shift.end_time).format('h:mm:a')}</div>
-                    <Label>Published</Label>
-                    <div>{shift.published}</div>
-                    <Link to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
+                    <div><span>
+                      <div className='column2'>Capacity: {shift.capacity} </div>
+                      <div className='column3'>Start: {moment(shift.start_time).format('h:mm:a')}</div>
+                      <div className='column3'>End: {moment(shift.end_time).format('h:mm:a')}</div>
+                      <div className='column3'>Published: {shift.published}</div>
+                    </span></div>
+                    <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
