@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Delete, Button } from 'bloomer'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'react-day-picker/lib/style.css'
 
@@ -109,13 +108,7 @@ class WeekView extends Component {
     api.acceptShiftSwap(id, shiftID)
       .then(res => window.alert('Swap sent for approval by manager'))
   }
-  requestAvailability (e) {
-    e.preventDefault()
-    let { id } = this.props
-    let { thisWeek, nextWeek } = this.state
-    api.requestAvailability(id, thisWeek, nextWeek)
-      .then(res => res)
-  }
+
   render () {
     const { shifts, thisWeek, loaded } = this.state
     const { id } = this.props
@@ -123,7 +116,6 @@ class WeekView extends Component {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         return (
           <div>
-
             <div className='weekRange'>
               <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
               <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
@@ -148,13 +140,6 @@ class WeekView extends Component {
                 </button>
               </div>
               )}
-            </div>
-            <div className='requestOffAndCopy'>
-              <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
-              <span className='datePicker'>
-                <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
-                <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
-              </span>
             </div>
           </div>
         )

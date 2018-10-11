@@ -121,7 +121,6 @@ const api = {
     return request.get(`${domain}/myschedule/?start_date=${startDate}&end_date=${endDate}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
-        console.log(res.body, 'res')
         return (res.body.shifts)
       })
   },
@@ -240,13 +239,20 @@ const api = {
   },
   submitRequestAvailbility: (availabilitiesResponses, token, id) => {
     console.log(id, token, availabilitiesResponses, domain)
-    return request.patch('https://fierce-forest-56311.herokuapp.com/calendars/3/availability_response')
-    // return request.patch(`${domain}/calendars/${id}/availability_response`)
+    return request.patch(`${domain}/calendars/${id}/availability_response`)
       .set('Authorization', `Bearer ${token}`)
       .send({ 'responses': availabilitiesResponses })
       .then(res => {
         console.log(res.body)
         return res.body
+      })
+  },
+  assignShifts: (id, shiftID) => {
+    return request.post(`${domain}/calendars/${id}/availability_processes/${shiftID}/assign_shifts`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        console.log(res.body, 'res')
+        return (res.body)
       })
   }
 }

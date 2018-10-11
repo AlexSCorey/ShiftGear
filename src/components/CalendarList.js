@@ -24,23 +24,12 @@ class CalendarList extends Component {
   }
 
   componentDidMount () {
-    this.getStaff()
+
   }
   deleteCalendar (e, id) {
     e.preventDefault()
     api.deleteCalendar(id)
       .then(res => res)
-  }
-
-  getStaff () {
-    let { id, shiftsId } = this.props
-    api.getStaff(id, shiftsId)
-      .then(res => {
-        this.setState({ assignedUsers: res.assigned_users,
-          unassignedUsers: res.unassigned_users,
-          roles: res.roles,
-          loaded: true })
-      })
   }
 
   render () {
@@ -51,7 +40,7 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (
-              <div>
+              <div key={calendar.id}>
                 <div className='calendarItem'>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
                     {calendar.name}
@@ -72,11 +61,11 @@ class CalendarList extends Component {
                 <Button>Update Profile<Link to={`Calendar/UpdateProfile`} /></Button>
                 <div className='calendarItem'>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                    <button class='btn'><i class='far fa-edit' /></button>
+                    <button className='btn'><i className='far fa-edit' /></button>
                   </Link>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                  <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
-                    <button class='btn'><i class='far fa-trash-alt' /></button></delete>
+                  <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
+                    <button className='btn'><i className='far fa-trash-alt' /></button></div>
                 </div>
               </div>)
           }

@@ -13,20 +13,11 @@ class CalendarsContainer extends Component {
   }
   componentDidMount () {
     this.getCalendars()
-    this.getShifts()
   }
   getCalendars () {
     api.getCalendars()
       .then(calendars => {
         this.setState({ calendars: calendars })
-      })
-  }
-  getShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState(res)
       })
   }
 
@@ -47,9 +38,9 @@ class CalendarsContainer extends Component {
             let calendarGroup = calendars[calendarType]
             if (calendarGroup.length > 0) {
               return (
-                <div>
+                <div key={calendarGroup.id} >
                   <h1 className='titles'>{calendarNames[calendarType]}</h1>
-                  <CalendarList key={calendarType} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
+                  <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
                 </div>
               )
             } else {

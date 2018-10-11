@@ -24,6 +24,7 @@ import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
 import MyShifts from './components/MyShifts'
+import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 
 class App extends Component {
   constructor () {
@@ -118,6 +119,7 @@ class App extends Component {
               <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <WeekView id={match.params.id} type={match.params.type} />
+                  <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
                   <AcceptShiftRequest id={match.params.id} type={match.params.type} />
                 </Guard>} />
 
