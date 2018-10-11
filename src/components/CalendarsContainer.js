@@ -26,7 +26,7 @@ class CalendarsContainer extends Component {
     const { thisWeek, nextWeek } = this.state
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
-        this.setState(console.log(res, 'response'))
+        this.setState(res)
       })
   }
 
@@ -58,16 +58,6 @@ class CalendarsContainer extends Component {
           }) }
         </div>
       )
-      /* // for each key in keys
-      //
-      // return (
-      //   <div><Link to='/CreateCalendar'>Add Calendar</Link>
-      //     <h2>Managed Calendars</h2>
-      //     {managed_calendars && managed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
-      //     <h2>Owned Calendars</h2>
-      //     {owned_calendars && owned_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
-      //     {employed_calendars && employed_calendars.map((calendar) => <CalendarList editCalendar={this.editCalendar} key={calendar.id} id={calendar.id} name={calendar.name} />)}
-      //   </div>) */
     } else {
       return ('loading')
     }

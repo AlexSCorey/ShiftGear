@@ -123,10 +123,11 @@ class WeekView extends Component {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         return (
           <div>
+
             <div className='weekRange'>
-              <span><button className='titleButtonToggle' onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
+              <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
               <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
-              <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
+              <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
             <div>
               {shifts.summaries.map((shift) => <div key={shift.shift_id}>

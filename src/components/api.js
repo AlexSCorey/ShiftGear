@@ -117,6 +117,14 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
+  getMySchedule: (startDate, endDate) => {
+    return request.get(`${domain}/myschedule/?start_date=${startDate}&end_date=${endDate}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        console.log(res.body, 'res')
+        return (res.body.shifts)
+      })
+  },
   getShifts: (id) => {
     return request.post(`${domain}/calendars/${id}/shifts`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -155,7 +163,10 @@ const api = {
   getStaff: (id, shiftsId) => {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body)
+      .then(res => {
+        console.log(res.body)
+        return (res.body)
+      })
   },
   removeStaffFromShift: (calendarID, shiftsId, userID) => {
     return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)

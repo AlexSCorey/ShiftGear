@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Button, Delete } from 'bloomer'
+import moment from 'moment'
 // import { confirmAlert } from 'react-confirm-alert'
 // import 'react-confirm-alert/src/react-confirm-alert.css'
 // import moment from 'moment'
@@ -11,36 +13,63 @@ class CalendarList extends Component {
     super(props)
     this.state = {
       editing: false,
-      name: ''
+      name: '',
+      myShifts: {},
+      loaded: false
     }
     this.deleteCalendar = this.deleteCalendar.bind(this)
     // this.onLogout = this.onLogout.bind(this)
   }
 
+  componentDidMount () {
+    this.getMySchedule()
+  }
   deleteCalendar (e, id) {
     e.preventDefault()
     api.deleteCalendar(id)
       .then(res => res)
   }
 
-  componentDidMount () {
+  getMySchedule () {
+    let startDate = moment(new Date()).startOf('week').format('YYYY-MM-DD')
+    let endDate = moment(new Date()).add(6, 'days').startOf('week').format('YYYY-MM-DD')
+    console.log(startDate, endDate, 'here')
+    api.getMySchedule(startDate, endDate)
+      .then(res => {
+        console.log(res)
+        this.setState({ myShifts: res,
+          loaded: true })
+      })
   }
 
   render () {
     let { calendarGroup, type } = this.props
-    if (calendarGroup && calendarGroup.length > 0) {
+    let { myShifts, loaded } = this.state
+    if (loaded) {
       return (
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
-            return (<div className='calendarItem'>
-              <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
-                {calendar.name}
-              </Link>
-            </div>
+            return (
+              <div>
+                <Button>Update Profile<Link to={`Calendar/UpdateProfile`} /></Button>
+                <div className='calendarItem'>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
+                    {calendar.name}
+                  </Link>
+                </div>
+                <div>Your Scheduled
+                  <div>{myShifts.map((shift) =>
+                    <div>
+                      <div>{shift.calendar_name}</div>
+                    </div>
+                  )}</div>
+                </div>
+              </div>
             )
           } else {
             return (
               <div>
+                <Button>Update Profile<Link to={`Calendar/UpdateProfile`} /></Button>
                 <div className='calendarItem'>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
                     <button class='btn'><i class='far fa-edit' /></button>
@@ -53,6 +82,8 @@ class CalendarList extends Component {
           }
         }
         ))
+    } else {
+      return (<div>Loading</div>)
     }
   }
 }

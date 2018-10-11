@@ -124,7 +124,7 @@ class App extends Component {
                   <SingleShiftView id={match.params.id} type={match.params.type} shiftsId={match.params.shiftid} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
+              <Route path='/Calendar/UpdateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />
