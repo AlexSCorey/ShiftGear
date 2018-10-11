@@ -41,11 +41,12 @@ class AvailabilityResponse extends Component {
   }
   submitForm (e) {
     e.preventDefault()
-    this.state.availabilities.map((availabilities) => {
-      let id = availabilities.id
-      let available = availabilities.available
-      return console.log({ id: available })
+    let { token, id } = this.props
+    let availabilitiesResponses = {}
+    this.state.availabilities.forEach((availability) => {
+      availabilitiesResponses[availability.id] = availability.available
     })
+    api.submitRequestAvailbility(availabilitiesResponses, token, id)
   }
   render () {
     let { loaded, availabilities, availabilityRequests } = this.state
