@@ -128,44 +128,58 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
               <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
-            {shifts.summaries.map((shift) => <div key={shift.shift_id}>
-              <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                <div>{moment(shift.Day).format('ddd, Do')}
-                  <span className='columns'>
-                    <span className='column'><div>Total Shifts({shift.total_shifts})</div></span>
-                    <span className='column'><div>Shift Capacity({shift.total_capacity})</div></span>
-                    <span className='column'><div>Assigned Staff({shift.total_assigned_capacity})</div></span>
+            <div>
+              {shifts.summaries.map((shift) => <div key={shift.shift_id}>
+                <button className='columns3'>
+                  <div>
+                    <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                      <button className='delete' class='btn'><i class='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
+                      <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
+                      <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
+                        <button class='btn'><i class='far fa-trash-alt' /></button></delete>
+                      <div>
+                        <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
+                        <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
+                        <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
+                      </div>
+                    </Link>
+                  </div>
+                </button>
+                <div className='requestOffAndCopy'>
+                  <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
+                  <span className='datePicker'>
+                    <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
+                    <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
                   </span>
                 </div>
-              </Link>
-              <Delete onClick={(e) => this.deleteShift(e, shift.shift_id)} />
-            </div>)}
-            <Button onClick={e => this.requestAvailability(e)}>Request Availability</Button>
-            <span className='datePicker'>
-              <Button onClick={e => this.pasteWeek(e)}>Copy to:</Button>
-              <DayPickerInput onDayChange={(day) => this.copyWeekStart(day)} />
-            </span>
+              </div>
+              )
+              }
+            </div>
           </div>
         )
       } else {
         return (
           <div>
-            <Button onClick={(e) => this.lastWeek(e)}>Last Week</Button>
-            <div>{moment(thisWeek).format('MMM Do YYYY')}</div>
-            <Button onClick={(e) => this.nextWeek(e)}>Next Week</Button>
-            {shifts.summaries.map((shift) => <div key={shift.shift_id}>
-              <Button className='rows'>
-                <Link className='rows'to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                  {<div className='weekViewButton'>
-                    <div>{moment(shift.Day).format('ddd, Do')}
-                      <div>Total Shifts:({shift.total_shifts})</div>
-                      <div>Capacity:({shift.total_capacity})</div>
-                      <div>Assigned Cap:({shift.total_assigned_capacity})</div>
+            <div className='weekRange'>
+              <span><button className='titleButtonToggle' onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
+              <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
+              <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
+            </div>
+            <div>
+              {shifts.summaries.map((shift) => <div key={shift.shift_id}>
+                <button className='columns3'>
+                  <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                    <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
+                    <div>
+                      <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
+                      <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
+                      <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
                     </div>
-                  </div>}
-                </Link>
-              </Button>
-            </div>)}
+                  </Link>
+                </button>
+              </div>)}
+            </div>
           </div>
         )
       }
