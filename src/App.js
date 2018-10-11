@@ -23,6 +23,7 @@ import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
+import MyShifts from './components/MyShifts'
 
 class App extends Component {
   constructor () {
@@ -90,6 +91,7 @@ class App extends Component {
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                  <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
