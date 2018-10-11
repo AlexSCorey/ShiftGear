@@ -41,7 +41,11 @@ class AvailabilityResponse extends Component {
   }
   submitForm (e) {
     e.preventDefault()
-    console.log(this.state.availabilities, 'availabilities')
+    this.state.availabilities.map((availabilities) => {
+      let id = availabilities.id
+      let available = availabilities.available
+      return console.log({ id: available })
+    })
   }
   render () {
     let { loaded, availabilities, availabilityRequests } = this.state
