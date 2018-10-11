@@ -232,7 +232,7 @@ const api = {
     return request.patch('https://fierce-forest-56311.herokuapp.com/calendars/3/availability_response')
     // return request.patch(`${domain}/calendars/${id}/availability_response`)
       .set('Authorization', `Bearer ${token}`)
-      .send({ 'response': availabilitiesResponses })
+      .send({ 'responses': availabilitiesResponses })
       .then(res => {
         console.log(res.body)
         return res.body

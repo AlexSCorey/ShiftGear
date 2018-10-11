@@ -47,6 +47,7 @@ class AvailabilityResponse extends Component {
       availabilitiesResponses[availability.id] = availability.available
     })
     api.submitRequestAvailbility(availabilitiesResponses, token, id)
+    // console.log(availabilitiesResponses, 'res')
   }
   render () {
     let { loaded, availabilities, availabilityRequests } = this.state
