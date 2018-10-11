@@ -24,16 +24,16 @@ class AddEmployeeToCalendar extends Component {
     const { email } = this.state
     const { id } = this.props
     return (
-      <div className='loginField'>
-        <label className='emailLabel' htmlFor='role'>role</label>
-        <select id='role' onChange={e => this.setState({ role: e.target.value })}>
+      <div className='calendarItem'>
+        <label className='itemList1' htmlFor='role'>Select a Role for a New User</label><br />
+        <select id='role' className='selector' onChange={e => this.setState({ role: e.target.value })}>
           <option value='employee'>Employee</option>
           <option value='owner'>Owner</option>
           <option value='manager'>Manager</option>
         </select><br />
-        <label className='emailLabel'>email</label>
-        <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <button className='loginButton' onClick={e => { this.handleSubmit(e) }}><Link to={`/CalendarList/${id}`}><strong>submit</strong></Link></button>
+
+        <input className='formInput2' placeholder='Enter the Email Address for a New User' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+        <button onClick={e => { this.handleSubmit(e) }}><Link className='titleButton' to={`/CalendarList/${id}`}>Register A New User</Link></button>
       </div>
     )
   }

@@ -9,7 +9,9 @@ body {
   padding: 0;
 }
  /* login and register page */
-
+header {
+  padding-bottom: .5rem
+}
 .loginContainer {
   height: 100%;
 }
@@ -114,7 +116,7 @@ body {
     margin: 0 auto;
     font-size: 1.5rem;
     text-align: center;
-    color: black;
+    color: #3A2D51;
     font-family: 'Roboto Slab', serif;
   }
 
@@ -139,13 +141,16 @@ body {
   }
   i {
     padding: .3rem;
+    border: 0;
+    background: white
   }
   
   /* week view */
   .weekRange {
-    margin: 0 auto;
+  
     text-align: center;
-    width: 100%
+    vertical-align: center;
+    max-width: 100%
   }
 
   .titleButtonToggle {
@@ -180,13 +185,17 @@ body {
   }
   .columns3 {
     width: 100%;
-    display: block
+    display: block;
+    max-width: 650px;
+    margin: 0 auto 0;
   }
   .column3 {
     width: 33.3333%;
     float: left;
     text-align: center;
-    font-size: 1.2rem
+    font-size: 1.2rem;
+    border: 1px black;
+    margin-bottom: .5rem
   }
   .columns2 {
     width: 100%;
@@ -197,8 +206,8 @@ body {
     float: left;
     text-align: center
   }
-  .btn {
-    border: 0;
+  .button {
+    border: 1px black;
     margin-bottom: .5rem
   }
   .day {
@@ -225,6 +234,8 @@ body {
 }
   .requestOffAndCopy {
     text-align: center;
+    width: 100%;
+    margin: 0 auto 0;
   }
   .itemList1 {
     padding-top: 1.5rem;
@@ -233,4 +244,106 @@ body {
     color: black;
     font-size: 1.5rem;
     font-family: 'Nunito Sans', sans-serif
+  }
+  #DayPickerInput {
+    border: 1px black;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: #4A90E2;
+    font-size: 0.875em;
+    cursor: pointer;
+  }
+  input {
+    border: 1px black;
+    background-color: transparent;
+    font-size: 1rem;
+  }
+  button.button-is-outlined {
+    width: 100%
+  }
+
+  /* form fields */
+  .formLabel {
+    vertical-align: center;
+    text-align: center;
+    margin: 0 auto 0;
+    color: #3A2D51;
+    padding: .4rem;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .loginField {
+    vertical-align: center;
+  }
+  .formInput {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: center;
+    border: 1px solid #3A2D51;
+    border-radius: .5rem;
+    max-width: 600px;
+    font-size: 1rem;
+  }
+  .timeSelector {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 auto 0;
+    width: 100%;
+    max-width: 200px;
+    color: #2C46DD;
+    border: 1px dotted #3A2D51;
+  }
+  .selector {
+    width: 2rem;
+  }
+  .checkbox {
+    height: 1rem;
+    width: 2rem;
+  }
+  .centerText {
+    text-align: center;
+  }
+  #centerText {
+    text-align: center;
+  }
+  .formInput1 {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: center;
+    border: 1px solid #3A2D51;
+    border-radius: .5rem;
+    max-width: 600px;
+    font-size: 1rem;
+  }
+  #role.selector {
+    font-size: 1.5rem;
+    vertical-align: center;
+    width: 8rem;
+    height: 2rem;
+    margin: 0 auto 0;
+    color: #2C46DD;
+    border: 1px dotted #3A2D51;
+  }
+  .formInput2 {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: center;
+    border: 1px solid #3A2D51;
+    border-radius: .5rem;
+    max-width: 600px;
+    font-size: 1rem;
+    margin-top:.6rem
   }
