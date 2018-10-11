@@ -50,7 +50,8 @@ class CalendarsContainer extends Component {
         </div>
       )
     } else {
-      return ('loading')
+      return (<div className='listItems'>
+        <Link className='title' to='/CreateCalendar'><button className='titleButton'>New Calendar</button></Link></div>)
     }
   }
 }

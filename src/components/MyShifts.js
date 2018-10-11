@@ -34,6 +34,8 @@ class MyShifts extends Component {
             </div>
           )}</div>
         </div></div>)
+    } else if (loaded && myShifts.length === 0) {
+      return (<div />)
     } else {
       return (<div>Loading</div>)
     }

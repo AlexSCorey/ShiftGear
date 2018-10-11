@@ -40,7 +40,7 @@ class CalendarList extends Component {
         calendarGroup.map((calendar) => {
           if (type === 'Employed Calendars') {
             return (
-              <div key={calendar.id}>
+              <div key={calendarGroup.id}>
                 <div className='calendarItem'>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
                     {calendar.name}
