@@ -192,10 +192,12 @@ header {
   .column3 {
     width: 33.3333%;
     float: left;
-    text-align: center;
-    font-size: 1.2rem;
-    border: 1px black;
-    margin-bottom: .5rem
+  }
+  .request-unavailable-btn  {
+    background-color: red !important;
+  }
+  .request-available-btn {
+    background-color:green !important;
   }
   .columns2 {
     width: 100%;
@@ -346,4 +348,5 @@ header {
     max-width: 600px;
     font-size: 1rem;
     margin-top:.6rem
+
   }
