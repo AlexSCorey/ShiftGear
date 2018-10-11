@@ -23,6 +23,8 @@ import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
+import MyShifts from './components/MyShifts'
+import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 
 class App extends Component {
   constructor () {
@@ -90,6 +92,7 @@ class App extends Component {
               <Route path='/CalendarList' render={(props) =>
                 <Guard condition={this.state.currentUser} redirectTo='/Login'>
                   <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                  <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                 </Guard>} />
 
               <Route path='/CreateCalendar' render={({ props }) =>
@@ -116,6 +119,7 @@ class App extends Component {
               <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <WeekView id={match.params.id} type={match.params.type} />
+                  <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
                   <AcceptShiftRequest id={match.params.id} type={match.params.type} />
                 </Guard>} />
 
@@ -124,7 +128,7 @@ class App extends Component {
                   <SingleShiftView id={match.params.id} type={match.params.type} shiftsId={match.params.shiftid} />
                 </Guard>} />
 
-              <Route path='/Calendar/:id/UpdateProfile' render={({ match }) =>
+              <Route path='/Calendar/UpdateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                   <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
                 </Guard>} />

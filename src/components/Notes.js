@@ -21,7 +21,6 @@ class Notes extends Component {
     let today = moment(date).format('YYYY-MM-DD')
     api.getNotes(id, today)
       .then(res => {
-        console.log(res, 'res body')
         this.setState({ employeeNotes: res,
           loaded: true })
       })

@@ -21,7 +21,6 @@ class SingleShiftView extends Component {
     let { id, shiftsId } = this.props
     api.getStaff(id, shiftsId)
       .then(res => {
-        console.log(res, 'res')
         this.setState({ assignedUsers: res.assigned_users,
           unassignedUsers: res.unassigned_users,
           roles: res.roles,

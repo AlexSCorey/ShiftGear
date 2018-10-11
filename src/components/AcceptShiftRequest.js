@@ -19,6 +19,7 @@ class AcceptShiftRequest extends Component {
     let { id } = this.props
     api.getShiftSwapIndex(id)
       .then(res => {
+        console.log(res, 'res')
         this.setState({ shiftSwapsIndex: res,
           loaded: true })
       })
@@ -48,7 +49,7 @@ class AcceptShiftRequest extends Component {
                     <Button isColor='danger' isStatic='false' isOutlined='true' value={shiftSwap.id}
                       onClick={(e) => { if (window.confirm('Click to approve this shift swap.')) this.approveShiftSwap() }}>
                       <div>
-                        {moment(shiftSwap.shift_start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift_end_time).format('MMM Do YYYY hh:mm a')}
+                        {moment(shiftSwap.shift.start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift.end_time).format('MMM Do YYYY hh:mm a')}
                       </div>
                     </Button>
                   </div>
@@ -59,7 +60,7 @@ class AcceptShiftRequest extends Component {
                     <div key={shiftSwap.id}>
                       <Button isOutlined='success' value={shiftSwap.id}
                         onClick={(e) => { if (window.confirm('Accept this shift?')) this.acceptShiftSwap(e, e.target.value) }}
-                      >{moment(shiftSwap.shift_start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift_end_time).format('MMM Do YYYY hh:mm a')}</Button>
+                      >{moment(shiftSwap.shift.start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift.end_time).format('MMM Do YYYY hh:mm a')}</Button>
                     </div>
                   </div>)
               }
@@ -78,7 +79,7 @@ class AcceptShiftRequest extends Component {
                     <div key={shiftSwap.id}>
                       <Button disabled value={shiftSwap.id}
                         onClick={(e) => { (window.confirm('This shift is pending approval and cannot be selected.')) }}
-                      >{moment(shiftSwap.shift_start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift_end_time).format('MMM Do YYYY hh:mm a')}</Button>
+                      >{moment(shiftSwap.shift.start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift.end_time).format('MMM Do YYYY hh:mm a')}</Button>
                     </div>
                   </div>)
                 } else {
@@ -87,7 +88,7 @@ class AcceptShiftRequest extends Component {
                       <div key={shiftSwap.id}>
                         <Button isOutlined='success' value={shiftSwap.id}
                           onClick={(e) => { if (window.confirm('Accept this shift?')) this.acceptShiftSwap(e, e.target.value) }}
-                        >{moment(shiftSwap.shift_start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift_end_time).format('MMM Do YYYY hh:mm a')}</Button>
+                        >{moment(shiftSwap.shift.start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift.end_time).format('MMM Do YYYY hh:mm a')}</Button>
                       </div>
                     </div>)
                 }
