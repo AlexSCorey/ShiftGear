@@ -115,19 +115,19 @@ class WeekView extends Component {
         return (
           <div>
             <div className='weekRange'>
-              <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
+              <span><button key={'next'}className='titleButtonToggle' isactive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
               <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
-              <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
+              <span><button key={'last'} className='titleButtonToggle' isactive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
             <div>
-              {shifts.summaries.map((shift) => <div key={shift.shift_id}>
-                <button className='columns3'>
-                  <div>
+              {shifts.summaries.map((shift) => <div key={shift.Day}>
+                <div className='columns3'>
+                  <div key={shift.Day}>
                     <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                      <button className='delete' class='btn'><i class='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
+                      <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
                       <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
-                      <delete type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                        <button class='btn'><i class='far fa-trash-alt' /></button></delete>
+                      <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
+                        <button className='btn'><i className='far fa-trash-alt' /></button></div>
                       <div>
                         <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
                         <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
@@ -135,7 +135,7 @@ class WeekView extends Component {
                       </div>
                     </Link>
                   </div>
-                </button>
+                </div>
               </div>
               )}
             </div>
@@ -146,11 +146,12 @@ class WeekView extends Component {
           <div>
             <div className='weekRange'>
               <span><button className='titleButtonToggle' onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
-              <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
+              <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
             <div>
-              {shifts.summaries.map((shift) => <div key={shift.shift_id}>
+              {shifts.summaries.map((shift) => <div key={shift.Day}>
+                {console.log(shift.Day, 'shift id')}
                 <button className='columns3'>
                   <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                     <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>

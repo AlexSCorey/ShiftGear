@@ -37,7 +37,6 @@ class SingleShiftView extends Component {
       })
   }
   assignStaff (value) {
-    console.log('im here')
     let { id, shiftsId } = this.props
     api.assignStaff(value, id, shiftsId)
       .then(res => {

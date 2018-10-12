@@ -12,13 +12,14 @@ class DayView extends Component {
       shiftsToday: {},
       users: {},
       loaded: false,
+      assignedUsers: [],
       unassignedUsers: []
     }
   }
   componentDidMount () {
+    this.getStaff()
     this.getShifts()
     this.getNotes()
-    this.getStaff()
   }
   getStaff () {
     let { id, shiftsId } = this.props
@@ -41,7 +42,7 @@ class DayView extends Component {
     let { id, date } = this.props
     api.getShiftsForADay(id, date)
       .then(res => {
-        // console.log(res, 'res in day view')
+        console.log(res, 'res')
         this.setState({ shiftsToday: res,
           loaded: true })
       })
@@ -73,7 +74,7 @@ class DayView extends Component {
         return (
           <div>
             {shiftsToday.shifts.map((shift) =>
-              <button className='columns2'>
+              <div key={shift.shift_id} className='columns2'>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                   <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>
@@ -82,12 +83,18 @@ class DayView extends Component {
                       <div className='column3'>Start: {moment(shift.start_time).format('h:mm:a')}</div>
                       <div className='column3'>End: {moment(shift.end_time).format('h:mm:a')}</div>
                       <div className='column3'>Published: {shift.published}</div>
-                    </span></div>
+                    </span>
+                    </div>
                     <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
                 <div>
+                  <div className='temp'>
+                    <div>Assigned Staff:</div>
+                    {shift.assigned_users.map((user) =>
+                      <div key={user.id}>{user.name}</div>)}
+                  </div>
                   <div>
                     <div>Unassigned Staff</div>
                     <div>{unassignedUsers.map((user) =>
@@ -97,7 +104,7 @@ class DayView extends Component {
                     )}</div>
                   </div>
                 </div>
-              </button>
+              </div>
             )}
             <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
             <Label>Note:
@@ -110,7 +117,7 @@ class DayView extends Component {
         return (
           <div>
             {shiftsToday.shifts.map((shift) =>
-              <div>
+              <div key={shift.id}>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
                   <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>

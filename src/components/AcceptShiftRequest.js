@@ -19,7 +19,6 @@ class AcceptShiftRequest extends Component {
     let { id } = this.props
     api.getShiftSwapIndex(id)
       .then(res => {
-        console.log(res, 'res')
         this.setState({ shiftSwapsIndex: res,
           loaded: true })
       })
@@ -56,8 +55,8 @@ class AcceptShiftRequest extends Component {
                 </div>)
               } else {
                 return (
-                  <div>
-                    <div key={shiftSwap.id}>
+                  <div key={shiftSwap.id}>
+                    <div>
                       <Button isOutlined='success' value={shiftSwap.id}
                         onClick={(e) => { if (window.confirm('Accept this shift?')) this.acceptShiftSwap(e, e.target.value) }}
                       >{moment(shiftSwap.shift.start_time).format('MMM Do YYYY hh:mm a')} - {moment(shiftSwap.shift.end_time).format('MMM Do YYYY hh:mm a')}</Button>
@@ -84,7 +83,7 @@ class AcceptShiftRequest extends Component {
                   </div>)
                 } else {
                   return (
-                    <div>
+                    <div key={shiftSwap.id}>
                       <div key={shiftSwap.id}>
                         <Button isOutlined='success' value={shiftSwap.id}
                           onClick={(e) => { if (window.confirm('Accept this shift?')) this.acceptShiftSwap(e, e.target.value) }}

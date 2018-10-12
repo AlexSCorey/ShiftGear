@@ -66,7 +66,7 @@ class App extends Component {
                   <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/calendars/:id/availability_response/:token' render={({ match }) =>
+              <Route  path='/calendars/:id/availability_response/:token' render={({ match }) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <AvailabilityResponse id={match.params.id} token={match.params.token} />
                 </Guard>} />
