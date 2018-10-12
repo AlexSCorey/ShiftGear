@@ -9,7 +9,7 @@ class Header extends Component {
         <span>
           <div className='headerSpreader'>
             <Link to={`/CalendarList`}> <button className='header' id='home'><ii class='fas fa-home' /> Home</button></Link>
-            <button onClick={onLogout} className='header' id='logout'>Logout <ii class='fas fa-sign-out-alt' /></button>
+            <Link to={`/Login`}><button onClick={onLogout} className='header' id='logout'>Logout <ii class='fas fa-sign-out-alt' /></button></Link>
           </div>
         </span>
       </div>
