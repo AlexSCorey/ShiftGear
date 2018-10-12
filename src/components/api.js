@@ -180,7 +180,6 @@ const api = {
         'calendar_id': `${id}`
       })
       .then(res => {
-        console.log(res)
         return (res.body)
       })
   },
@@ -223,14 +222,9 @@ const api = {
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
-    console.log(id, 'res')
-    console.log(startWeek, 'res')
-    console.log(endWeek, 'res')
-    console.log(copyWeekStart, 'res')
     return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
-        console.log(res, 'res')
         return (res.body)
       })
   },
@@ -256,17 +250,14 @@ const api = {
     return request.get(`${domain}/calendars/${id}/availability_response`)
       .set('Authorization', `Bearer ${token}`)
       .then(res => {
-        console.log(res.body, 'res body')
         return res.body
       })
   },
   submitRequestAvailbility: (availabilitiesResponses, token, id) => {
-    console.log(id, token, availabilitiesResponses, domain)
     return request.patch(`${domain}/calendars/${id}/availability_response`)
       .set('Authorization', `Bearer ${token}`)
       .send({ 'responses': availabilitiesResponses })
       .then(res => {
-        console.log(res.body)
         return res.body
       })
   },
@@ -274,7 +265,6 @@ const api = {
     return request.post(`${domain}/calendars/${id}/availability_processes/${shiftID}/assign_shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
-        console.log(res.body, 'res')
         return (res.body)
       })
   }

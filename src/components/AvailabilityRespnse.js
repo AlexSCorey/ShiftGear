@@ -55,11 +55,11 @@ class AvailabilityResponse extends Component {
       return (<div>
         <div>{availabilityRequests.availability_process.calendar_name}</div>
         {availabilities.map((request) =>
-          <div id={request.id}>
+          <div key={request.id}>
             <div>{moment(request.start_time).format('MMM Do, YYYY')}</div>
             <div>Start:{moment(request.start_time).format('h:mma')}</div>
             <div>End: {moment(request.end_time).format('h:mma')}</div>
-            <div>{console.log(request.available, 'availabel')}
+            <div>
               <Button className={request.available ? 'request-available-btn' : ''} name='availability' value={request.id} isActive='true'onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
               <Button className={request.available ? '' : 'request-unavailable-btn'} name='availability' value={request.id} isActive='true' onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
             </div>

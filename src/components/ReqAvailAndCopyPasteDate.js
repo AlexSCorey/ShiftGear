@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'react-day-picker/lib/style.css'
+import { Link } from 'react-router-dom'
 
 import api from './api'
 
@@ -57,6 +58,7 @@ class ReqAvailAndCopyPasteDate extends Component {
   }
   render () {
     let { loaded, shifts } = this.state
+    let { id } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         if (shifts.availability_processes.length === 0) {
@@ -73,6 +75,7 @@ class ReqAvailAndCopyPasteDate extends Component {
           return (
             <div>
               <div className='requestOffAndCopy'>
+                <Link to={`/Calendar/${id}/EditCalendar`}><button className='navButtons' >Add Staff</button></Link>
                 <button className='navButtons' onClick={e => this.assignShfts(e)}>Assign Shifts</button>
                 <span className='datePicker'>
                   <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
