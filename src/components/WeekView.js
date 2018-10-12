@@ -57,7 +57,6 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, startDate, endDate)
       .then(res => {
-        console.log(res, 'res new shifts')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -76,23 +75,36 @@ class WeekView extends Component {
   }
   nextWeek (e) {
     e.preventDefault()
+    const { id } = this.props
     let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNextWeekShifts()
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+      })
   }
   lastWeek (e) {
     e.preventDefault()
+    const { id } = this.props
     let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getLastWeekShifts()
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        console.log(res)
+        this.setState({ shifts: res,
+          loaded: true })
+      })
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
