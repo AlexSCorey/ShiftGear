@@ -72,16 +72,16 @@ class DayView extends Component {
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
           <div>
+            <h2 className='titles'>{moment(date).format('ddd, Do')}</h2>
             {shiftsToday.shifts.map((shift) =>
-              <button className='columns2'>
+              <button className='columns3'>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                  <h2>{moment(date).format('ddd, Do')}</h2>
                   <div id={shift.shift_id} className='shiftNode'>
                     <div><span>
-                      <div className='column2'>Capacity: {shift.capacity} </div>
+                      <div className='column3'>Capacity: {shift.capacity} </div>
                       <div className='column3'>Start: {moment(shift.start_time).format('h:mm:a')}</div>
                       <div className='column3'>End: {moment(shift.end_time).format('h:mm:a')}</div>
-                      <div className='column3'>Published: {shift.published}</div>
+                      {/* <div className='column3'>Published: {shift.published}</div> */}
                     </span></div>
                     <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
@@ -101,7 +101,7 @@ class DayView extends Component {
             )}
             <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
             <Label>Note:
-              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
           </div>
@@ -129,7 +129,7 @@ class DayView extends Component {
               </div>
             )}
             <Label>Note:
-              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
           </div>

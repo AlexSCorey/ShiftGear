@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import api from './api'
 import CalendarList from './CalendarList'
+import Header from './Header'
 
 class CalendarsContainer extends Component {
   constructor (props) {
@@ -23,6 +24,7 @@ class CalendarsContainer extends Component {
 
   render () {
     const { calendars } = this.state
+    const { currentUser } = this.props
     let calendarTypes = Object.keys(calendars)
     if (calendarTypes.length > 0) {
       const calendarNames = {
@@ -38,9 +40,12 @@ class CalendarsContainer extends Component {
             let calendarGroup = calendars[calendarType]
             if (calendarGroup.length > 0) {
               return (
-                <div key={calendarGroup.id} >
-                  <h1 className='titles'>{calendarNames[calendarType]}</h1>
-                  <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
+                <div>
+                  <div key={calendarGroup.id} >
+                    <h1 className='titles'>{calendarNames[calendarType]}</h1>
+                    <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
+                  </div>
+                  <div className='center'><Link to={`Calendar/UpdateProfile`}><button className='navButtons'>Update Your Profile</button></Link></div>
                 </div>
               )
             } else {

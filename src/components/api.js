@@ -197,7 +197,7 @@ const api = {
       .send({ 'decision': `${response}` })
   },
   requestPasswordReset: (email, password, token) => {
-    request.post(`${domain}/passwords/reset `)
+    return request.post(`${domain}/passwords/reset `)
       .send({ 'email': `${email}`,
         'password': `${password}`,
         'token': `${token}` })

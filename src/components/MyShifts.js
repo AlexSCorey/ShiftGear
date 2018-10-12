@@ -26,13 +26,13 @@ class MyShifts extends Component {
     let { loaded, myShifts } = this.state
     if (loaded) {
       return (<div>
-        <div>Your Scheduled
+        <div className='titles'>Your Schedule
           <div>{myShifts.map((shift) =>
-            <div key={shift.shift_id}>
-              <div>{shift.calendar_name}</div>
-              <div>{moment(shift.start_time).format('MMM Do h:mma')}-{moment(shift.end_time).format('MMM Do h:mma')}</div>
-            </div>
-          )}</div>
+          <div className='itemList3' key={shift.shift_id}>
+          <div><strong>{shift.calendar_name}</strong></div>
+          <div>{moment(shift.start_time).format('MMM Do h:mma')}-{moment(shift.end_time).format('MMM Do h:mma')}</div>
+        </div>
+        )}</div>
         </div></div>)
     } else if (loaded && myShifts.length === 0) {
       return (<div />)
