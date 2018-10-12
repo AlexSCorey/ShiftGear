@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 import { Link } from 'react-router-dom'
 
 import api from './api'
@@ -106,6 +107,22 @@ class WeekView extends Component {
           loaded: true })
       })
   }
+  goToThisWeek (date) {
+    const { id } = this.props
+    let thisWeek = moment(date).startOf('week').format('YYYY-MM-DD')
+    let nextWeek = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    this.setState({ nextWeek: nextWeek,
+      thisWeek: thisWeek,
+      lastWeek: lastWeek })
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        console.log(res)
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
   deleteShift (e, shiftId) {
     e.preventDefault()
     let { id } = this.props
@@ -131,6 +148,9 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button key={'last'} className='titleButtonToggle' isactive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
+            <div>
+            Go to:
+              <DayPickerInput className='date' onDayChange={(day) => this.goToThisWeek(day)} /></div>
             <div>
               {shifts.summaries.map((shift) => <div key={shift.Day}>
                 <div className='columns3'>
