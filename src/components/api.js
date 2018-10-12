@@ -199,12 +199,17 @@ const api = {
       .set('Authorization', `Bearer ${token}`)
       .send({ 'decision': `${response}` })
   },
-  requestPasswordReset: (email, password, token) => {
-    return request.post(`${domain}/passwords/reset `)
+  requestPasswordReset: (email) => {
+    return request.post(`${domain}/password/forgot `)
+      .send({ 'email': `${email}` })
+      .then(res => res)
+  },
+  resetPassword: (email, password, token) => {
+    return request.post(`${domain}/password/reset`)
       .send({ 'email': `${email}`,
         'password': `${password}`,
         'token': `${token}` })
-      .then(res => res)
+      .then(res => res.body)
   },
   editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
     dlts) => {
@@ -218,17 +223,32 @@ const api = {
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
+    console.log(id, 'res')
+    console.log(startWeek, 'res')
+    console.log(endWeek, 'res')
+    console.log(copyWeekStart, 'res')
     return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
       .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        console.log(res, 'res')
+        return (res.body)
+      })
+  },
+  updateProfile: (name, password, email, phoneNum) => {
+    return request.patch(`${domain}/update`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'name': `${name}`,
+        'password': `${password}`,
+        'email': `${email}`,
+        'phone_number': `${phoneNum}` })
       .then(res => res.body)
   },
   requestAvailability: (id, thisWeek, nextWeek) => {
-    return request.post(`${domain}/calendars/${id}/availability_process`)
+    return request.post(`${domain}/calendars/${id}/availability_processes`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'start_date': `${thisWeek}`,
         'end_date': `${nextWeek}` })
       .then(res => {
-        console.log(res.body, 'res body')
         return res.body
       })
   },

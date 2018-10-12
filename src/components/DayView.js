@@ -117,14 +117,13 @@ class DayView extends Component {
                     <div>{moment(shift.end_time).zone(shift.end_time).format('h:mm:a')}</div>
                   </div>
                 </Link>
-                <Button value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</Button>
-                <Button value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</Button>
               </div>
             )}
             <Label>Note:
               <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+
             </Label>
-            <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
+            <Button type='submit' onClick={(e) => { if (window.confirm('You successfully submitted a note')) this.handleSubmit(e) }}>Save</Button>
           </div>
         )
       }

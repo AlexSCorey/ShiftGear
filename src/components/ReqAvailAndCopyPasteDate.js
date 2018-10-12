@@ -37,6 +37,7 @@ class ReqAvailAndCopyPasteDate extends Component {
     let { copyWeekStart, thisWeek } = this.state
     let startWeek = moment(thisWeek).format('YYYY-MM-DD')
     let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
+    console.log(id, copyWeekStart, thisWeek, endWeek, 'paste week')
     api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
       .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }

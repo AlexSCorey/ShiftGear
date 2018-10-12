@@ -18,6 +18,7 @@ import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import RequestPasswordReset from './components/RequestPasswordReset'
+import ResetPassword from './components/ResetPassword'
 import SingleShiftView from './components/SingleShiftView'
 import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
@@ -66,9 +67,19 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Login setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
+
                 <Route path='/Register' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Register setCurrentUser={this.setCurrentUser} />
+                  </Guard>} />
+
+                <Route path='/RequestNewPassword' render={(match) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                    <RequestPasswordReset setCurrentUser={this.setCurrentUser} />
+                  </Guard>} />
+                <Route path='/Password/Reset/:token' render={(match) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                    <ResetPassword token={match.params.token} />
                   </Guard>} />
               </div>
             </main>
@@ -151,12 +162,7 @@ class App extends Component {
 
                   <Route path='/Calendar/UpdateProfile' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
-                    </Guard>} />
-
-                  <Route path='/RequestPassword' render={(match) =>
-                    <Guard condition={!this.state.currentUser} redirectTo='/Login'>
-                      <RequestPasswordReset setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                      <UpdateProfile id={match.params.id} />
                     </Guard>} />
 
                   <Route path='/complete/:token' render={({ match }) =>

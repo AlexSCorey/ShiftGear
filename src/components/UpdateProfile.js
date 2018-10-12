@@ -18,10 +18,9 @@ class UpdateProfile extends Component {
   handleSubmit (e) {
     e.preventDefault()
     const { name, password, passwordConf, email, phoneNum } = this.state
-    const { setCurrentUser } = this.props
     if (passwordConf === password) {
-      api.register(name, password, email, phoneNum)
-        .then(userToken => setCurrentUser(userToken))
+      api.updateProfile(name, password, email, phoneNum)
+        .then(res => res.body)
     } else {
       this.setState({ errMsg: 'Your password and confirmation must match.' })
     }
@@ -40,7 +39,7 @@ class UpdateProfile extends Component {
         <input className='emailInput' value={passwordConf} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
         <label className='emailLabel'>phone number</label>
         <input className='emailInput' value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} />
-        <NavLink to='/CalendarList'><button className='loginButton' onClick={e => { this.handleSubmit(e) }}>register</button></NavLink>
+        <NavLink to='/CalendarList'><button className='loginButton' onClick={e => { this.handleSubmit(e) }}>Update</button></NavLink>
       </div>
     )
   }
