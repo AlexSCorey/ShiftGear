@@ -25,6 +25,7 @@ import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
 import MyShifts from './components/MyShifts'
 import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
+import Header from './components/Header'
 
 class App extends Component {
   constructor () {
@@ -57,91 +58,89 @@ class App extends Component {
         <div className='App'>
           <main className='main'>
             <div className='board'>
-              {/* <Route path='' render={({ match }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
-                  <Login id={match.params.id} setCurrentUser={this.setCurrentUser} />
-                </Guard>} /> */}
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                   <Login setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
- 
-              <Route path='/calendars/:id/availability_response/:token' render={({ match }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <AvailabilityResponse id={match.params.id} token={match.params.token} />
-                </Guard>} />
+              <div>
+                <Header onLogout={this.onLogout} setCurrentUser={this.setCurrentUser} />
+                <Route path='/calendars/:id/availability_response/:token' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <AvailabilityResponse id={match.params.id} token={match.params.token} />
+                  </Guard>} />
 
-              <Route path='/welcome/:id' render={({ match }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <NewUserRegister setNewUser={this.setNewUser}
-                    id={match.params.id} />
-                </Guard>} />
+                <Route path='/welcome/:id' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <NewUserRegister setNewUser={this.setNewUser}
+                      id={match.params.id} />
+                  </Guard>} />
 
-              <Route path='/Register' render={(props) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <Register setCurrentUser={this.setCurrentUser} />
-                </Guard>} />
+                <Route path='/Register' render={(props) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <Register setCurrentUser={this.setCurrentUser} />
+                  </Guard>} />
 
-              <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
-                  <CreateCalendar id={match.params.id} />
-                  {/* <EditCalendar id={match.params.id} /> */}
-                </Guard>} />
+                <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                    <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
+                    <CreateCalendar id={match.params.id} />
+                    {/* <EditCalendar id={match.params.id} /> */}
+                  </Guard>} />
 
-              <Route path='/CalendarList' render={(props) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                  <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                </Guard>} />
+                <Route path='/CalendarList' render={(props) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                    <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                    <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route path='/CreateCalendar' render={({ props }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <CreateCalendar onLogout={this.onLogout} />
-                </Guard>} />
+                <Route path='/CreateCalendar' render={({ props }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                    <CreateCalendar onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
-                </Guard>} />
+                <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
-                </Guard>} />
+                <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
+                  </Guard>} />
 
-              <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <Notes id={match.params.id} date={match.params.date} />
-                  <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
-                </Guard>} />
+                <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <Notes id={match.params.id} date={match.params.date} />
+                    <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <WeekView id={match.params.id} type={match.params.type} />
-                  <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
-                  <AcceptShiftRequest id={match.params.id} type={match.params.type} />
-                </Guard>} />
+                <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <WeekView id={match.params.id} type={match.params.type} />
+                    <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
+                    <AcceptShiftRequest id={match.params.id} type={match.params.type} />
+                  </Guard>} />
 
-              <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <SingleShiftView id={match.params.id} type={match.params.type} shiftsId={match.params.shiftid} />
-                </Guard>} />
+                <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <SingleShiftView id={match.params.id} type={match.params.type} shiftsId={match.params.shiftid} />
+                  </Guard>} />
 
-              <Route path='/Calendar/UpdateProfile' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                  <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
-                </Guard>} />
+                <Route path='/Calendar/UpdateProfile' render={({ match }) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                    <UpdateProfile id={match.params.id} onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route path='/RequestPassword/:id' render={(match) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <RequestPasswordReset id={match.params.id} setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                </Guard>} />
+                <Route path='/RequestPassword' render={(match) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                    <RequestPasswordReset setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                  </Guard>} />
 
-              <Route path='/complete/:token' render={({ match }) =>
-                <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                  <ManagerApproveSwap token={match.params.id} />
-                </Guard>} />
+                <Route path='/complete/:token' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <ManagerApproveSwap token={match.params.id} />
+                  </Guard>} />
+              </div>
             </div>
           </main>
         </div>

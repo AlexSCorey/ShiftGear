@@ -42,7 +42,7 @@ class CreateCalendar extends Component {
       return (<div>Alert:`${msg}` </div>)
     } else if (id) {
       return (<div className='calendarItem'>
-        <label className='itemList1'>Edit Calendar Title<input className='formInput' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
+        <label className='itemList1'>Create a New Calendar<input className='formInput' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
         </label>
         <div className='calendarItem'>
           <label className='itemList1'>Time Zone<br /><div>
@@ -67,7 +67,7 @@ class CreateCalendar extends Component {
       </div>)
     } else {
       return (<div className='calendarItem'>
-        <label className='itemList1'>Calendar Title<input className='formInput' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
+        <label className='itemList1'>Create a New Calendar<input className='formInput' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
         </label>
         <div>
           <div className='itemList1'>
