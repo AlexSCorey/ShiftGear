@@ -37,8 +37,9 @@ class SingleShiftView extends Component {
       })
   }
   assignStaff (value) {
+    console.log('im here')
     let { id, shiftsId } = this.props
-    api.assignShift(value, id, shiftsId)
+    api.assignStaff(value, id, shiftsId)
       .then(res => {
         window.alert(res)
       })
@@ -54,7 +55,7 @@ class SingleShiftView extends Component {
               <div>
                 <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
                 <div>{user.name}
-                  <Delete userId={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+                  <Delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
                 </div>
               </div>
             )}</div>

@@ -172,14 +172,18 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
-  assignShift: (userID, id, shiftsId) => {
+  assignStaff: (userID, id, shiftsId) => {
     return request.post(`${domain}/calendars/${id}/shifts/${shiftsId}/usershifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({
         'user_id': `${userID}`,
-        'shift_id': `${shiftsId}`
+        'shift_id': `${shiftsId}`,
+        'calendar_id': `${id}`
       })
-      .then(res => res.body)
+      .then(res => {
+        console.log(res)
+        return (res.body)
+      })
   },
   getShiftSwapIndex: (id) => {
     return request.get(`${domain}/calendars/${id}/swaps`)
