@@ -31,14 +31,15 @@ class CalendarsContainer extends Component {
         employed_calendars: 'Employed Calendars'
       }
       return (
-        <div>
+        <div key={'calendarType'}>
           <div className='listItems'>
-            <Link className='title' to='/CreateCalendar'><button className='titleButton'>New Calendar</button></Link></div>
+            <Link className='title' to='/CreateCalendar'><button className='titleButton'>New Calendar</button></Link>
+          </div>
           { calendarTypes.map((calendarType) => {
             let calendarGroup = calendars[calendarType]
             if (calendarGroup.length > 0) {
               return (
-                <div key={calendarGroup.id} >
+                <div key={`${calendars[calendarType]}`} >
                   <h1 className='titles'>{calendarNames[calendarType]}</h1>
                   <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
                 </div>
