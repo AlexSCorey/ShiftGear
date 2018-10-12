@@ -57,17 +57,14 @@ class CalendarList extends Component {
             )
           } else {
             return (
-              <div>
-                <Button>Update Profile<Link to={`Calendar/UpdateProfile`} /></Button>
-                <div className='calendarItem'>
+              <div className='calendarItem'>
+                <span>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
-                    <button className='btn'><i className='far fa-edit' /></button>
-                  </Link>
+                    <button className='btn'><i className='far fa-edit' /></button></Link>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-                  <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}>
-                    <button className='btn'><i className='far fa-trash-alt' /></button></div>
-                </div>
-              </div>)
+                  <span type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}><button className='btn'><i className='far fa-trash-alt' /></button></span></span><br />
+              </div>
+            )
           }
         }
         ))

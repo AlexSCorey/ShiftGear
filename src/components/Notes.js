@@ -27,9 +27,10 @@ class Notes extends Component {
   }
   render () {
     let { employeeNotes, loaded } = this.state
+    let { date } = this.props
     if (loaded) {
       return (<div>
-        <div className='titles'>Notes:</div>
+        <div className='titles'>Notes for {moment(date).format('ddd, Do')}</div>
         <div>
           {employeeNotes.notes.map((note) =>
             <div key={note.note_id} className='container'>
