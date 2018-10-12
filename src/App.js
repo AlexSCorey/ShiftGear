@@ -66,7 +66,6 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Login setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
-
                 <Route path='/Register' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Register setCurrentUser={this.setCurrentUser} />
