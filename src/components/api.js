@@ -163,7 +163,6 @@ const api = {
     return request.get(`${domain}/calendars/${id}/shifts/${shiftsId}/users`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
-        console.log(res.body)
         return (res.body)
       })
   },

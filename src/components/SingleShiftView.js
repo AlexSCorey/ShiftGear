@@ -51,7 +51,7 @@ class SingleShiftView extends Component {
           <div>
             <div>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
-              <div>
+              <div key={user.id}>
                 <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
                 <div>{user.name}
                   <Delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
@@ -61,7 +61,7 @@ class SingleShiftView extends Component {
             <div>
               <div>Unassigned Staff</div>
               <div>{unassignedUsers.map((user) =>
-                <div>{user.name}
+                <div key={user.id * Math.random()}>{user.name}
                   <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
                 </div>
               )}</div>
@@ -73,7 +73,7 @@ class SingleShiftView extends Component {
           <div>
             <div>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
-              <div>
+              <div key={user.id}>
                 <div>{user.name}
                 </div>
               </div>

@@ -17,19 +17,10 @@ class DayView extends Component {
     }
   }
   componentDidMount () {
-    this.getStaff()
     this.getShifts()
     this.getNotes()
   }
-  getStaff () {
-    let { id, shiftsId } = this.props
-    api.getStaff(id, shiftsId)
-      .then(res => {
-        console.log(res, 'res in day view')
-        this.setState({ assignedUsers: res.assigned_users,
-          unassignedUsers: res.unassigned_users })
-      })
-  }
+
   getNotes () {
     let { id, date } = this.props
     let today = moment(date).format('YYYY-MM-DD')
@@ -42,7 +33,6 @@ class DayView extends Component {
     let { id, date } = this.props
     api.getShiftsForADay(id, date)
       .then(res => {
-        console.log(res, 'res')
         this.setState({ shiftsToday: res,
           loaded: true })
       })

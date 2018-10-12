@@ -33,7 +33,6 @@ class Notes extends Component {
         <div>
           {employeeNotes.notes.map((note) =>
             <div key={note.note_id} className='container'>
-              {console.log(note.id, 'notes id')}
               <div className='itemList3'><strong>{note.user_name}: </strong>{note.text}</div>
             </div>
           )}
