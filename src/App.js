@@ -58,8 +58,8 @@ class App extends Component {
           <main className='main'>
             <div className='board'>
               {/* <Route path='' render={({ match }) =>
-                <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                  <Login id={match.params.id} />
+                <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                  <Login id={match.params.id} setCurrentUser={this.setCurrentUser} />
                 </Guard>} /> */}
               <Route path='/Login' render={(props) =>
                 <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>

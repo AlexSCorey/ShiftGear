@@ -116,7 +116,7 @@ class WeekView extends Component {
           <div>
             <div className='weekRange'>
               <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
-              <span className='currentDate'>{moment(thisWeek).format('MMM Do YYYY')}</span>
+              <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button className='titleButtonToggle' isActive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
             <div>
