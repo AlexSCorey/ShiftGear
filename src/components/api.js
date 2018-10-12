@@ -117,8 +117,8 @@ const api = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
-  getMySchedule: (startDate, endDate) => {
-    return request.get(`${domain}/myschedule/?start_date=${startDate}&end_date=${endDate}`)
+  getMySchedule: () => {
+    return request.get(`${domain}/myschedule/`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
         return (res.body.shifts)
