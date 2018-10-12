@@ -25,7 +25,8 @@ class Login extends Component {
     const { password, email } = this.state
     const { setCurrentUser } = this.props
     api.login(email, password)
-      .then(userToken => setCurrentUser(userToken))
+      .then(userToken =>
+        setCurrentUser(userToken))
   }
   render () {
     const { email, password, errMsg } = this.state
