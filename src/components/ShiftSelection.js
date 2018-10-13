@@ -28,7 +28,7 @@ class ShiftSelection extends Component {
 
   saveShift (e) {
     e.preventDefault()
-    let { id } = this.props
+    let { id, shiftID } = this.props
     let { staffRequired, toHour, fromHour, toMin, fromMin } = this.state
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin).format('YYYY-MM-DD HH:mm:ss')
@@ -36,18 +36,32 @@ class ShiftSelection extends Component {
     let formatEndMoment = moment(endMoment).format('YYYY-MM-DD HH:mm:ss')
 
     this.setState({ addShift: undefined })
-    api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
-      .then(res => {
-        console.log('res')
-        this.setState({ toDate: '',
-          fromDate: '',
-          toHour: '',
-          toMin: '',
-          fromMin: '',
-          staffRequired: '',
-          addShift: true })
-        window.alert('You created a shift')
-      })
+    if (shiftID) {
+      api.editShift(formatStartMoment, formatEndMoment, id, staffRequired, shiftID)
+        .then(res => {
+          this.setState({ toDate: '',
+            fromDate: '',
+            toHour: '',
+            toMin: '',
+            fromMin: '',
+            staffRequired: '',
+            addShift: true })
+          window.alert('You created a shift')
+        })
+    } else {
+      api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
+        .then(res => {
+          console.log('res')
+          this.setState({ toDate: '',
+            fromDate: '',
+            toHour: '',
+            toMin: '',
+            fromMin: '',
+            staffRequired: '',
+            addShift: true })
+          window.alert('You created a shift')
+        })
+    }
   }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })

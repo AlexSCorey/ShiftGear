@@ -24,9 +24,10 @@ import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
-// import MyShifts from './components/MyShifts'
+import MyShifts from './components/MyShifts'
 import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 import Header from './components/Header'
+import DayAlerts from './components/DayAlerts'
 import api from './components/api'
 
 class App extends Component {
@@ -40,17 +41,14 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this)
   }
   setNewUser (user) {
-    console.log(user, 'user in app js new user')
     window.localStorage.setItem('token', `${user}`)
     this.setState({ currentUser: user })
   }
   setCurrentUser (user) {
-    // window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', `${user.token}`)
     this.setState({ currentUser: user })
   }
   onLogout () {
-    console.log('hi')
     api.setUserToken(null)
     window.localStorage.clear('token')
     this.setState({ currentUser: false })
@@ -92,6 +90,12 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <ManagerApproveSwap token={match.params.id} />
                   </Guard>} />
+
+                <Route path='/welcome/:id' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <NewUserRegister setNewUser={this.setNewUser}
+                      id={match.params.id} />
+                  </Guard>} />
               </div>
             </main>
           </div>
@@ -116,16 +120,12 @@ class App extends Component {
                   </Guard>} />
                 <div>
 
-                  <Route path='/welcome/:id' render={({ match }) =>
-                    <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                      <NewUserRegister setNewUser={this.setNewUser}
-                        id={match.params.id} />
-                    </Guard>} />
                   <Route exact path='/Calendar/:id/AddEmployee' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <AddEmployeeToCalendar id={match.params.id} />
                       <ShiftSelection id={match.params.id} />
                     </Guard>} />
+
                   <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <AddEmployeeToCalendar id={match.params.id} />
@@ -136,7 +136,7 @@ class App extends Component {
                   <Route path='/CalendarList' render={(props) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                      {/* <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} /> */}
+                      <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                     </Guard>} />
 
                   <Route path='/CreateCalendar' render={({ props }) =>
@@ -157,7 +157,13 @@ class App extends Component {
                   <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <Notes id={match.params.id} date={match.params.date} />
+                      <DayAlerts id={match.params.id} date={match.params.date} />
                       <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                    </Guard>} />
+
+                  <Route path='/Calendar/:id/AddStaff' render={({ match }) =>
+                    <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                      <AddEmployeeToCalendar id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
                     </Guard>} />
 
                   <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
