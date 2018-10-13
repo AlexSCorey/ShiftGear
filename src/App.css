@@ -43,6 +43,17 @@ body {
   border-radius: .5rem;
   font-size: 1rem;
 }
+.emailInput2, {
+  display: inline-block;
+  width: 2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  vertical-align: center;
+  border: 1px solid black;
+  border-radius: .5rem;
+  font-size: 1rem;
+}
 .description{
   text-align: center;
   font-family: 'Roboto', sans-serif;
@@ -206,7 +217,7 @@ body {
       background-color: #2C46DD; 
       color: white; 
       padding: .5rem;
-      margin: .3rem;
+      margin-top: .3rem;
       font-size: 1rem;
       border-radius: 5px;
       margin: 0 auto 0;
@@ -216,7 +227,9 @@ body {
   .DayPickerInput {
     margin: .3rem;
     font-size: 1rem;
+    text-align: center;
     border-radius: 5px;
+    width: 6rem;
     font-family: 'Roboto', sans-serif;    
 }
   .requestOffAndCopy {
@@ -225,7 +238,7 @@ body {
     margin: 0 auto 0;
   }
   .itemList1 {
-    margin-top: 1rem;
+    margin-top: .5rem;
     text-align: center;
     color: black;
     font-size: 1.5rem;
@@ -292,6 +305,14 @@ body {
     color: #2C46DD;
     border: 1px dotted #3A2D51;
   }
+  .timeSelector2 {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 auto 0;
+    width: 5rem;
+    color: #2C46DD;
+    border: 1px dotted #3A2D51;
+  }
   .selector {
     width: 2rem;
   }
@@ -339,7 +360,7 @@ body {
     max-width: 600px;
     font-size: 1rem;
     margin-top:.6rem;
-    margin-bottom: 1rem
+    margin-bottom: .2rem
   }
   .loginField {
     width: 100%
@@ -349,7 +370,7 @@ body {
     height: 80px;
     border: 1px solid lightgrey;
     border-radius: .5rem;
-    padding-bottom: .2rem;
+    padding-bottom: .5rem;
     overflow: auto;
     background-color: linen;
     text-align: center;

@@ -31,7 +31,7 @@ class Notes extends Component {
     if (loaded) {
       if (employeeNotes.notes.length > 0) {
         return (<div>
-          <div className='itemList1'>{moment(date).format('ddd, Do')}</div>
+          <div className='itemList1'><strong>{moment(date).format('ddd, Do')}</strong></div>
           <div>
             {employeeNotes.notes.map((note) =>
               <div key={note.note_id} className='container'>

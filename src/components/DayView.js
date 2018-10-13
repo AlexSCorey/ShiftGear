@@ -97,11 +97,11 @@ class DayView extends Component {
                 </div>
               </div>
             )}
-            <Link to={`/Calendar/${id}/AddShifts/${date}`}><button className='navButtons'>Add A Shift</button></Link><br />
-            <label className='itemList1'>Write a Note for {moment(date).format('ddd, Do')}
-              <input className='formInput2' type='textarea'onChange={e => this.setState({ note: e.target.value })} required />
-            </label>
-            <button className='navButtons' type='submit' onClick={e => this.handleSubmit(e)}>Save</button>
+            <div className='weekRange'><Link to={`/Calendar/${id}/AddShifts/${date}`}><button className='titleButton'>Add A Shift</button></Link><br />
+              <label className='itemList1'>Write a Note for {moment(date).format('ddd, Do')}
+                <input className='formInput2' type='textarea'onChange={e => this.setState({ note: e.target.value })} required />
+              </label>
+              <button className='titleButton' type='submit' onClick={e => this.handleSubmit(e)}>Save</button></div>
           </div>
         )
       } else {
@@ -110,7 +110,7 @@ class DayView extends Component {
             {shiftsToday.shifts.map((shift) =>
               <div key={shift.id}>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                  <h2>{moment(date).format('ddd, Do')}</h2>
+                  {/* <h2>{moment(date).format('ddd, Do')}</h2> */}
                   <div id={shift.shift_id} className='shiftNode'>
                     <div className='columns3'>
                       <div className='column3'>Capacity<br /><strong>{shift.capacity}</strong></div>
@@ -119,13 +119,15 @@ class DayView extends Component {
                     </div>
                   </div>
                 </Link>
-                <button className='navButtons' value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</button>
-                <button className='navButtons' value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</button>
+                <div className='centerText'>
+                  <button className='navButtons' value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</button>
+                  <button className='navButtons' value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</button>
+                </div>
               </div>
             )}
-            <label className='itemList1'>Note:<input className='formInput2' type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+            <label className='itemList1'>Leave a Note:<input className='formInput2' type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </label>
-            <button className='navButtons' type='submit' onClick={(e) => { if (window.confirm('You successfully submitted a note')) this.handleSubmit(e) }}>Save</button>
+            <button className='titleButton' type='submit' onClick={(e) => { if (window.confirm('You successfully submitted a note')) this.handleSubmit(e) }}>Send</button>
           </div>
         )
       }
