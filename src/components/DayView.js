@@ -70,8 +70,8 @@ class DayView extends Component {
                   <div id={shift.shift_id} className='shiftNode'>
                     <div className='columns3'>
                       <div className='column3'>Capacity<br /><strong>{shift.capacity}</strong></div>
-                      <div className='column3'>Start<br /><strong>{moment(shift.start_time).format('h:mm:a')}</strong></div>
-                      <div className='column3'>End<br /><strong>{moment(shift.end_time).format('h:mm:a')}</strong></div>
+                      <div className='column3'>Start<br /><strong>{moment(shift.start_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
+                      <div className='column3'>End<br /><strong>{moment(shift.end_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
                     </div>
                     <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />

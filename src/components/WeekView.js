@@ -86,6 +86,7 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
+        console.log(res, 'res in weekview')
         this.setState({ shifts: res,
           loaded: true })
       })

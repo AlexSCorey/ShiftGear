@@ -24,7 +24,7 @@ import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
-// import MyShifts from './components/MyShifts'
+import MyShifts from './components/MyShifts'
 import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 import Header from './components/Header'
 import api from './components/api'
@@ -136,7 +136,7 @@ class App extends Component {
                   <Route path='/CalendarList' render={(props) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                      {/* <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} /> */}
+                      <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
                     </Guard>} />
 
                   <Route path='/CreateCalendar' render={({ props }) =>
@@ -158,6 +158,11 @@ class App extends Component {
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <Notes id={match.params.id} date={match.params.date} />
                       <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                    </Guard>} />
+
+                  <Route path='/Calendar/:id/AddStaff' render={({ match }) =>
+                    <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                      <AddEmployeeToCalendar id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
                     </Guard>} />
 
                   <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>

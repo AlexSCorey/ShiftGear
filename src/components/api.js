@@ -88,13 +88,6 @@ const api = {
       .send({ 'role': `${role}` })
       .then(res => res.body)
   },
-  // newUserRegistrationCompletion: (name, password, id) => {
-  //   return request.post(`${domain}/invitations/complete`)
-  //     .set('Authorization', `Bearer ${id}`)
-  //     .send({ 'name': `${name}`,
-  //       'password': `${password}` })
-  //     .then(res => res.body.user.api_token)
-  // },
   addEmployeeToCalendar: (role, email, id) => {
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -133,7 +126,7 @@ const api = {
   deleteShift: (id, shiftId) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body))
+      .then(res => res.body)
   },
   createNote: (note, id, date) => {
     return request.post(`${domain}/calendars/${id}/notes`)
@@ -211,7 +204,6 @@ const api = {
         'token': `${token}` })
       .then(res => res.body)
   },
-
   editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
     dlst) => {
     return request.patch(`${domain}/calendars/${id}`)

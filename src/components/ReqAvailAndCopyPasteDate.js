@@ -69,19 +69,19 @@ class ReqAvailAndCopyPasteDate extends Component {
                 <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
                 <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
               </span>
+              <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+              <button className='navButtons' onClick={e => this.assignShfts(e)}>Assign Shifts</button>
             </div>
           </div>)
         } else {
           return (
             <div>
-              <div className='requestOffAndCopy'>
-                <Link to={`/Calendar/${id}/EditCalendar`}><button className='navButtons' >Add Staff</button></Link>
-                <button className='navButtons' onClick={e => this.assignShfts(e)}>Assign Shifts</button>
+              {/* <div className='requestOffAndCopy'>
                 <span className='datePicker'>
                   <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
                   <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
                 </span>
-              </div>
+              </div> */}
             </div>)
         }
       } else {
