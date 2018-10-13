@@ -119,21 +119,23 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button key={'last'} className='titleButtonToggle' isactive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
-            <div>
+            <div >
               {shifts.summaries.map((shift) => <div key={shift.Day}>
-                <div className='columns3'>
-                  <div key={shift.Day}>
+                <div>
+                  <div key={shift.Day} >
+                    {/* <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
+                    <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
+                      <button className='btn'><i className='far fa-trash-alt' /></button></div> */}
+
                     <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                      <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
-                      <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
-                      <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                        <button className='btn'><i className='far fa-trash-alt' /></button></div>
-                      <div>
-                        <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
-                        <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
-                        <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
-                      </div>
+                      <div className='day'>{moment(shift.Day).format('ddd, Do')}</div>
+                      <button className='columns3'>
+                        <div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div>
+                        <div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div>
+                        <div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div>
+                      </button>
                     </Link>
+
                   </div>
                 </div>
               </div>
@@ -152,16 +154,16 @@ class WeekView extends Component {
             <div>
               {shifts.summaries.map((shift) => <div key={shift.Day}>
                 {console.log(shift.Day, 'shift id')}
-                <button className='columns3'>
-                  <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
-                    <span className='day'>{moment(shift.Day).format('ddd, Do')}</span>
-                    <div>
-                      <span><div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div></span>
-                      <span><div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div></span>
-                      <span><div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div></span>
-                    </div>
-                  </Link>
-                </button>
+
+                <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
+                  <div className='day'>{moment(shift.Day).format('ddd, Do')}</div>
+                  <button className='columns3'>
+                    <div className='column3'>Total<br />Shifts<br /><strong>{shift.total_shifts}</strong></div>
+                    <div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div>
+                    <div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div>
+                  </button>
+                </Link>
+
               </div>)}
             </div>
           </div>

@@ -47,7 +47,9 @@ class CalendarsContainer extends Component {
                       <h1 className='titles'>{calendarNames[calendarType]}</h1>
                       <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
                     </div>
-                    <div className='center'><Link to={`Calendar/UpdateProfile`}><button className='navButtons'>Update Your Profile</button></Link></div>
+                    {/* <div>
+                      <div className='center'><Link to={`Calendar/UpdateProfile`}><button className='navButtons'>Update Your Profile</button></Link></div>
+                    </div> */}
                   </div>
                 )
               } else {
