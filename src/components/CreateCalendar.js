@@ -92,6 +92,7 @@ class CreateCalendar extends Component {
             </div>
             {/* <Link className='itemList' to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link> */}
           </div>
+        </div>
       </div>)
     }
   }

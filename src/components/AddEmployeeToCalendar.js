@@ -26,7 +26,7 @@ class AddEmployeeToCalendar extends Component {
   }
   render () {
     const { email } = this.state
-    const { id } = this.props
+    // const { id } = this.props
     return (
       <div className='enclosingDiv'>
         <div className='calendarItem'>
@@ -36,8 +36,9 @@ class AddEmployeeToCalendar extends Component {
             <option value='owner'>Owner</option>
             <option value='manager'>Manager</option>
           </select><br />
-        <input className='formInput2' placeholder='Enter the Email Address for a New User' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <button className='titleButton'onClick={e => { this.handleSubmit(e) }}>Register A New User</button>
+          <input className='formInput2' placeholder='Enter the Email Address for a New User' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
+          <button className='titleButton'onClick={e => { this.handleSubmit(e) }}>Register A New User</button>
+        </div>
       </div>
     )
   }
