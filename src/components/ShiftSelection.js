@@ -20,7 +20,8 @@ class ShiftSelection extends Component {
       fromHour: '',
       toMin: '',
       fromMin: '',
-      staffRequired: undefined
+      staffRequired: '',
+      addShift: undefined
     }
     this.setFromAmPm = this.setFromAmPm.bind(this)
   }
@@ -33,13 +34,20 @@ class ShiftSelection extends Component {
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin).format('YYYY-MM-DD HH:mm:ss')
     let formatStartMoment = moment(startMoment).format('YYYY-MM-DD HH:mm:ss')
     let formatEndMoment = moment(endMoment).format('YYYY-MM-DD HH:mm:ss')
-    if (id) {
-      api.updateShifts(id, formatStartMoment, formatEndMoment, staffRequired)
-        .then(res => window.alert('You updated a shift'))
-    } else {
-      api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
-        .then(res => window.alert('You created a shift'))
-    }
+
+    this.setState({ addShift: undefined })
+    api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
+      .then(res => {
+        console.log('res')
+        this.setState({ toDate: '',
+          fromDate: '',
+          toHour: '',
+          toMin: '',
+          fromMin: '',
+          staffRequired: '',
+          addShift: true })
+        window.alert('You created a shift')
+      })
   }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })
@@ -77,76 +85,144 @@ class ShiftSelection extends Component {
   }
   render () {
     // const { staffRequired } = this.state
-    // const { toHour, fromHour, toDate, fromDate, toMin, fromMin, toAmPm, fromAmPm } = this.state
-    return (
-      <div>
-        <span className='datePicker'>
-          <DayPickerInput onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
-        </span>
-        <span className='datePicker'>
-          <DayPickerInput onDayChange={(day) => this.handleToDateChange(day)} />
-        </span>
-        <div>Shift Times<div>
-          <div>Start Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
-            <option>--Select--</option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-            <option value='6'>6</option>
-            <option value='7'>7</option>
-            <option value='8'>8</option>
-            <option value='9'>9</option>
-            <option value='10'>10</option>
-            <option value='11'>11</option>
-            <option value='12'>12</option>
-          </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
-            <option>--Select--</option>
-            <option value='00'>00</option>
-            <option value='15'>15</option>
-            <option value='30'>30</option>
-            <option value='45'>45</option>
-          </select><select onChange={(e) => this.setFromAmPm(e.target.value)}>
-            <option placeholder='AM/PM' >--Select--</option>
-            <option value='AM' className='timeSelector'>AM</option>
-            <option value='PM' className='timeSelector'>PM</option>
-          </select>
+    const { addShift } = this.state
+    if (addShift === undefined) {
+      return (
+        <div>
+          <span className='datePicker'>
+            <DayPickerInput onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
+          </span>
+          <span className='datePicker'>
+            <DayPickerInput onDayChange={(day) => this.handleToDateChange(day)} />
+          </span>
+          <div>Shift Times<div>
+            <div>Start Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
+              <option>--Select--</option>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
+              <option>--Select--</option>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select><select onChange={(e) => this.setFromAmPm(e.target.value)}>
+              <option placeholder='AM/PM' >--Select--</option>
+              <option value='AM' className='timeSelector'>AM</option>
+              <option value='PM' className='timeSelector'>PM</option>
+            </select>
+            </div>
+            <div>Stop Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
+              <option>--Select--</option>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setToMinute(e.target.value)}>
+              <option>--Select--</option>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select><select className='timeSelector' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
+              <option>--Select--</option>
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select><Label>Staff Requied<Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
+            </Label>
+            </div>
+          </div><Button>
+            <Link to='/CalendarList' onClick={e => this.saveShift(e)}>Save Shift</Link>
+          </Button>
           </div>
-          <div>Stop Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
-            <option>--Select--</option>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-            <option value='6'>6</option>
-            <option value='7'>7</option>
-            <option value='8'>8</option>
-            <option value='9'>9</option>
-            <option value='10'>10</option>
-            <option value='11'>11</option>
-            <option value='12'>12</option>
-          </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setToMinute(e.target.value)}>
-            <option>--Select--</option>
-            <option value='00'>00</option>
-            <option value='15'>15</option>
-            <option value='30'>30</option>
-            <option value='45'>45</option>
-          </select><select className='timeSelector' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
-            <option>--Select--</option>
-            <option value='AM'>AM</option>
-            <option value='PM'>PM</option>
-          </select><Label>Staff Requied<Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
-          </Label>
+        </div>)
+    } else {
+      return (
+        <div>
+          <span className='datePicker'>
+            <DayPickerInput onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
+          </span>
+          <span className='datePicker'>
+            <DayPickerInput onDayChange={(day) => this.handleToDateChange(day)} />
+          </span>
+          <div>Shift Times<div>
+            <div>Start Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setFromHour(e.target.value)}>
+              <option>--Select--</option>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setFromMinute(e.target.value)}>
+              <option>--Select--</option>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select><select onChange={(e) => this.setFromAmPm(e.target.value)}>
+              <option placeholder='AM/PM' >--Select--</option>
+              <option value='AM' className='timeSelector'>AM</option>
+              <option value='PM' className='timeSelector'>PM</option>
+            </select>
+            </div>
+            <div>Stop Time<select className='timeSelector' placeholder='hours' onBlur={(e) => this.setToHour(e.target.value)}>
+              <option>--Select--</option>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+              <option value='6'>6</option>
+              <option value='7'>7</option>
+              <option value='8'>8</option>
+              <option value='9'>9</option>
+              <option value='10'>10</option>
+              <option value='11'>11</option>
+              <option value='12'>12</option>
+            </select><select className='timeSelector' placeholder='minutes' onBlur={(e) => this.setToMinute(e.target.value)}>
+              <option>--Select--</option>
+              <option value='00'>00</option>
+              <option value='15'>15</option>
+              <option value='30'>30</option>
+              <option value='45'>45</option>
+            </select><select className='timeSelector' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
+              <option>--Select--</option>
+              <option value='AM'>AM</option>
+              <option value='PM'>PM</option>
+            </select><Label>Staff Requied<Input type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
+            </Label>
+            </div>
+          </div><Button>
+            <Link to='/CalendarList' onClick={e => this.saveShift(e)}>Add Another Shift</Link>
+          </Button>
           </div>
-        </div><Button>
-          <Link to='/CalendarList' onClick={e => this.saveShift(e)}>Save Shift</Link>
-        </Button><Button>
-          <Link to='/Calendar/:id/AddEmployee'>Add Employees</Link>
-        </Button>
-        </div>
-      </div>)
+        </div>)
+    }
   }
 }
 export default ShiftSelection

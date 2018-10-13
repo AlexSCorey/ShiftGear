@@ -73,8 +73,8 @@ class DayView extends Component {
                       <div className='column3'>Start<br /><strong>{moment(shift.start_time).format('h:mm:a')}</strong></div>
                       <div className='column3'>End<br /><strong>{moment(shift.end_time).format('h:mm:a')}</strong></div>
                     </div>
-                    {/* <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
-                    <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} /> */}
+                    <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
+                    <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
                 <div>
@@ -124,7 +124,7 @@ class DayView extends Component {
             )}
             <label className='itemList1'>Note:<input className='formInput2' type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </label>
-            <button className='navButtons' type='submit' onClick={e => this.handleSubmit(e)}>Save</button>
+            <button className='navButtons' type='submit' onClick={(e) => { if (window.confirm('You successfully submitted a note')) this.handleSubmit(e) }}>Save</button>
           </div>
         )
       }
