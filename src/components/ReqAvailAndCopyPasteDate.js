@@ -61,10 +61,10 @@ class ReqAvailAndCopyPasteDate extends Component {
     let { id } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
-        if (!shifts.availability_processes) {
+        if (shifts.availability_processes && shifts.availability_processes.length >= 1) {
           return (<div>
             <div className='requestOffAndCopy'>
-              <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
+              <button className='navButtons' onClick={e => this.assignShifts(e)}>Assign Shifts</button>
               <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
               <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
               <span className='datePicker'>
@@ -77,7 +77,7 @@ class ReqAvailAndCopyPasteDate extends Component {
           return (
             <div>
               <div className='requestOffAndCopy'>
-                <button className='navButtons' onClick={e => this.assignShifts(e)}>Assign Shifts</button>
+                <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
                 <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
                 <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
                 <span className='datePicker'>

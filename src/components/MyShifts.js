@@ -15,10 +15,8 @@ class MyShifts extends Component {
     this.getMySchedule()
   }
   getMySchedule () {
-    console.log('here')
     api.getMySchedule()
       .then(res => {
-        console.log(res, 'res')
         this.setState({ myShifts: res,
           loaded: true })
       })
@@ -26,9 +24,7 @@ class MyShifts extends Component {
   requestSwap () {
     let { id, shiftsId } = this.props
     api.requestSwap(id, shiftsId)
-      .then(res => {
-        console.log(res, 'requestSwap')
-      })
+      .then(res => res)
   }
   render () {
     let { loaded, myShifts } = this.state

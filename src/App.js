@@ -90,6 +90,12 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <ManagerApproveSwap token={match.params.id} />
                   </Guard>} />
+
+                <Route path='/welcome/:id' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <NewUserRegister setNewUser={this.setNewUser}
+                      id={match.params.id} />
+                  </Guard>} />
               </div>
             </main>
           </div>
@@ -113,12 +119,6 @@ class App extends Component {
                     <Register setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
                 <div>
-
-                  <Route path='/welcome/:id' render={({ match }) =>
-                    <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                      <NewUserRegister setNewUser={this.setNewUser}
-                        id={match.params.id} />
-                    </Guard>} />
 
                   <Route exact path='/Calendar/:id/AddEmployee' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
