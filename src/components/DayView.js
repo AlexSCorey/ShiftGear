@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Label, Input, Delete } from 'bloomer'
+import { Delete } from 'bloomer'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ class DayView extends Component {
       note: '',
       shiftsToday: {},
       users: {},
-      loaded: false,
+      shiftsLoaded: false,
       assignedUsers: [],
       unassignedUsers: []
     }
@@ -21,22 +21,24 @@ class DayView extends Component {
     this.getNotes()
   }
 
-  getNotes () {
-    let { id, date } = this.props
-    let today = moment(date).format('YYYY-MM-DD')
-    api.getNotes(id, today)
-      .then(res => {
-        this.setState({ employeeNotes: res })
-      })
-  }
   getShifts () {
     let { id, date } = this.props
     api.getShiftsForADay(id, date)
       .then(res => {
         this.setState({ shiftsToday: res,
-          loaded: true })
+          shiftsLoaded: true })
       })
   }
+  getNotes () {
+    let { id, date } = this.props
+    let today = moment(date).format('YYYY-MM-DD')
+    api.getNotes(id, today)
+      .then(res => {
+        this.setState({ employeeNotes: res,
+          alertsLoaded: true })
+      })
+  }
+
   deleteShift (e, shiftId) {
     e.preventDefault()
     let { id } = this.props
@@ -58,12 +60,11 @@ class DayView extends Component {
   }
   render () {
     let { id, date } = this.props
-    let { shiftsToday, loaded, unassignedUsers } = this.state
-    if (loaded) {
+    let { shiftsToday, shiftsLoaded, unassignedUsers } = this.state
+    if (shiftsLoaded) {
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
           <div>
-            {/* <h2 className='titles'>{moment(date).format('ddd, Do')}</h2> */}
             {shiftsToday.shifts.map((shift) =>
               <div key={shift.shift_id}>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>

@@ -95,14 +95,22 @@ const api = {
         'role': `${role}` })
       .then(response => response.body)
   },
-  createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
+  createShift: (startDateTime, endDateTime, calendarId, numOfShifts) => {
     return request.post(`${domain}/calendars/${calendarId}/shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'start_time': `${startDateTime}`,
         'end_time': `${endDateTime}`,
         'calendar_id': `${calendarId}`,
-        'capacity': `${numOfShifts}`,
-        'published': `${published}` })
+        'capacity': `${numOfShifts}` })
+      .then(res => res.body)
+  },
+  editShift: (startDateTime, endDateTime, id, numOfShifts, shiftID) => {
+    return request.patch(`${domain}/calendars/${id}/shifts/${shiftID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_time': `${startDateTime}`,
+        'end_time': `${endDateTime}`,
+        'calendar_id': `${id}`,
+        'capacity': `${numOfShifts}` })
       .then(res => res.body)
   },
   getWeekShiftInfo: (id, thisWeek, nextWeek) => {
@@ -265,6 +273,15 @@ const api = {
     return request.post(`${domain}/calendars/${id}/availability_processes/${shiftID}/assign_shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
+        return (res.body)
+      })
+  },
+  getDailyAlerts: (id, date) => {
+    // https:// fierce-forest-56311.herokuapp.com/calendars/:calendar_id/alerts_daily?date=:date
+    return request.get(`${domain}/calendars/${id}/alerts_daily?date=${date}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        console.log(res.body)
         return (res.body)
       })
   }
