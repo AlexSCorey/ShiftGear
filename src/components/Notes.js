@@ -29,18 +29,22 @@ class Notes extends Component {
     let { employeeNotes, loaded } = this.state
     let { date } = this.props
     if (loaded) {
-      return (<div>
-        <div className='itemList1'><strong>{moment(date).format('ddd, Do')}</strong></div>
-        <div>
-          {employeeNotes.notes.map((note) =>
-            <div key={note.note_id} className='container'>
-              <div className='itemList3'><strong>{note.user_name}: </strong>{note.text}</div>
-            </div>
-          )}
-        </div>
-      </div>)
+      if (employeeNotes.notes.length > 0) {
+        return (<div>
+          <div className='itemList1'><strong>{moment(date).format('ddd, Do')}</strong></div>
+          <div>
+            {employeeNotes.notes.map((note) =>
+              <div key={note.note_id} className='container'>
+                <div className='itemList3'><strong>{note.user_name}: </strong>{note.text}</div>
+              </div>
+            )}
+          </div>
+        </div>)
+      } else {
+        return (<div />)
+      }
     } else {
-      return (<div>loading</div>)
+      return (<div />)
     }
   }
 }

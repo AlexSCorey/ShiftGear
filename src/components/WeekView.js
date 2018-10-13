@@ -86,6 +86,7 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
+        console.log(res, 'res in weekview')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -117,7 +118,6 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
-        console.log(res)
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -137,9 +137,7 @@ class WeekView extends Component {
   requestSwap () {
     let { id, shiftsId } = this.props
     api.requestSwap(id, shiftsId)
-      .then(res => {
-        console.log(res, 'requestSwap')
-      })
+      .then(res => res, 'requestSwap')
   }
 
   render () {

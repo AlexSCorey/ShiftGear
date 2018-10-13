@@ -73,10 +73,7 @@ class CreateCalendar extends Component {
           <label className='itemList1'><strong>Create A Calendar</strong><br /><input className='formInput2' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
           </label>
           <div>
-            {/* <label className='itemList1'>Daylight Savings Time</label>
-            <input className='checkbox' type='checkbox' onChange={e => this.setState({ dlts: true })} /><br /> */}
-
-            <label className='itemList1'>Time Zone2<div>
+            <label className='itemList1'>Time Zone<div>
               <select className='timeSelector' placeholder='hours' onBlur={(e) => this.setTimeZone(e, e.target.value)}>
                 <option className='selector'>--Select--</option>
                 <option value='Eastern Time (US & Canada)'>Eastern Time (US & Canada)</option>
@@ -90,7 +87,6 @@ class CreateCalendar extends Component {
 
             <div> <Link to={`/Calendar/${newCalendarId}/AddEmployee`}><button className='titleButton' to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Create Calendar</button></Link>
             </div>
-            {/* <Link className='itemList' to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link> */}
           </div>
         </div>
       </div>)
