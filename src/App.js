@@ -87,6 +87,11 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <AvailabilityResponse id={match.params.id} token={match.params.token} />
                   </Guard>} />
+
+                <Route path='/complete/:token' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <ManagerApproveSwap token={match.params.id} />
+                  </Guard>} />
               </div>
             </main>
           </div>
@@ -172,10 +177,6 @@ class App extends Component {
                       <UpdateProfile id={match.params.id} />
                     </Guard>} />
 
-                  <Route path='/complete/:token' render={({ match }) =>
-                    <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                      <ManagerApproveSwap token={match.params.id} />
-                    </Guard>} />
                 </div>
               </div>
             </main>
