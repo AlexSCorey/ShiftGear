@@ -61,27 +61,30 @@ class ReqAvailAndCopyPasteDate extends Component {
     let { id } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
-        if (shifts.availability_processes.length === 0) {
+        if (!shifts.availability_processes.length) {
           return (<div>
             <div className='requestOffAndCopy'>
               <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
+              <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+              <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
               <span className='datePicker'>
                 <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
                 <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
               </span>
-              <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
-              <button className='navButtons' onClick={e => this.assignShfts(e)}>Assign Shifts</button>
             </div>
           </div>)
         } else {
           return (
             <div>
-              {/* <div className='requestOffAndCopy'>
+              <div className='requestOffAndCopy'>
+                <button className='navButtons' onClick={e => this.assignShifts(e)}>Assign Shifts</button>
+                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
                 <span className='datePicker'>
                   <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
                   <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
                 </span>
-              </div> */}
+              </div>
             </div>)
         }
       } else {
