@@ -52,8 +52,10 @@ class Login extends Component {
           </NavLink>
           <div className='introMessage'>
             <h1 className='description'>
-                Shift work coordination meets mobile <br />
-                solutions customized for small business. <br />
+                Shiftgear makes workforce scheduling<br />
+                mobile with an interface designed<br />
+                for phones, using smart tools<br />
+                to automate scheduling tasks.<br />
             </h1>
           </div>
         </div>

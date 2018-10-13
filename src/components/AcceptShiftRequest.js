@@ -38,7 +38,7 @@ class AcceptShiftRequest extends Component {
       if ((shiftSwapsIndex.roles.indexOf('owner') > -1) || (shiftSwapsIndex.roles.indexOf('manager') > -1)) {
         return (
           <div>
-            <div className='itemList1'> Click on a Shift to Accept It</div>
+            <div className='itemList1'><strong>Click on a Shift to Accept It</strong></div>
             <div className='itemList'>{shiftSwapsIndex.swaps.map((shiftSwap) => {
               if (shiftSwap.accepting_user) {
                 return (<div>
@@ -70,7 +70,7 @@ class AcceptShiftRequest extends Component {
       } else if (shiftSwapsIndex.roles.indexOf('employee') > -1) {
         return (
           <div>
-            <div className='itemList1'>Click on a Shift to Accept It</div>
+            <div className='itemList1'><strong>Click on a Shift to Accept It</strong></div>
             <div className='itemList1'>
               {shiftSwapsIndex.swaps.map((shiftSwap) => {
                 if (shiftSwap.accepting_user) {
