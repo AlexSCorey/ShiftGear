@@ -24,7 +24,7 @@ import ManagerApproveSwap from './components/ManagerApproveSwap'
 import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
-import MyShifts from './components/MyShifts'
+// import MyShifts from './components/MyShifts'
 import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 import Header from './components/Header'
 import api from './components/api'
@@ -116,10 +116,14 @@ class App extends Component {
                       <NewUserRegister setNewUser={this.setNewUser}
                         id={match.params.id} />
                     </Guard>} />
-
+                  <Route exact path='/Calendar/:id/AddEmployee' render={({ match }) =>
+                    <Guard condition={this.state.currentUser} redirectTo='/Login'>
+                      <AddEmployeeToCalendar id={match.params.id} />
+                      <ShiftSelection id={match.params.id} />
+                    </Guard>} />
                   <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                      <AddEmployeeToCalendar setNewUser={this.setNewUser} id={match.params.id} onLogout={this.onLogout} />
+                      <AddEmployeeToCalendar id={match.params.id} />
                       <CreateCalendar id={match.params.id} />
                       {/* <EditCalendar id={match.params.id} /> */}
                     </Guard>} />
@@ -127,7 +131,7 @@ class App extends Component {
                   <Route path='/CalendarList' render={(props) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                      <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                      {/* <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} /> */}
                     </Guard>} />
 
                   <Route path='/CreateCalendar' render={({ props }) =>

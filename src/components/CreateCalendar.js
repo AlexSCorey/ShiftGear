@@ -24,23 +24,21 @@ class CreateCalendar extends Component {
       api.editCalendar(id, title, timeZone,
         dlts)
         .then(res => window.alert('Calendar Successfully Updated'))
+    } else {
+      api.createNewCalendar(title, timeZone)
+        .then(res => {
+          this.setState({ newCalendarId: res.id })
+        })
     }
-    api.createNewCalendar(title, timeZone)
-      .then(res => {
-        this.setState({ newCalendarId: res.id,
-          msg: 'You Have Successfully Created A Calendar' })
-      })
   }
   setTimeZone (e, value) {
     e.preventDefault()
     this.setState({ timeZone: value })
   }
   render () {
-    let { newCalendarId, msg } = this.state
-    let { id } = this.props
-    if (this.state.msg) {
-      return (<div>Alert:`${msg}` </div>)
-    } else if (id) {
+    let { newCalendarId } = this.state
+    // let { id } = this.props
+    if (newCalendarId) {
       return (<div className='calendarItem'>
         <label className='itemList1'>Create a New Calendar<input className='formInput' type='text' placeholder='New Calendar Title' onChange={e => this.setState({ title: e.target.value })} />
         </label>
@@ -61,9 +59,9 @@ class CreateCalendar extends Component {
           <div>
             <button className='titleButton' to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Update Calendar</button>
           </div>
-          <Link to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link>
+          <Link to={`/Calendar/${newCalendarId}/AddEmployee`}>Next Step</Link>
         </div>
-        <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
+        {/* <Link to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link> */}
       </div>)
     } else {
       return (<div className='calendarItem'>
@@ -87,9 +85,9 @@ class CreateCalendar extends Component {
           <div>
             <button className='titleButton' to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Create Calendar</button>
           </div>
-          <Link className='itemList' to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link>
+          {/* <Link className='itemList' to={`/Calendar/${newCalendarId}/AddEmployee`}>Add Employees</Link> */}
         </div>
-        <Link className='itemList' to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link>
+        {/* <Link className='itemList' to={`/Calendar/${newCalendarId}/AddShifts`}>Add Shifts</Link> */}
       </div>)
     }
   }

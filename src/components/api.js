@@ -118,6 +118,7 @@ const api = {
       .then(res => res.body)
   },
   getMySchedule: () => {
+    console.log(userToken, 'userToken')
     return request.get(`${domain}/myschedule/`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {

@@ -14,8 +14,6 @@ class MyShifts extends Component {
     this.getMySchedule()
   }
   getMySchedule () {
-    // let startDate = moment(new Date()).format('YYYY-MM-DD')
-    // // let endDate = moment(new Date()).add(6, 'days').startOf('week').format('YYYY-MM-DD')
     api.getMySchedule()
       .then(res => {
         this.setState({ myShifts: res,
@@ -30,7 +28,7 @@ class MyShifts extends Component {
           <div>{myShifts.map((shift) =>
             <div className='itemList3' key={shift.shift_id}>
               <div><strong>{shift.calendar_name}</strong></div>
-              <div>{moment(shift.start_time).zone(shift.start_time).format('MMM Do h:mma')}-{moment(shift.end_time).zone(shift.end_time).format('MMM Do h:mma')}</div>
+              <div>{moment(shift.start_time).utcOffset(shift.start_time).format('MMM Do h:mma')}-{moment(shift.end_time).utcOffset(shift.end_time).format('MMM Do h:mma')}</div>
             </div>
           )}</div>
         </div></div>)

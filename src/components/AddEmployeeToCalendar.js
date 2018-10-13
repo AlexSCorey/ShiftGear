@@ -19,6 +19,7 @@ class AddEmployeeToCalendar extends Component {
     const { id } = this.props
     const { role, email } = this.state
     api.addEmployeeToCalendar(role, email, id)
+      .then(res => this.setState({ email: '' }))
   }
   render () {
     const { email } = this.state
@@ -33,7 +34,7 @@ class AddEmployeeToCalendar extends Component {
         </select><br />
 
         <input className='formInput2' placeholder='Enter the Email Address for a New User' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <button onClick={e => { this.handleSubmit(e) }}><Link className='titleButton' to={`/CalendarList/${id}`}>Register A New User</Link></button>
+        <button className='titleButton'onClick={e => { this.handleSubmit(e) }}>Register A New User</button>
       </div>
     )
   }
