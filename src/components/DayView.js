@@ -70,8 +70,8 @@ class DayView extends Component {
                   <div id={shift.shift_id} className='shiftNode'>
                     <div><span>
                       <div className='column3'>Capacity: {shift.capacity} </div>
-                      <div className='column3'>Start: {moment(shift.start_time).format('h:mm:a')}</div>
-                      <div className='column3'>End: {moment(shift.end_time).format('h:mm:a')}</div>
+                      <div className='column3'>Start: {moment(shift.start_time).zone(shift.start_time).format('h:mm:a')}</div>
+                      <div className='column3'>End: {moment(shift.end_time).zone(shift.end_time).format('h:mm:a')}</div>
                     </span></div>
                     <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
@@ -96,7 +96,7 @@ class DayView extends Component {
             )}
             <Link to={`/Calendar/${id}/AddShifts/${date}`}><Button>Add A Shift</Button></Link>
             <Label>Note:
-            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
             </Label>
             <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
           </div>
@@ -112,21 +112,18 @@ class DayView extends Component {
                     <Label>Capacity</Label>
                     <div>{shift.capacity}</div>
                     <Label>Start</Label>
-                    <div>{moment(shift.start_time).format('h:mm:a')}</div>
+                    <div>{moment(shift.start_time).zone(shift.start_time).format('h:mm:a')}</div>
                     <Label>End</Label>
-                    <div>{moment(shift.end_time).format('h:mm:a')}</div>
-                    <Label>Published</Label>
-                    <div>{shift.published}</div>
+                    <div>{moment(shift.end_time).zone(shift.end_time).format('h:mm:a')}</div>
                   </div>
                 </Link>
-                <Button value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</Button>
-                <Button value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</Button>
               </div>
             )}
             <Label>Note:
-            <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+              <Input type='textarea' onChange={e => this.setState({ note: e.target.value })} required />
+
             </Label>
-            <Button type='submit' onClick={e => this.handleSubmit(e)}>Save</Button>
+            <Button type='submit' onClick={(e) => { if (window.confirm('You successfully submitted a note')) this.handleSubmit(e) }}>Save</Button>
           </div>
         )
       }

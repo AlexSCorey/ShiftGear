@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 import { Link } from 'react-router-dom'
 
 import api from './api'
@@ -57,7 +58,6 @@ class WeekView extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, startDate, endDate)
       .then(res => {
-        console.log(res, 'res new shifts')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -76,23 +76,51 @@ class WeekView extends Component {
   }
   nextWeek (e) {
     e.preventDefault()
+    const { id } = this.props
     let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getNextWeekShifts()
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+      })
   }
   lastWeek (e) {
     e.preventDefault()
+    const { id } = this.props
     let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
-    this.getLastWeekShifts()
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
+  goToThisWeek (date) {
+    const { id } = this.props
+    let thisWeek = moment(date).startOf('week').format('YYYY-MM-DD')
+    let nextWeek = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let lastWeek = moment(thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+    this.setState({ nextWeek: nextWeek,
+      thisWeek: thisWeek,
+      lastWeek: lastWeek })
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+      .then(res => {
+        console.log(res)
+        this.setState({ shifts: res,
+          loaded: true })
+      })
   }
   deleteShift (e, shiftId) {
     e.preventDefault()
@@ -119,6 +147,9 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button key={'last'} className='titleButtonToggle' isactive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
+            <div>
+            Go to:
+              <DayPickerInput className='date' onDayChange={(day) => this.goToThisWeek(day)} /></div>
             <div>
               {shifts.summaries.map((shift) => <div key={shift.Day}>
                 <div className='columns3'>
