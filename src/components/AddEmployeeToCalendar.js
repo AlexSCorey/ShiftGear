@@ -30,14 +30,14 @@ class AddEmployeeToCalendar extends Component {
     return (
       <div className='enclosingDiv'>
         <div className='calendarItem'>
-          <label className='itemList1' htmlFor='role'><strong>Select a Role for a New User</strong></label><br />
+          <label className='itemList1' htmlFor='role'><strong>Add a New User</strong></label><br />
           <select placeholder='--select--' id='role' className='selector' onChange={e => this.setState({ role: e.target.value })}>
             <option value='employee'>Employee</option>
             <option value='owner'>Owner</option>
             <option value='manager'>Manager</option>
           </select><br />
           <input className='formInput2' placeholder='Enter the Email Address for a New User' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-          <button className='titleButton'onClick={e => { this.handleSubmit(e) }}>Register A New User</button>
+          <button className='titleButton'onClick={e => { this.handleSubmit(e) }}>Send an Invitation</button>
         </div>
       </div>
     )

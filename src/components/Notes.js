@@ -30,7 +30,7 @@ class Notes extends Component {
     let { date } = this.props
     if (loaded) {
       return (<div>
-        <div className='itemList1'>{moment(date).format('ddd, Do')}</div>
+        <div className='itemList1'><strong>{moment(date).format('ddd, Do')}</strong></div>
         <div>
           {employeeNotes.notes.map((note) =>
             <div key={note.note_id} className='container'>

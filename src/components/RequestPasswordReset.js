@@ -21,7 +21,7 @@ class RequestPasswordReset extends Component {
       <div>
         <label className='emailLabel'>email</label><br />
         <input className='emailInput' placeholder='example@example.com' value={email} type='email' onChange={e => this.setState({ email: e.target.value })} required />
-        <Link to='/login'><button onClick={this.handleSubmit}>Submit</button></Link>
+        <Link to='/login'><button className='titleButton' onClick={this.handleSubmit}>Submit</button></Link>
       </div>
     )
   }
