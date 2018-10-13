@@ -106,6 +106,13 @@ class WeekView extends Component {
     api.acceptShiftSwap(id, shiftID)
       .then(res => window.alert('Swap sent for approval by manager'))
   }
+  requestSwap () {
+    let { id, shiftsId } = this.props
+    api.requestSwap(id, shiftsId)
+      .then(res => {
+        console.log(res, 'requestSwap')
+      })
+  }
 
   render () {
     const { shifts, thisWeek, loaded } = this.state
@@ -123,9 +130,9 @@ class WeekView extends Component {
               {shifts.summaries.map((shift) => <div key={shift.Day}>
                 <div>
                   <div key={shift.Day} >
-                    {/* <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
+                    <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
                     <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                      <button className='btn'><i className='far fa-trash-alt' /></button></div> */}
+                      <button className='btn'><i className='far fa-trash-alt' /></button></div>
 
                     <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                       <div className='day'>{moment(shift.Day).format('ddd, Do')}</div>

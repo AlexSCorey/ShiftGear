@@ -132,7 +132,7 @@ const api = {
   deleteShift: (id, shiftId) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body)
+      .then(res => console.log(res.body))
   },
   createNote: (note, id, date) => {
     return request.post(`${domain}/calendars/${id}/notes`)
@@ -206,19 +206,26 @@ const api = {
         'token': `${token}` })
       .then(res => res)
   },
+
   editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
-    dlts) => {
+    dlst) => {
     return request.patch(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'name': `${name}`,
         'time_zone': `${timeZone}`,
         'employee_hour_threshold_daily': `${employeeHourThresholdDaily}`,
         'employee_hour_threshold_weekly': `${employeeHourThresholdWeekly}`,
-        'daylight_savings': `${dlts}` })
+        'daylight_savings': `${dlst}` })
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
     return request.post(`${domain}/calendars/${id}/copy?start_date=${startWeek}&end_date=${endWeek}&target_date=${copyWeekStart}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body)
+  },
+
+  requestSwap: (id, shiftId) => {
+    return request.post(`${domain}/calendars/${id}/shifts/${shiftId}/swaps`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },

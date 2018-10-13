@@ -43,6 +43,14 @@ class SingleShiftView extends Component {
         window.alert(res)
       })
   }
+
+  requestSwap () {
+    let { id, shiftsId } = this.props
+    api.requestSwap(id, shiftsId)
+      .then(res => {
+        console.log(res, 'requestSwap')
+      })
+  }
   render () {
     let { assignedUsers, unassignedUsers, loaded, roles } = this.state
     if (loaded) {
