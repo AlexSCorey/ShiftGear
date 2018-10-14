@@ -17,8 +17,8 @@ class WeekViewContainer extends Component {
       loaded: false,
       // ReqAvailandCopyPasteDate
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
-      nextWeek: moment(this.thisWeek).add(6, 'days').startOf('week').format('YYYY-MM-DD'),
-      lastWeek: moment(this.thisWeek).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
+      nextWeek: moment(this.thisWeek).add(6, 'days').format('YYYY-MM-DD'),
+      lastWeek: moment(this.thisWeek).subtract(7, 'days').format('YYYY-MM-DD'),
       copyWeekStart: undefined,
       shifts: [],
       // WeekView
@@ -46,8 +46,10 @@ class WeekViewContainer extends Component {
   getShifts () {
     const { id } = this.props
     const { thisWeek, nextWeek } = this.state
+    console.log(thisWeek, nextWeek, 'this week nextWeek')
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
+        console.log(res, 'res in weekview container')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -93,12 +95,18 @@ class WeekViewContainer extends Component {
     let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
     let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    console.log(lastWeek, 'lastWeek next week')
+    console.log(thisWeek, 'thisWeek next week')
+    console.log(nextWeek, 'nextWeek next week')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
       lastWeek: lastWeek })
     this.setState({ loaded: false })
+    console.log(thisWeek, 'thisWeek get weekshift info')
+    console.log(nextWeek, 'nextWeek get weekshift info')
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
+        console.log(res, 'res nextWeekShiftInfo')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -130,7 +138,6 @@ class WeekViewContainer extends Component {
   render () {
     let { thisWeek, nextWeek, lastWeek, shiftSwapIndexLoaded, shifts, copyWeekStart, notesExist, shiftSwapsIndex, loaded } = this.state
     let { id } = this.props
-    console.log(id, 'id in weekview container')
     return (<div>
       <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
       <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />

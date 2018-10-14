@@ -56,6 +56,7 @@ class ShiftSelection extends Component {
             fromDate: '',
             toHour: '',
             toMin: '',
+            fromAmPm: '',
             fromMin: '',
             staffRequired: '',
             addShift: true })
@@ -70,27 +71,57 @@ class ShiftSelection extends Component {
     this.setState({ toDate: value })
   }
   setFromHour (value) {
-    this.setState({ fromHour: value })
+    if (this.state.fromAmPm === 'PM') {
+      this.setState({ fromHour: (+value + +12) })
+    } else {
+      this.setState({ fromHour: value })
+    }
   }
   setFromMinute (value) {
     this.setState({ fromMin: value })
   }
   setFromAmPm (value) {
-    if (value === 'PM') {
-      let stringify = parseInt(this.state.fromHour, 10) + 12
-      this.setState({ fromHour: stringify })
+    if (this.state.fromHour) {
+      if (value === 'PM') {
+        this.setState({ fromAmPm: value,
+          fromHour: +this.state.fromHour + +12 })
+      } else {
+        if (this.state.fromHour > 12) {
+          this.setState({ fromAmPm: value,
+            fromHour: this.state.fromHour - 12 })
+        } else {
+          this.setState({ fromAmPm: value })
+        }
+      }
+    } else {
+      this.setState({ fromAmPm: value })
     }
   }
   setToHour (value) {
-    this.setState({ toHour: value })
+    if (this.state.toAmPm === 'PM') {
+      this.setState({ toHour: (+value + +12) })
+    } else {
+      this.setState({ toHour: value })
+    }
   }
   setToMinute (value) {
     this.setState({ toMin: value })
   }
   setToAmPm (value) {
-    if (value === 'PM') {
-      let stringify = parseInt(this.state.toHour, 10) + 12
-      this.setState({ toHour: stringify })
+    if (this.state.toHour) {
+      if (value === 'PM') {
+        this.setState({ toAmPm: value,
+          toHour: +this.state.toHour + +12 })
+      } else {
+        if (this.state.toHour > 12) {
+          this.setState({ toAmPm: value,
+            toHour: this.state.toHour - 12 })
+        } else {
+          this.setState({ toAmPm: value })
+        }
+      }
+    } else {
+      this.setState({ toAmPm: value })
     }
   }
   staffRequired (e, value) {

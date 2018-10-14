@@ -14,7 +14,7 @@ class DayView extends Component {
       shiftsLoaded: false,
       assignedUsers: [],
       unassignedUsers: []
-    }
+    } 
   }
   componentDidMount () {
     this.getShifts()

@@ -63,17 +63,13 @@ class App extends Component {
           <div className='App'>
             <main className='main'>
               <div className='board'>
-                <Route path='' render={(props) =>
-                  <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                    <Login setCurrentUser={this.setCurrentUser} />
-                  </Guard>} />
 
-                <Route path='/Login' render={(props) =>
+                <Route exact path='/Login' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Login setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
 
-                <Route path='/Register' render={(props) =>
+                <Route exact path='/Register' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Register setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
@@ -103,6 +99,7 @@ class App extends Component {
                     <NewUserRegister setNewUser={this.setNewUser}
                       id={match.params.id} />
                   </Guard>} />
+
               </div>
             </main>
           </div>
