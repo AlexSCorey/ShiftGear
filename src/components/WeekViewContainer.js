@@ -135,10 +135,12 @@ class WeekViewContainer extends Component {
   // }
   render () {
     let { thisWeek, nextWeek, lastWeek, shiftSwapIndexLoaded, shifts, copyWeekStart, notesExist, shiftSwapsIndex, loaded } = this.state
+    let { id } = this.props
+    console.log(id, 'id in weekview container')
     return (<div>
-      <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
-      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
-      <AcceptShiftRequest getShiftSwapIndex={this.getShiftSwapIndex} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} shiftSwapIndexLoaded={shiftSwapIndexLoaded} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <AcceptShiftRequest getShiftSwapIndex={this.getShiftSwapIndex} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} id={id} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} shiftSwapIndexLoaded={shiftSwapIndexLoaded} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
     </div>)
   }
 }
