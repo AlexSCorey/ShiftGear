@@ -35,8 +35,6 @@ class AcceptShiftRequest extends Component {
   render () {
     let { shiftSwapsIndex, shiftSwapIndexLoaded } = this.props
     if (shiftSwapIndexLoaded) {
-      console.log(shiftSwapsIndex)
-      debugger
       if ((shiftSwapsIndex.roles.indexOf('owner') > -1) || (shiftSwapsIndex.roles.indexOf('manager') > -1)) {
         return (
           <div>
