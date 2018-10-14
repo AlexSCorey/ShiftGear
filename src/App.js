@@ -63,14 +63,15 @@ class App extends Component {
           <div className='App'>
             <main className='main'>
               <div className='board'>
-                <Route path='' render={(props) =>
-                  <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                    <Login setCurrentUser={this.setCurrentUser} />
-                  </Guard>} />
 
                 <Route path='/Login' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Login setCurrentUser={this.setCurrentUser} />
+                  </Guard>} />
+
+                <Route path='/Register' render={(props) =>
+                  <Guard condition={this.state.currentUser} redirectTo='/Register'>
+                    <Register setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
 
                 <Route path='/Register' render={(props) =>
@@ -102,6 +103,11 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <NewUserRegister setNewUser={this.setNewUser}
                       id={match.params.id} />
+                  </Guard>} />
+
+                <Route path='' render={(props) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/Login'>
+                    <Login setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
               </div>
             </main>

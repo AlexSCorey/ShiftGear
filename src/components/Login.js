@@ -35,7 +35,7 @@ class Login extends Component {
         <div className='toggleLogin'>
           <span to='/login'><strong className='toggleLogin'>login</strong></span>
           <span className='pipe'> |</span>&nbsp;
-          <NavLink className='toggleLogin' to='/register' onClick={e => this.setRegistering(e, true)}>register</NavLink>
+          <NavLink className='toggleLogin' to='/Register' onClick={e => this.setRegistering(e, true)}>register</NavLink>
         </div>
         { errMsg &&
         <Notification isColor='warning'>
