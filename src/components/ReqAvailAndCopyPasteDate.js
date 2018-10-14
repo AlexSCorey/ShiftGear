@@ -49,29 +49,31 @@ class ReqAvailAndCopyPasteDate extends Component {
     api.requestAvailability(id, thisWeek, nextWeek)
       .then(res => res)
   }
-  assignShifts () {
+  assignShifts (value) {
     let { id } = this.props
-    let { shifts } = this.state
-    let shiftID = shifts.availability_process.id
-    api.assignShifts(id, shiftID)
+    console.log(id, 'process id')
+    console.log(value, 'shift process id')
+    api.assignShifts(id, value)
       .then(res => res)
   }
   render () {
     // let { loaded, shifts } = this.state
     let { id, loaded, shifts } = this.props
+    console.log(id, 'id')
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         if (shifts.availability_processes && shifts.availability_processes.length >= 1) {
           return (<div>
-            <div className='requestOffAndCopy'>
-              <button className='navButtons' onClick={e => this.assignShifts(e)}>Assign Shifts</button>
-              <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
-              <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
-              <span className='datePicker'>
-                <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
-                <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
-              </span>
-            </div>
+            {shifts.availability_processes.map((availabilityProcess) =>
+              <div className='requestOffAndCopy' key={availabilityProcess.id}>
+                <button className='navButtons' value={availabilityProcess.id} onClick={(e) => this.assignShifts(e.target.value)}>Assign Shifts</button>
+                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+                <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
+                <span className='datePicker'>
+                  <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
+                  <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
+                </span>
+              </div>)}
           </div>)
         } else {
           return (

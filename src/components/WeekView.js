@@ -148,13 +148,12 @@ class WeekView extends Component {
       .then(res => res, 'requestSwap')
   }
   goToThisWeek (day) {
-    // e.preventDefault()
     this.props.goToThisWeek(day)
   }
 
   render () {
-    const { shifts, thisWeek } = this.state
-    const { id, loaded, shiftsState, thisWeekState } = this.props
+    const { thisWeek } = this.state
+    const { id, loaded, shiftsState, thisWeekState, shifts } = this.props
     if (loaded) {
       if ((shiftsState.roles.indexOf('owner') > -1) || (shiftsState.roles.indexOf('manager') > -1)) {
         return (
@@ -195,9 +194,11 @@ class WeekView extends Component {
               <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
               <span><button className='titleButtonToggle' onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
+            <div className='itemList3'><span>
+              <strong>Go to:</strong>
+              <DayPickerInput className='date' onDayChange={(day) => this.goToThisWeek(day)} /></span></div>
             <div>
               {shifts.summaries.map((shift) => <div key={shift.Day}>
-                {console.log(shift.Day, 'shift id')}
 
                 <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                   <div className='day'>{moment(shift.Day).format('ddd, Do')}</div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'react-day-picker/lib/style.css'
 
 import api from './api'
@@ -31,8 +30,6 @@ class WeekViewContainer extends Component {
     this.goToThisWeek = this.goToThisWeek.bind(this)
     this.lastWeek = this.lastWeek.bind(this)
     this.nextWeek = this.nextWeek.bind(this)
-    // this.getNextWeekShifts = this.getNextWeekShifts.bind(this)
-    // this.getLastWeekShifts = this.getLastWeekShifts.bind(this)
   }
   componentDidMount () {
     this.getShiftSwapIndex()
@@ -61,7 +58,6 @@ class WeekViewContainer extends Component {
   }
   // Week View
   goToThisWeek (date) {
-    // e.preventDefault()
     const { id } = this.props
     let thisWeek = moment(date).startOf('week').format('YYYY-MM-DD')
     let nextWeek = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
@@ -77,7 +73,6 @@ class WeekViewContainer extends Component {
       })
   }
   lastWeek () {
-    // e.preventDefault()
     const { id } = this.props
     let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
     let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
@@ -104,7 +99,6 @@ class WeekViewContainer extends Component {
     this.setState({ loaded: false })
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
-        console.log(res, 'res in weekview')
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -135,10 +129,12 @@ class WeekViewContainer extends Component {
   // }
   render () {
     let { thisWeek, nextWeek, lastWeek, shiftSwapIndexLoaded, shifts, copyWeekStart, notesExist, shiftSwapsIndex, loaded } = this.state
+    let { id } = this.props
+    console.log(id, 'id in weekview container')
     return (<div>
-      <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
-      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
-      <AcceptShiftRequest getShiftSwapIndex={this.getShiftSwapIndex} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} shiftSwapIndexLoaded={shiftSwapIndexLoaded} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <AcceptShiftRequest getShiftSwapIndex={this.getShiftSwapIndex} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} id={id} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} shiftSwapIndexLoaded={shiftSwapIndexLoaded} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
     </div>)
   }
 }
