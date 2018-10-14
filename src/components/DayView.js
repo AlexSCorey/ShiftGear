@@ -60,7 +60,7 @@ class DayView extends Component {
   }
   render () {
     let { id, date } = this.props
-    let { shiftsToday, shiftsLoaded, unassignedUsers } = this.state
+    let { shiftsToday, shiftsLoaded } = this.state
     if (shiftsLoaded) {
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
@@ -83,16 +83,6 @@ class DayView extends Component {
                     <div className='itemList1'>Assigned Staff</div>
                     {shift.assigned_users.map((user) =>
                       <div key={user.id}><p className='itemList3'>{user.name}</p></div>)}
-                  </div>
-                  <div>
-                    <div className='itemList1'>Unassigned Staff</div>
-                    <div>{unassignedUsers.map((user) =>
-                      <div ><p className='itemList3'>{user.name}</p>
-                        <hr />
-                        <button className='checkbox' type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</button>
-                      </div>
-
-                    )}</div>
                   </div>
                 </div>
               </div>
