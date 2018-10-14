@@ -10,26 +10,34 @@ class NewUserRegister extends Component {
     this.state = {
       name: '',
       password: '',
-      confPassword: ''
+      confPassword: '',
+      regComplete: false
     }
   }
   handleSubmit (e) {
     const { id } = this.props
     e.preventDefault()
     const { password, passwordConf, name } = this.state
-    const { setNewUser } = this.props
+    // const { setNewUser } = this.props
     if (passwordConf === password) {
       api.newUserRegistrationCompletion(name, password, id)
-        .then(userToken => {
-          let token = userToken
-          setNewUser(token)
+        .then(res => {
+          this.setState({ regComplete: true })
+          console.log(res)
+          // let token = userToken
         })
     } else {
       this.setState({ errMsg: 'Your password and confirmation must match.' })
     }
   }
   render () {
-    const { password, passwordConf, name } = this.state
+    const { password, passwordConf, name, regComplete } = this.state
+    if (regComplete) {
+      return (<div>
+        You have completed the registration process!  Thank you, have a great day.
+        <NavLink to='/login'>Go to Login</NavLink>
+      </div>)
+    }
     return (<div>
       <h1 className='emaillabel'>Welcome! Please complete the form below to finalize the registration process</h1>
       <label className='emailLabel'>name</label>
