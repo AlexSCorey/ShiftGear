@@ -18,27 +18,27 @@ class ReqAvailAndCopyPasteDate extends Component {
     }
   }
   componentDidMount () {
-    this.getShifts()
+    // this.getShifts()
   }
-  getShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  copyWeekStart (date) {
-    let copyWeekStart = moment(date).format('YYYY-MM-DD')
-    this.setState({ copyWeekStart: copyWeekStart })
-  }
+  // getShifts () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       console.log(res, 'res in req avail')
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // copyWeekStart (date) {
+  //   let copyWeekStart = moment(date).format('YYYY-MM-DD')
+  //   this.setState({ copyWeekStart: copyWeekStart })
+  // }
   pasteWeek (e) {
     const { id } = this.props
     let { copyWeekStart, thisWeek } = this.state
     let startWeek = moment(thisWeek).format('YYYY-MM-DD')
     let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
-    console.log(id, copyWeekStart, thisWeek, endWeek, 'paste week')
     api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
       .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
@@ -57,8 +57,8 @@ class ReqAvailAndCopyPasteDate extends Component {
       .then(res => res)
   }
   render () {
-    let { loaded, shifts } = this.state
-    let { id } = this.props
+    // let { loaded, shifts } = this.state
+    let { id, loaded, shifts } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         if (shifts.availability_processes && shifts.availability_processes.length >= 1) {
