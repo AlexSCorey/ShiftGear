@@ -7,17 +7,23 @@ import { Link } from 'react-router-dom'
 import api from './api'
 
 class WeekView extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      shifts: [],
-      thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
-      nextWeek: moment(this.thisWeek).add(6, 'days').startOf('week').format('YYYY-MM-DD'),
-      lastWeek: moment(this.thisWeek).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
-      copyWeekStart: undefined,
-      notesExist: false,
-      shiftSwapsIndex: [],
-      loaded: false
+      thisWeek: this.props.thisWeek,
+      nextWeek: this.props.nextWeek,
+      lastWeek: this.props.lastWeek,
+      shifts: this.props.shifts,
+      copyWeekStart: this.props.copyWeekStart,
+      notesExist: this.props.notesExist,
+      shiftSwapsIndex: this.props.shiftSwapsIndex
+      // shifts: [],
+      // thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
+      // nextWeek: moment(this.thisWeek).add(6, 'days').startOf('week').format('YYYY-MM-DD'),
+      // lastWeek: moment(this.thisWeek).subtract(7, 'days').startOf('week').format('YYYY-MM-DD'),
+      // copyWeekStart: undefined,
+      // notesExist: false,
+      // shiftSwapsIndex: []
 
     }
   }
@@ -27,7 +33,7 @@ class WeekView extends Component {
     api.approveRequest(value, token)
   }
   componentDidMount () {
-    this.getShifts()
+    // this.getShifts()
   }
   copyWeekStart (date) {
     let copyWeekStart = moment(date).format('YYYY-MM-DD')
@@ -41,92 +47,94 @@ class WeekView extends Component {
     api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
       .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
-  getShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  getNextWeekShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
-    this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, startDate, endDate)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  getLastWeekShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
-    this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, startDate, endDate)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
+  // getShifts () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // getNextWeekShifts () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   this.setState({ loaded: false })
+  //   api.getWeekShiftInfo(id, startDate, endDate)
+  //     .then(res => {
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // getLastWeekShifts () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   this.setState({ loaded: false })
+  //   api.getWeekShiftInfo(id, startDate, endDate)
+  //     .then(res => {
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // nextWeek (e) {
+  //   e.preventDefault()
+  //   const { id } = this.props
+  //   let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   this.setState({ nextWeek: nextWeek,
+  //     thisWeek: thisWeek,
+  //     lastWeek: lastWeek })
+  //   this.setState({ loaded: false })
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       console.log(res, 'res in weekview')
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // lastWeek (e) {
+  //   e.preventDefault()
+  //   const { id } = this.props
+  //   let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
+  //   let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+  //   let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
+  //   this.setState({ nextWeek: nextWeek,
+  //     thisWeek: thisWeek,
+  //     lastWeek: lastWeek })
+  //   this.setState({ loaded: false })
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // goToThisWeek (date) {
+  //   const { id } = this.props
+  //   let thisWeek = moment(date).startOf('week').format('YYYY-MM-DD')
+  //   let nextWeek = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+  //   let lastWeek = moment(thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
+  //   this.setState({ nextWeek: nextWeek,
+  //     thisWeek: thisWeek,
+  //     lastWeek: lastWeek })
+  //   this.setState({ loaded: false })
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  lastWeek (e) {
+    e.preventDefault()
+    this.props.lastWeek()
   }
   nextWeek (e) {
     e.preventDefault()
-    const { id } = this.props
-    let lastWeek = moment(this.state.lastWeek).add(1, 'week').format('YYYY-MM-DD')
-    let thisWeek = moment(this.state.thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
-    this.setState({ nextWeek: nextWeek,
-      thisWeek: thisWeek,
-      lastWeek: lastWeek })
-    this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        console.log(res, 'res in weekview')
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  lastWeek (e) {
-    e.preventDefault()
-    const { id } = this.props
-    let lastWeek = moment(this.state.lastWeek).subtract(1, 'week').format('YYYY-MM-DD')
-    let thisWeek = moment(this.state.thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
-    let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
-    this.setState({ nextWeek: nextWeek,
-      thisWeek: thisWeek,
-      lastWeek: lastWeek })
-    this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  goToThisWeek (date) {
-    const { id } = this.props
-    let thisWeek = moment(date).startOf('week').format('YYYY-MM-DD')
-    let nextWeek = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
-    let lastWeek = moment(thisWeek).subtract(1, 'week').format('YYYY-MM-DD')
-    this.setState({ nextWeek: nextWeek,
-      thisWeek: thisWeek,
-      lastWeek: lastWeek })
-    this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  deleteShift (e, shiftId) {
-    e.preventDefault()
-    let { id } = this.props
-    api.deleteShift(id, shiftId)
-      .then(res => res)
+    this.props.nextWeek()
   }
   acceptShiftSwap (e, shiftID) {
     e.preventDefault()
@@ -139,30 +147,30 @@ class WeekView extends Component {
     api.requestSwap(id, shiftsId)
       .then(res => res, 'requestSwap')
   }
+  goToThisWeek (day) {
+    // e.preventDefault()
+    this.props.goToThisWeek(day)
+  }
 
   render () {
-    const { shifts, thisWeek, loaded } = this.state
-    const { id } = this.props
+    const { shifts, thisWeek } = this.state
+    const { id, loaded, shiftsState, thisWeekState } = this.props
     if (loaded) {
-      if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
+      if ((shiftsState.roles.indexOf('owner') > -1) || (shiftsState.roles.indexOf('manager') > -1)) {
         return (
           <div>
             <div className='weekRange'>
-              <span><button key={'next'}className='titleButtonToggle' isactive={loaded ? 'true' : 'false'} onClick={(e) => this.lastWeek(e)}>Last Week</button></span>
-              <span className='currentDate'>{moment(thisWeek).format('MM/DD/YY')}</span>
+              <span><button key={'next'}className='titleButtonToggle' isactive={loaded ? 'true' : 'false'} onClick={e => this.lastWeek(e)}>Last Week</button></span>
+              <span className='currentDate'>{moment(thisWeekState).format('MM/DD/YY')}</span>
               <span><button key={'last'} className='titleButtonToggle' isactive={loaded ? 'true' : 'false'}onClick={(e) => this.nextWeek(e)}>Next Week</button></span>
             </div>
             <div className='itemList3'><span>
               <strong>Go to:</strong>
               <DayPickerInput className='date' onDayChange={(day) => this.goToThisWeek(day)} /></span></div>
             <div>
-              {shifts.summaries.map((shift) => <div key={shift.Day}>
+              {shiftsState.summaries.map((shift) => <div key={shift.Day}>
                 <div>
                   <div key={shift.Day} >
-                    {/* <button className='delete btn'><i className='far fa-edit' onClick={(e) => this.deleteShift(e, shift.shift_id)} /></button>
-                    <div type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                      <button className='btn'><i className='far fa-trash-alt' /></button></div> */}
-
                     <Link to={`/Calendar/${id}/Shifts/${moment(shift.Day).format('YYYY-MM-DD')}`}>
                       <div className='day'>{moment(shift.Day).format('ddd, Do')}</div>
                       <button className='columns3'>
