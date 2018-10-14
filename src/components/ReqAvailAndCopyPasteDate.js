@@ -59,7 +59,6 @@ class ReqAvailAndCopyPasteDate extends Component {
   render () {
     // let { loaded, shifts } = this.state
     let { id, loaded, shifts } = this.props
-    console.log(id, 'id')
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
         if (shifts.availability_processes && shifts.availability_processes.length >= 1) {

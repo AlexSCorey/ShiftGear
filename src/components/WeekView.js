@@ -56,30 +56,30 @@ class WeekView extends Component {
   //         loaded: true })
   //     })
   // }
-  // getNextWeekShifts () {
-  //   const { id } = this.props
-  //   const { thisWeek, nextWeek } = this.state
-  //   let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
-  //   let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
-  //   this.setState({ loaded: false })
-  //   api.getWeekShiftInfo(id, startDate, endDate)
-  //     .then(res => {
-  //       this.setState({ shifts: res,
-  //         loaded: true })
-  //     })
-  // }
-  // getLastWeekShifts () {
-  //   const { id } = this.props
-  //   const { thisWeek, nextWeek } = this.state
-  //   let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
-  //   let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
-  //   this.setState({ loaded: false })
-  //   api.getWeekShiftInfo(id, startDate, endDate)
-  //     .then(res => {
-  //       this.setState({ shifts: res,
-  //         loaded: true })
-  //     })
-  // }
+  getNextWeekShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, startDate, endDate)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
+  getLastWeekShifts () {
+    const { id } = this.props
+    const { thisWeek, nextWeek } = this.state
+    let startDate = moment(thisWeek).add(1, 'week').format('YYYY-MM-DD')
+    let endDate = moment(nextWeek).add(1, 'week').format('YYYY-MM-DD')
+    this.setState({ loaded: false })
+    api.getWeekShiftInfo(id, startDate, endDate)
+      .then(res => {
+        this.setState({ shifts: res,
+          loaded: true })
+      })
+  }
   // nextWeek (e) {
   //   e.preventDefault()
   //   const { id } = this.props

@@ -56,6 +56,7 @@ class ShiftSelection extends Component {
             fromDate: '',
             toHour: '',
             toMin: '',
+            fromAmPm: '',
             fromMin: '',
             staffRequired: '',
             addShift: true })
@@ -70,16 +71,17 @@ class ShiftSelection extends Component {
     this.setState({ toDate: value })
   }
   setFromHour (value) {
-    this.setState({ fromHour: value })
+    if (this.state.fromAmPm === 'PM') {
+      this.setState({ fromHour: (+value + +12) })
+    } else {
+      this.setState({ fromHour: value })
+    }
   }
   setFromMinute (value) {
     this.setState({ fromMin: value })
   }
   setFromAmPm (value) {
-    if (value === 'PM') {
-      let stringify = parseInt(this.state.fromHour, 10) + 12
-      this.setState({ fromHour: stringify })
-    }
+    this.setState({ fromAmPm: value })
   }
   setToHour (value) {
     this.setState({ toHour: value })
