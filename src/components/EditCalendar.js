@@ -77,7 +77,12 @@ class EditCalendar extends Component {
         </div>)
     } else {
       return (
-        <div> loading...</div>
+        <div> <div class='loader'>
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+        </div></div>
       )
     }
   }

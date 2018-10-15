@@ -78,10 +78,20 @@ class AcceptShiftRequest extends Component {
           </div>
         )
       } else {
-        return (<div>loading</div>)
+        return (<div class='loader'>
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+        </div>)
       }
     } else {
-      return (<div>loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }
