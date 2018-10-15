@@ -58,8 +58,8 @@ class WeekViewContainer extends Component {
   copyWeekStart (date) {
     this.setState({ copyWeekStart: date })
   }
-  pasteWeek (e) {
-    let { copyWeekStart, thisWeek } = this.state
+  pasteWeek (copyWeekStart) {
+    let { thisWeek } = this.state
     let { id } = this.props
     let startWeek = moment(thisWeek).format('YYYY-MM-DD')
     let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')

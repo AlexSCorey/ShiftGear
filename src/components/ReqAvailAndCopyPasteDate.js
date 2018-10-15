@@ -32,10 +32,11 @@ class ReqAvailAndCopyPasteDate extends Component {
   // }
   copyWeekStart (date) {
     let copyWeekStart = moment(date).format('YYYY-MM-DD')
-    this.props.copyWeekStart(copyWeekStart)
+    this.setState({ copyWeekStart: copyWeekStart })
   }
   pasteWeek (e) {
-    this.props.pasteWeek()
+    let { copyWeekStart } = this.state
+    this.props.pasteWeek(copyWeekStart)
   }
   requestAvailability (e) {
     e.preventDefault()
@@ -52,7 +53,6 @@ class ReqAvailAndCopyPasteDate extends Component {
       .then(res => res)
   }
   render () {
-    // let { loaded, shifts } = this.state
     let { id, loaded, shifts } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
