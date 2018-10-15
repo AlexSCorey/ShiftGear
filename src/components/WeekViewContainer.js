@@ -55,8 +55,7 @@ class WeekViewContainer extends Component {
       })
   }
   copyWeekStart (date) {
-    let copyWeekStart = moment(date).format('YYYY-MM-DD')
-    this.setState({ copyWeekStart: copyWeekStart })
+    this.setState({ copyWeekStart: date })
   }
   // Week View
   goToThisWeek (date) {

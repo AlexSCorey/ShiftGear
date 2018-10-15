@@ -30,10 +30,10 @@ class ReqAvailAndCopyPasteDate extends Component {
   //         loaded: true })
   //     })
   // }
-  // copyWeekStart (date) {
-  //   let copyWeekStart = moment(date).format('YYYY-MM-DD')
-  //   this.setState({ copyWeekStart: copyWeekStart })
-  // }
+  copyWeekStart (date) {
+    let copyWeekStart = moment(date).format('YYYY-MM-DD')
+    this.pros.copyWeekStart(copyWeekStart)
+  }
   pasteWeek (e) {
     const { id } = this.props
     let { copyWeekStart, thisWeek } = this.state
