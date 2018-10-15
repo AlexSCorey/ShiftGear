@@ -30,6 +30,7 @@ class WeekViewContainer extends Component {
     this.goToThisWeek = this.goToThisWeek.bind(this)
     this.lastWeek = this.lastWeek.bind(this)
     this.nextWeek = this.nextWeek.bind(this)
+    this.pasteWeek = this.pasteWeek.bind(this)
   }
   componentDidMount () {
     this.getShiftSwapIndex()
@@ -56,6 +57,14 @@ class WeekViewContainer extends Component {
   }
   copyWeekStart (date) {
     this.setState({ copyWeekStart: date })
+  }
+  pasteWeek (e) {
+    let { copyWeekStart, thisWeek } = this.state
+    let { id } = this.props
+    let startWeek = moment(thisWeek).format('YYYY-MM-DD')
+    let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
+    api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
+      .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
   // Week View
   goToThisWeek (date) {
@@ -141,7 +150,7 @@ class WeekViewContainer extends Component {
     let { id } = this.props
     return (<div>
       <WeekView goToThisWeek={this.goToThisWeek} lastWeek={this.lastWeek} nextWeek={this.nextWeek} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
-      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
+      <ReqAvailandCopyPateDate getShifts={this.getShifts} copyWeekStart={this.copyWeekStart} thisWeekState={thisWeek} id={id} loaded={loaded} shiftsState={shifts} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} pasteWeek={this.pasteWeek} copyWeekStartState={copyWeekStart} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
       <AcceptShiftRequest getShiftSwapIndex={this.getShiftSwapIndex} thisWeekState={thisWeek} loaded={loaded} shiftsState={shifts} id={id} nextWeekState={nextWeek} lastWeekState={lastWeek} shifts={shifts} copyWeekStartState={copyWeekStart} shiftSwapIndexLoaded={shiftSwapIndexLoaded} notesExist={notesExist} shiftSwapsIndex={shiftSwapsIndex} />
     </div>)
   }
