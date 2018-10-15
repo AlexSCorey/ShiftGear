@@ -17,7 +17,6 @@ class DayAlerts extends Component {
     let { id, date } = this.props
     api.getDailyAlerts(id, date)
       .then(res => {
-        console.log(res.alerts)
         this.setState({ alerts: res.alerts })
       })
   }

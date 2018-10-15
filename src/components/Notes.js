@@ -11,7 +11,6 @@ class Notes extends Component {
       employeeNotes: {},
       loaded: false
     }
-    this.getNotes = this.getNotes.bind(this)
   }
   componentDidMount () {
     this.getNotes()

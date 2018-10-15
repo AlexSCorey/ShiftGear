@@ -10,11 +10,10 @@ class DayView extends Component {
     this.state = {
       note: '',
       shiftsToday: {},
-      users: {},
       shiftsLoaded: false,
       assignedUsers: [],
       unassignedUsers: []
-    } 
+    }
   }
   componentDidMount () {
     this.getShifts()
@@ -74,7 +73,7 @@ class DayView extends Component {
                       <div className='column3'>Start<br /><strong>{moment(shift.start_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
                       <div className='column3'>End<br /><strong>{moment(shift.end_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
                     </div>
-                    <Link className='column3'to={`/Calendar/${id}/AddShifts/${shift.shift_id}`}>Edit</Link>
+                    <Link className='column3'to={`/Calendar/${id}/EditShifts/${shift.shift_id}`}>Edit</Link>
                     <Delete id={shift.shift_id} onClick={e => this.deleteShift(e, shift.shift_id)} />
                   </div>
                 </Link>
@@ -87,7 +86,7 @@ class DayView extends Component {
                 </div>
               </div>
             )}
-            <div className='weekRange'><Link to={`/Calendar/${id}/AddShifts/${date}`}><button className='titleButton'>Add A Shift</button></Link><br />
+            <div className='weekRange'><Link to={`/Calendar/${id}/AddShifts/`}><button className='titleButton'>Add A Shift</button></Link><br />
               <label className='itemList1'>Write a Note for {moment(date).format('ddd, Do')}
                 <input className='formInput2' type='textarea'onChange={e => this.setState({ note: e.target.value })} required />
               </label>
@@ -109,10 +108,6 @@ class DayView extends Component {
                     </div>
                   </div>
                 </Link>
-                <div className='centerText'>
-                  <button className='navButtons' value={'accept'} onClick={e => this.giveAvailability(e, e.target.value)}>I'm Available</button>
-                  <button className='navButtons' value={'deny'} onClick={e => this.denyAvailability(e, e.target.value)}>Not Available</button>
-                </div>
               </div>
             )}
             <label className='itemList1'>Leave a Note:<input className='formInput2' type='textarea' onChange={e => this.setState({ note: e.target.value })} required />

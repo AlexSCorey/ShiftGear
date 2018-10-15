@@ -5,24 +5,6 @@ import moment from 'moment'
 import api from './api'
 
 class AcceptShiftRequest extends Component {
-  // constructor () {
-  //   super()
-  //   this.state = {
-  //     shiftSwapsIndex: this.props.shiftSwapsIndex
-  //     loaded: false
-  //   }
-  // }
-  componentDidMount () {
-    // this.getShiftSwapIndex()
-  }
-  // getShiftSwapIndex () {
-  //   let { id } = this.props
-  //   api.getShiftSwapIndex(id)
-  //     .then(res => {
-  //       this.setState({ shiftSwapsIndex: res,
-  //         loaded: true })
-  //     })
-  // }
   acceptShiftSwap (e, shiftID) {
     e.preventDefault()
     let { id } = this.props
@@ -30,7 +12,7 @@ class AcceptShiftRequest extends Component {
       .then(res => window.alert('Swap sent for approval by manager'))
   }
   approveShiftSwap () {
-    api.approveRequest()
+    api.approveRequest('approve')
   }
   render () {
     let { shiftSwapsIndex, shiftSwapIndexLoaded } = this.props

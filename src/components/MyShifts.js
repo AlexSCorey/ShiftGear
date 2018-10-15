@@ -21,9 +21,9 @@ class MyShifts extends Component {
           loaded: true })
       })
   }
-  requestSwap () {
-    let { id, shiftsId } = this.props
-    api.requestSwap(id, shiftsId)
+  requestSwap (e, value) {
+    let { id } = this.props
+    api.requestSwap(id, value)
       .then(res => res)
   }
   render () {
@@ -35,7 +35,7 @@ class MyShifts extends Component {
             <div className='itemList3' key={shift.shift_id}>
               <div><strong>{shift.calendar_name}</strong></div>
               <div>{moment(shift.start_time).utcOffset(shift.start_time).format('MMM Do h:mma')}-{moment(shift.end_time).utcOffset(shift.end_time).format('MMM Do h:mma')}</div>
-              <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
+              <Button value={shift.shift_id} onClick={e => this.requestSwap(e, e.target.value)}>Request Swap</Button>
             </div>
           )}</div>
         </div></div>)

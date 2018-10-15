@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
-
 import 'react-day-picker/lib/style.css'
-import { Button, Label, Input } from 'bloomer'
-
 import { Link } from 'react-router-dom'
-// import { getActiveModifiers } from 'bloomer/lib/bulma'
 
 import api from './api'
 
@@ -51,7 +47,6 @@ class ShiftSelection extends Component {
     } else {
       api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
         .then(res => {
-          console.log('res')
           this.setState({ toDate: '',
             fromDate: '',
             toHour: '',

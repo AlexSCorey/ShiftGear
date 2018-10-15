@@ -43,7 +43,7 @@ const api = {
       .set('Authorization', `Bearer ${id}`)
       .send({ 'name': `${name}`,
         'password': `${password}` })
-      .then(res => res.body.user.api_token)
+      .then(res => res)
   },
   setUserToken: (token) => {
     userToken = token
