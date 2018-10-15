@@ -88,7 +88,12 @@ class SingleShiftView extends Component {
         )
       }
     } else {
-      return (<div>Loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }

@@ -109,7 +109,7 @@ class DayView extends Component {
         )
       } else {
         return (
-          <div className='box'>
+          <div>
             {shiftsToday.shifts.map((shift) =>
               <div key={shift.id}>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
@@ -131,7 +131,12 @@ class DayView extends Component {
         )
       }
     } else {
-      return (<div>Not Today AssHole</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }

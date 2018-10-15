@@ -72,11 +72,15 @@ class AvailabilityResponse extends Component {
         <Button onClick={e => this.submitForm(e)}>Submit</Button>
       </div>)
     } else if (responseComplete) {
-      return (<div>Thank you for submitting your availbability!
-        <Link to='/login'>Go To Login</Link>
+      return (<div>Thank you for submitting your availability!<Link to='/login'>Go To Login</Link>
       </div>)
     } else {
-      return (<div>Loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }
