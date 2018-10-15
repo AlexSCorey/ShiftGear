@@ -54,7 +54,7 @@ class CalendarList extends Component {
                 )}</div>
               </div>
             )
-          } else {
+          } else if (type === 'Owned Calendars') {
             return (
               <div className='calendarItem'>
                 <span>
@@ -62,6 +62,15 @@ class CalendarList extends Component {
                     <button className='btn'><i className='far fa-edit' /></button></Link>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
                   <span type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}><button className='btn'><i className='far fa-trash-alt' /></button></span></span><br />
+              </div>
+            )
+          } else {
+            return (
+              <div className='calendarItem'>
+                <span>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
+                    <button className='btn'><i className='far fa-edit' /></button></Link>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link></span><br />
               </div>
             )
           }
