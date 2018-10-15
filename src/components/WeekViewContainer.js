@@ -18,7 +18,7 @@ class WeekViewContainer extends Component {
       // ReqAvailandCopyPasteDate
       thisWeek: moment(new Date()).startOf('week').format('YYYY-MM-DD'),
       nextWeek: moment(this.thisWeek).add(6, 'days').format('YYYY-MM-DD'),
-      lastWeek: moment(this.thisWeek).subtract(7, 'days').format('YYYY-MM-DD'),
+      lastWeek: moment(this.thisWeek).subtract(6, 'days').format('YYYY-MM-DD'),
       copyWeekStart: undefined,
       shifts: [],
       // WeekView
@@ -45,7 +45,9 @@ class WeekViewContainer extends Component {
   }
   getShifts () {
     const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
+    const { thisWeek } = this.state
+    let nextWeek = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
+    console.log(thisWeek, nextWeek, 'weeks range')
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
         this.setState({ shifts: res,
@@ -79,10 +81,14 @@ class WeekViewContainer extends Component {
     let nextWeek = moment(this.state.nextWeek).subtract(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
-      lastWeek: lastWeek })
+      lastWeek: lastWeek,
+      loaded: false })
     this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+    let nextWeekShifts = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
+    console.log(thisWeek, nextWeekShifts, 'next week shifts')
+    api.getWeekShiftInfo(id, thisWeek, nextWeekShifts)
       .then(res => {
+        console.log(res)
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -95,10 +101,14 @@ class WeekViewContainer extends Component {
     let nextWeek = moment(this.state.nextWeek).add(1, 'week').format('YYYY-MM-DD')
     this.setState({ nextWeek: nextWeek,
       thisWeek: thisWeek,
-      lastWeek: lastWeek })
+      lastWeek: lastWeek,
+      loaded: false })
     this.setState({ loaded: false })
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
+    let nextWeekShifts = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
+    console.log(thisWeek, nextWeekShifts, 'next week shifts')
+    api.getWeekShiftInfo(id, thisWeek, nextWeekShifts)
       .then(res => {
+        console.log(res)
         this.setState({ shifts: res,
           loaded: true })
       })

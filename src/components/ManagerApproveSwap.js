@@ -8,6 +8,7 @@ class ManageApproveSwap extends Component {
     super()
     this.state = { complete: false }
   }
+
   approvetShiftSwap (e, value) {
     let { token } = this.props
     e.preventDefault()

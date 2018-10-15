@@ -10,22 +10,23 @@ class CreateCalendar extends Component {
     this.state = {
       title: '',
       timeZone: 'Eastern Time',
-      dlst: false,
+      dailyHourThreshold: '',
+      weeklyHourThreshold: '',
       newCalendarId: '',
       msg: ''
     }
   }
 
   submitCalendar (e) {
-    let { title, timeZone, dlts } = this.state
+    let { title, timeZone, dailyHourThreshold, weeklyHourThreshold } = this.state
     let { id } = this.props
     e.preventDefault()
     if (id) {
       api.editCalendar(id, title, timeZone,
-        dlts)
+        dailyHourThreshold, weeklyHourThreshold)
         .then(res => window.alert('Calendar Successfully Updated'))
     } else {
-      api.createNewCalendar(title, timeZone)
+      api.createNewCalendar(title, timeZone, dailyHourThreshold, weeklyHourThreshold)
         .then(res => {
           this.setState({ newCalendarId: res.id })
         })
@@ -62,6 +63,12 @@ class CreateCalendar extends Component {
               </select>
             </div>
             </label><br />
+            <div>Daily Hour Thresholds
+              <input type='number' placeholder='provide a number' onChange={e => this.setState({ dailyHourThreshold: e.target.value })} />
+            </div>
+            <div>Weekly Hour Threshold
+              <input type='number' placeholder='provide a number' onChange={e => this.setState({ weeklyHourThreshold: e.target.value })} />
+            </div>
 
             <div> <Link to={`/Calendar/${newCalendarId}/AddEmployee`}><button className='titleButton' to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Create Calendar</button></Link>
             </div>

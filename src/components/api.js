@@ -67,14 +67,14 @@ const api = {
       .send(this.calendar.id(calendar))
       .then(res => res.body.calendars)
   },
-  createNewCalendar: (title, timeZone, numberOfShifts, dailyWorkLimit, weeklyWorkLimit) => {
+  createNewCalendar: (title, timeZone, dailyHourThreshold, weeklyHourThreshold) => {
     timeZone = 'Central Time (US & Canada)'
     return (request.post(`${domain}/calendars`))
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'name': `${title}`,
         'time_zone': `${timeZone}`,
-        'employee_hour_threshold_daily': `${dailyWorkLimit}`,
-        'employee_hour_threshold_weekly': `${weeklyWorkLimit}` })
+        'employee_hour_threshold_daily': `${dailyHourThreshold}`,
+        'employee_hour_threshold_weekly': `${weeklyHourThreshold}` })
       .then(res => res.body)
   },
   deleteCalendar: (id) => {
@@ -212,15 +212,14 @@ const api = {
         'token': `${token}` })
       .then(res => res.body)
   },
-  editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
-    dlst) => {
+  editCalendar: (id, title, timeZone,
+    dailyHourThreshold, weeklyHourThreshold) => {
     return request.patch(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .send({ 'name': `${name}`,
+      .send({ 'name': `${title}`,
         'time_zone': `${timeZone}`,
-        'employee_hour_threshold_daily': `${employeeHourThresholdDaily}`,
-        'employee_hour_threshold_weekly': `${employeeHourThresholdWeekly}`,
-        'daylight_savings': `${dlst}` })
+        'employee_hour_threshold_daily': `${dailyHourThreshold}`,
+        'employee_hour_threshold_weekly': `${weeklyHourThreshold}` })
       .then(res => res.body)
   },
   copyPasteWeek: (id, startWeek, endWeek, copyWeekStart) => {
