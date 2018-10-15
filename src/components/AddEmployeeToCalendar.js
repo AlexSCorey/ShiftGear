@@ -18,7 +18,6 @@ class AddEmployeeToCalendar extends Component {
     const { role, email } = this.state
     api.addEmployeeToCalendar(role, email, id)
       .then(res => {
-        console.log(res)
         this.setState({ email: '' })
       })
   }

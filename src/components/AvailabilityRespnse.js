@@ -20,6 +20,7 @@ class AvailabilityResponse extends Component {
     api.getAvailabilityRequests(id, token)
       .then(res => {
         let availabilities = res.availability_process.request.responses
+        console.log('res', res)
         this.setState({ availabilities: availabilities,
           availabilityRequests: res,
           loaded: true })
@@ -47,11 +48,11 @@ class AvailabilityResponse extends Component {
       availabilitiesResponses[availability.id] = availability.available
     })
     api.submitRequestAvailbility(availabilitiesResponses, token, id)
-    // console.log(availabilitiesResponses, 'res')
   }
   render () {
     let { loaded, availabilities, availabilityRequests } = this.state
     if (loaded) {
+      console.log('loaded', loaded, 'availabilities', availabilities, 'availabilityRequests', availabilityRequests)
       return (<div>
         <div>{availabilityRequests.availability_process.calendar_name}</div>
         {availabilities.map((request) =>

@@ -153,7 +153,7 @@ class App extends Component {
                       <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
                     </Guard>} />
 
-                  <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
+                  <Route path='/Calendar/:id/EditShifts/:shiftID' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
                     </Guard>} />
