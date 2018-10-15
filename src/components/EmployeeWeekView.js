@@ -73,7 +73,12 @@ class WeekView extends Component {
       )
       // 0: {Day: "2018-09-30 00:00:00", total_shifts: 2, total_capacity: 6, total_assigned_capacity: "8", published_shifts: 1, …
     } else {
-      return (<div>Loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }

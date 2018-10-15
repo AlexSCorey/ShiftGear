@@ -43,7 +43,12 @@ class MyShifts extends Component {
     } else if (loaded && myShifts.length === 0) {
       return (<div>You are not working this week!</div>)
     } else {
-      return (<div>Loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }

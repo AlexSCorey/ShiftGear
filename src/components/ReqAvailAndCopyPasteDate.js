@@ -84,10 +84,20 @@ class ReqAvailAndCopyPasteDate extends Component {
             </div>)
         }
       } else {
-        return (<div />)
+        return (<div class='loader'>
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+          <div class='line' />
+        </div>)
       }
     } else {
-      return (<div>Loading</div>)
+      return (<div class='loader'>
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+        <div class='line' />
+      </div>)
     }
   }
 }
