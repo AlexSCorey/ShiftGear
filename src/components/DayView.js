@@ -131,12 +131,7 @@ class DayView extends Component {
         )
       }
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }

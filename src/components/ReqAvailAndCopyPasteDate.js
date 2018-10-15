@@ -93,20 +93,10 @@ class ReqAvailAndCopyPasteDate extends Component {
             </div>)
         }
       } else {
-        return (<div class='loader'>
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-        </div>)
+        return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
       }
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }

@@ -75,12 +75,7 @@ class AvailabilityResponse extends Component {
       return (<div>Thank you for submitting your availability!<Link to='/login'>Go To Login</Link>
       </div>)
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }
