@@ -46,8 +46,12 @@ class ReqAvailAndCopyPasteDate extends Component {
     e.preventDefault()
     let { id } = this.props
     let { thisWeek, nextWeek } = this.state
+    console.log(thisWeek, nextWeek, 'req avail')
     api.requestAvailability(id, thisWeek, nextWeek)
-      .then(res => res)
+      .then(res => {
+        console(res, ' req avail res')
+        return (res)
+      })
   }
   assignShifts (value) {
     let { id } = this.props

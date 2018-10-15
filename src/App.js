@@ -134,13 +134,12 @@ class App extends Component {
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <AddEmployeeToCalendar id={match.params.id} />
                       <CreateCalendar id={match.params.id} />
-                      {/* <EditCalendar id={match.params.id} /> */}
                     </Guard>} />
 
                   <Route path='/CalendarList' render={(props) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                      <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                      <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
+                      <CalendarsContainer setCurrentUser={this.setCurrentUser} />
+                      <MyShifts setCurrentUser={this.setCurrentUser} />
                     </Guard>} />
 
                   <Route path='/CreateCalendar' render={({ props }) =>
@@ -150,7 +149,7 @@ class App extends Component {
 
                   <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
+                      <ShiftSelection id={match.params.id} />
                     </Guard>} />
 
                   <Route path='/Calendar/:id/EditShifts/:shiftID' render={({ match }) =>
@@ -162,25 +161,18 @@ class App extends Component {
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <Notes id={match.params.id} date={match.params.date} />
                       <DayAlerts id={match.params.id} date={match.params.date} />
-                      <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                      <DayView id={match.params.id} date={match.params.date} />
                     </Guard>} />
 
                   <Route path='/Calendar/:id/AddStaff' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <AddEmployeeToCalendar id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                      <AddEmployeeToCalendar id={match.params.id} date={match.params.date} />
                     </Guard>} />
 
                   <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <WeekViewContainer id={match.params.id} type={match.params.type} />
                     </Guard>} />
-
-                  {/* <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
-                    <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <WeekView id={match.params.id} type={match.params.type} />
-                      <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
-                      <AcceptShiftRequest id={match.params.id} type={match.params.type} />
-                    </Guard>} /> */}
 
                   <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>

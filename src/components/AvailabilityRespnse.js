@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 import api from './api'
 import { Button } from 'bloomer'
@@ -9,7 +10,8 @@ class AvailabilityResponse extends Component {
     this.state = {
       availabilityRequests: {},
       loaded: false,
-      availabilities: []
+      availabilities: [],
+      responseComplete: false
     }
   }
   componentDidMount () {
@@ -48,9 +50,10 @@ class AvailabilityResponse extends Component {
       availabilitiesResponses[availability.id] = availability.available
     })
     api.submitRequestAvailbility(availabilitiesResponses, token, id)
+      .then()
   }
   render () {
-    let { loaded, availabilities, availabilityRequests } = this.state
+    let { loaded, availabilities, availabilityRequests, responseComplete } = this.state
     if (loaded) {
       console.log('loaded', loaded, 'availabilities', availabilities, 'availabilityRequests', availabilityRequests)
       return (<div>
@@ -67,6 +70,10 @@ class AvailabilityResponse extends Component {
           </div>
         )}
         <Button onClick={e => this.submitForm(e)}>Submit</Button>
+      </div>)
+    } else if (responseComplete) {
+      return (<div>Thank you for submitting your availbability!
+        <Link to='/login'>Go To Login</Link>
       </div>)
     } else {
       return (<div>Loading</div>)

@@ -10,7 +10,6 @@ class DayView extends Component {
     this.state = {
       note: '',
       shiftsToday: {},
-      users: {},
       shiftsLoaded: false,
       assignedUsers: [],
       unassignedUsers: []

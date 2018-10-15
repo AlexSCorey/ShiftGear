@@ -33,7 +33,6 @@ class CalendarList extends Component {
   }
   render () {
     let { calendarGroup, type } = this.props
-    console.log(calendarGroup, 'cal group')
     let { assignedUsers } = this.state
     if (calendarGroup && calendarGroup.length > 0) {
       return (
