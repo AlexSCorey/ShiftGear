@@ -91,7 +91,7 @@ class App extends Component {
 
                 <Route path='/complete/:token' render={({ match }) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                    <ManagerApproveSwap token={match.params.id} />
+                    <ManagerApproveSwap token={match.params.token} />
                   </Guard>} />
 
                 <Route path='/welcome/:id' render={({ match }) =>
