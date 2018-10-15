@@ -46,8 +46,8 @@ class Register extends Component {
             <input className='emailInput' value={password} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ password: e.target.value })} required />
             <label className='emailLabel'>confirm password</label>
             <input className='emailInput' value={passwordConf} placeholder='Must use at least 5 characters' type='password' onChange={e => this.setState({ passwordConf: e.target.value })} required />
-            <label className='emailLabel'>phone number</label><br />
-            <input className='emailInput' value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} />
+            {/* <label className='emailLabel'>phone number</label><br />
+            <input className='emailInput' value={phoneNum} type='tel' name='phone' placeholder='123-456-7890' pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}' required onChange={e => this.setState({ phoneNum: e.target.value })} /> */}
             <NavLink to='/CalendarList'><button className='loginButton' onClick={e => { this.handleSubmit(e) }}><strong>register</strong></button></NavLink>
           </div>
         </div>

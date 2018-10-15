@@ -199,7 +199,6 @@ body {
   }
   .column2 {
     width: 50%;
-    float: left;
     text-align: center
   }
   .button {
@@ -464,4 +463,7 @@ header {
   }
   .enclosingDiv {
     margin-top: 2rem
+  }
+  .box {
+    border: 1px solid lightgrey;
   }
