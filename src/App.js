@@ -14,20 +14,22 @@ import CreateCalendar from './components/CreateCalendar'
 import NewUserRegister from './components/NewUserRegister'
 import AddEmployeeToCalendar from './components/AddEmployeeToCalendar'
 import ShiftSelection from './components/ShiftSelection'
-import WeekView from './components/WeekView'
+// import WeekView from './components/WeekView'
 import UpdateProfile from './components/UpdateProfile'
 import DayView from './components/DayView'
 import RequestPasswordReset from './components/RequestPasswordReset'
 import ResetPassword from './components/ResetPassword'
 import SingleShiftView from './components/SingleShiftView'
 import ManagerApproveSwap from './components/ManagerApproveSwap'
-import AcceptShiftRequest from './components/AcceptShiftRequest'
+// import AcceptShiftRequest from './components/AcceptShiftRequest'
 import Notes from './components/Notes'
 import AvailabilityResponse from './components/AvailabilityRespnse'
-// import MyShifts from './components/MyShifts'
-import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
+import MyShifts from './components/MyShifts'
+// import ReqAvailAndCopyPasteDate from './components/ReqAvailAndCopyPasteDate'
 import Header from './components/Header'
+import DayAlerts from './components/DayAlerts'
 import api from './components/api'
+import WeekViewContainer from './components/WeekViewContainer'
 
 class App extends Component {
   constructor () {
@@ -40,17 +42,14 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this)
   }
   setNewUser (user) {
-    console.log(user, 'user in app js new user')
     window.localStorage.setItem('token', `${user}`)
     this.setState({ currentUser: user })
   }
   setCurrentUser (user) {
-    // window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', `${user.token}`)
     this.setState({ currentUser: user })
   }
   onLogout () {
-    console.log('hi')
     api.setUserToken(null)
     window.localStorage.clear('token')
     this.setState({ currentUser: false })
@@ -58,17 +57,19 @@ class App extends Component {
 
   render () {
     if (this.state.currentUser === null || this.state.currentUser === false) {
+      console.log(this.state.currentUser)
       return (
         <Router>
           <div className='App'>
             <main className='main'>
               <div className='board'>
-                <Route path='/Login' render={(props) =>
+
+                <Route exact path='/Login' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Login setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
 
-                <Route path='/Register' render={(props) =>
+                <Route exact path='/Register' render={(props) =>
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <Register setCurrentUser={this.setCurrentUser} />
                   </Guard>} />
@@ -92,6 +93,13 @@ class App extends Component {
                   <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
                     <ManagerApproveSwap token={match.params.id} />
                   </Guard>} />
+
+                <Route path='/welcome/:id' render={({ match }) =>
+                  <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
+                    <NewUserRegister setNewUser={this.setNewUser}
+                      id={match.params.id} />
+                  </Guard>} />
+
               </div>
             </main>
           </div>
@@ -116,27 +124,22 @@ class App extends Component {
                   </Guard>} />
                 <div>
 
-                  <Route path='/welcome/:id' render={({ match }) =>
-                    <Guard condition={!this.state.currentUser} redirectTo='/CalendarList'>
-                      <NewUserRegister setNewUser={this.setNewUser}
-                        id={match.params.id} />
-                    </Guard>} />
                   <Route exact path='/Calendar/:id/AddEmployee' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <AddEmployeeToCalendar id={match.params.id} />
                       <ShiftSelection id={match.params.id} />
                     </Guard>} />
+
                   <Route exact path='/Calendar/:id/EditCalendar' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
                       <AddEmployeeToCalendar id={match.params.id} />
                       <CreateCalendar id={match.params.id} />
-                      {/* <EditCalendar id={match.params.id} /> */}
                     </Guard>} />
 
                   <Route path='/CalendarList' render={(props) =>
                     <Guard condition={this.state.currentUser} redirectTo='/Login'>
-                      <CalendarsContainer setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} />
-                      {/* <MyShifts setCurrentUser={this.setCurrentUser} onLogout={this.onLogout} /> */}
+                      <CalendarsContainer setCurrentUser={this.setCurrentUser} />
+                      <MyShifts setCurrentUser={this.setCurrentUser} />
                     </Guard>} />
 
                   <Route path='/CreateCalendar' render={({ props }) =>
@@ -146,10 +149,10 @@ class App extends Component {
 
                   <Route exact path='/Calendar/:id/AddShifts/' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <ShiftSelection id={match.params.id} onLogout={this.onLogout} />
+                      <ShiftSelection id={match.params.id} />
                     </Guard>} />
 
-                  <Route path='/Calendar/:id/AddShifts/:shiftID' render={({ match }) =>
+                  <Route path='/Calendar/:id/EditShifts/:shiftID' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <ShiftSelection shiftID={match.params.shiftID} id={match.params.id} />
                     </Guard>} />
@@ -157,14 +160,18 @@ class App extends Component {
                   <Route path='/Calendar/:id/shifts/:date' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
                       <Notes id={match.params.id} date={match.params.date} />
-                      <DayView id={match.params.id} date={match.params.date} onLogout={this.onLogout} />
+                      <DayAlerts id={match.params.id} date={match.params.date} />
+                      <DayView id={match.params.id} date={match.params.date} />
+                    </Guard>} />
+
+                  <Route path='/Calendar/:id/AddStaff' render={({ match }) =>
+                    <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
+                      <AddEmployeeToCalendar id={match.params.id} date={match.params.date} />
                     </Guard>} />
 
                   <Route exact path='/Calendar/:id/Type/:type' render={({ match }) =>
                     <Guard condition={this.state.currentUser} redirectTo='/CalendarList'>
-                      <WeekView id={match.params.id} type={match.params.type} />
-                      <ReqAvailAndCopyPasteDate id={match.params.id} type={match.params.type} />
-                      <AcceptShiftRequest id={match.params.id} type={match.params.type} />
+                      <WeekViewContainer id={match.params.id} type={match.params.type} />
                     </Guard>} />
 
                   <Route path='/calendars/:id/shifts/:shiftid/usershifts' render={({ match }) =>

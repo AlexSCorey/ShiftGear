@@ -43,7 +43,7 @@ const api = {
       .set('Authorization', `Bearer ${id}`)
       .send({ 'name': `${name}`,
         'password': `${password}` })
-      .then(res => res.body.user.api_token)
+      .then(res => res)
   },
   setUserToken: (token) => {
     userToken = token
@@ -88,13 +88,6 @@ const api = {
       .send({ 'role': `${role}` })
       .then(res => res.body)
   },
-  // newUserRegistrationCompletion: (name, password, id) => {
-  //   return request.post(`${domain}/invitations/complete`)
-  //     .set('Authorization', `Bearer ${id}`)
-  //     .send({ 'name': `${name}`,
-  //       'password': `${password}` })
-  //     .then(res => res.body.user.api_token)
-  // },
   addEmployeeToCalendar: (role, email, id) => {
     return request.post(`${domain}/calendars/${id}/invitation`)
       .set('Authorization', `Bearer ${userToken}`)
@@ -102,14 +95,22 @@ const api = {
         'role': `${role}` })
       .then(response => response.body)
   },
-  createShift: (startDateTime, endDateTime, calendarId, numOfShifts, published) => {
+  createShift: (startDateTime, endDateTime, calendarId, numOfShifts) => {
     return request.post(`${domain}/calendars/${calendarId}/shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'start_time': `${startDateTime}`,
         'end_time': `${endDateTime}`,
         'calendar_id': `${calendarId}`,
-        'capacity': `${numOfShifts}`,
-        'published': `${published}` })
+        'capacity': `${numOfShifts}` })
+      .then(res => res.body)
+  },
+  editShift: (startDateTime, endDateTime, id, numOfShifts, shiftID) => {
+    return request.patch(`${domain}/calendars/${id}/shifts/${shiftID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'start_time': `${startDateTime}`,
+        'end_time': `${endDateTime}`,
+        'calendar_id': `${id}`,
+        'capacity': `${numOfShifts}` })
       .then(res => res.body)
   },
   getWeekShiftInfo: (id, thisWeek, nextWeek) => {
@@ -133,7 +134,7 @@ const api = {
   deleteShift: (id, shiftId) => {
     return request.delete(`${domain}/calendars/${id}/shifts/${shiftId}`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => console.log(res.body))
+      .then(res => res.body)
   },
   createNote: (note, id, date) => {
     return request.post(`${domain}/calendars/${id}/notes`)
@@ -211,7 +212,6 @@ const api = {
         'token': `${token}` })
       .then(res => res.body)
   },
-
   editCalendar: (id, name, timeZone, employeeHourThresholdDaily, employeeHourThresholdWeekly,
     dlst) => {
     return request.patch(`${domain}/calendars/${id}`)
@@ -273,6 +273,15 @@ const api = {
     return request.post(`${domain}/calendars/${id}/availability_processes/${shiftID}/assign_shifts`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
+        return (res.body)
+      })
+  },
+  getDailyAlerts: (id, date) => {
+    // https:// fierce-forest-56311.herokuapp.com/calendars/:calendar_id/alerts_daily?date=:date
+    return request.get(`${domain}/calendars/${id}/alerts_daily?date=${date}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        console.log(res.body)
         return (res.body)
       })
   }

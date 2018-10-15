@@ -18,27 +18,27 @@ class ReqAvailAndCopyPasteDate extends Component {
     }
   }
   componentDidMount () {
-    this.getShifts()
+    // this.getShifts()
   }
-  getShifts () {
-    const { id } = this.props
-    const { thisWeek, nextWeek } = this.state
-    api.getWeekShiftInfo(id, thisWeek, nextWeek)
-      .then(res => {
-        this.setState({ shifts: res,
-          loaded: true })
-      })
-  }
-  copyWeekStart (date) {
-    let copyWeekStart = moment(date).format('YYYY-MM-DD')
-    this.setState({ copyWeekStart: copyWeekStart })
-  }
+  // getShifts () {
+  //   const { id } = this.props
+  //   const { thisWeek, nextWeek } = this.state
+  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
+  //     .then(res => {
+  //       console.log(res, 'res in req avail')
+  //       this.setState({ shifts: res,
+  //         loaded: true })
+  //     })
+  // }
+  // copyWeekStart (date) {
+  //   let copyWeekStart = moment(date).format('YYYY-MM-DD')
+  //   this.setState({ copyWeekStart: copyWeekStart })
+  // }
   pasteWeek (e) {
     const { id } = this.props
     let { copyWeekStart, thisWeek } = this.state
     let startWeek = moment(thisWeek).format('YYYY-MM-DD')
     let endWeek = moment(startWeek).add(6, 'days').format('YYYY-MM-DD')
-    console.log(id, copyWeekStart, thisWeek, endWeek, 'paste week')
     api.copyPasteWeek(id, startWeek, endWeek, copyWeekStart)
       .then(window.alert(`You successfully copied this week to ${copyWeekStart}`))
   }
@@ -46,37 +46,45 @@ class ReqAvailAndCopyPasteDate extends Component {
     e.preventDefault()
     let { id } = this.props
     let { thisWeek, nextWeek } = this.state
+    console.log(thisWeek, nextWeek, 'req avail')
     api.requestAvailability(id, thisWeek, nextWeek)
-      .then(res => res)
+      .then(res => {
+        console(res, ' req avail res')
+        return (res)
+      })
   }
-  assignShifts () {
+  assignShifts (value) {
     let { id } = this.props
-    let { shifts } = this.state
-    let shiftID = shifts.availability_process.id
-    api.assignShifts(id, shiftID)
+    console.log(id, 'process id')
+    console.log(value, 'shift process id')
+    api.assignShifts(id, value)
       .then(res => res)
   }
   render () {
-    let { loaded, shifts } = this.state
-    let { id } = this.props
+    // let { loaded, shifts } = this.state
+    let { id, loaded, shifts } = this.props
     if (loaded) {
       if ((shifts.roles.indexOf('owner') > -1) || (shifts.roles.indexOf('manager') > -1)) {
-        if (shifts.availability_processes.length === 0) {
+        if (shifts.availability_processes && shifts.availability_processes.length >= 1) {
           return (<div>
-            <div className='requestOffAndCopy'>
-              <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
-              <span className='datePicker'>
-                <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
-                <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
-              </span>
-            </div>
+            {shifts.availability_processes.map((availabilityProcess) =>
+              <div className='requestOffAndCopy' key={availabilityProcess.id}>
+                <button className='navButtons' value={availabilityProcess.id} onClick={(e) => this.assignShifts(e.target.value)}>Assign Shifts</button>
+                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+                <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
+                <span className='datePicker'>
+                  <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
+                  <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
+                </span>
+              </div>)}
           </div>)
         } else {
           return (
             <div>
               <div className='requestOffAndCopy'>
-                <Link to={`/Calendar/${id}/EditCalendar`}><button className='navButtons' >Add Staff</button></Link>
-                <button className='navButtons' onClick={e => this.assignShfts(e)}>Assign Shifts</button>
+                <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
+                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
+                <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
                 <span className='datePicker'>
                   <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
                   <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />

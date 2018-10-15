@@ -43,14 +43,6 @@ class SingleShiftView extends Component {
         window.alert(res)
       })
   }
-
-  requestSwap () {
-    let { id, shiftsId } = this.props
-    api.requestSwap(id, shiftsId)
-      .then(res => {
-        console.log(res, 'requestSwap')
-      })
-  }
   render () {
     let { assignedUsers, unassignedUsers, loaded, roles } = this.state
     if (loaded) {
@@ -60,7 +52,6 @@ class SingleShiftView extends Component {
             <div>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
               <div key={user.id}>
-                <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
                 <div>{user.name}
                   <Delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
                 </div>

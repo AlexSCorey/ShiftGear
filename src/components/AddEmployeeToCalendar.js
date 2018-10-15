@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-// import Register from './Register'
 import api from './api'
-
 class AddEmployeeToCalendar extends Component {
   constructor (props) {
     super(props)
@@ -20,13 +18,11 @@ class AddEmployeeToCalendar extends Component {
     const { role, email } = this.state
     api.addEmployeeToCalendar(role, email, id)
       .then(res => {
-        console.log(res)
         this.setState({ email: '' })
       })
   }
   render () {
     const { email } = this.state
-    // const { id } = this.props
     return (
       <div className='enclosingDiv'>
         <div className='calendarItem'>

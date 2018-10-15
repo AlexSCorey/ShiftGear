@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
-
 import 'react-day-picker/lib/style.css'
-
 import { Link } from 'react-router-dom'
-// import { getActiveModifiers } from 'bloomer/lib/bulma'
 
 import api from './api'
 
@@ -27,7 +24,7 @@ class ShiftSelection extends Component {
 
   saveShift (e) {
     e.preventDefault()
-    let { id } = this.props
+    let { id, shiftID } = this.props
     let { staffRequired, toHour, fromHour, toMin, fromMin } = this.state
     let startMoment = moment(this.state.fromDate).hour(fromHour).minute(fromMin)
     let endMoment = moment(this.state.toDate).hour(toHour).minute(toMin).format('YYYY-MM-DD HH:mm:ss')
@@ -35,18 +32,32 @@ class ShiftSelection extends Component {
     let formatEndMoment = moment(endMoment).format('YYYY-MM-DD HH:mm:ss')
 
     this.setState({ addShift: undefined })
-    api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
-      .then(res => {
-        console.log('res')
-        this.setState({ toDate: '',
-          fromDate: '',
-          toHour: '',
-          toMin: '',
-          fromMin: '',
-          staffRequired: '',
-          addShift: true })
-        window.alert('You created a shift')
-      })
+    if (shiftID) {
+      api.editShift(formatStartMoment, formatEndMoment, id, staffRequired, shiftID)
+        .then(res => {
+          this.setState({ toDate: '',
+            fromDate: '',
+            toHour: '',
+            toMin: '',
+            fromMin: '',
+            staffRequired: '',
+            addShift: true })
+          window.alert('You created a shift')
+        })
+    } else {
+      api.createShift(formatStartMoment, formatEndMoment, id, staffRequired)
+        .then(res => {
+          this.setState({ toDate: '',
+            fromDate: '',
+            toHour: '',
+            toMin: '',
+            fromAmPm: '',
+            fromMin: '',
+            staffRequired: '',
+            addShift: true })
+          window.alert('You created a shift')
+        })
+    }
   }
   handleFromDateChange (day) {
     this.setState({ fromDate: day })
@@ -55,27 +66,57 @@ class ShiftSelection extends Component {
     this.setState({ toDate: value })
   }
   setFromHour (value) {
-    this.setState({ fromHour: value })
+    if (this.state.fromAmPm === 'PM') {
+      this.setState({ fromHour: (+value + +12) })
+    } else {
+      this.setState({ fromHour: value })
+    }
   }
   setFromMinute (value) {
     this.setState({ fromMin: value })
   }
   setFromAmPm (value) {
-    if (value === 'PM') {
-      let stringify = parseInt(this.state.fromHour, 10) + 12
-      this.setState({ fromHour: stringify })
+    if (this.state.fromHour) {
+      if (value === 'PM') {
+        this.setState({ fromAmPm: value,
+          fromHour: +this.state.fromHour + +12 })
+      } else {
+        if (this.state.fromHour > 12) {
+          this.setState({ fromAmPm: value,
+            fromHour: this.state.fromHour - 12 })
+        } else {
+          this.setState({ fromAmPm: value })
+        }
+      }
+    } else {
+      this.setState({ fromAmPm: value })
     }
   }
   setToHour (value) {
-    this.setState({ toHour: value })
+    if (this.state.toAmPm === 'PM') {
+      this.setState({ toHour: (+value + +12) })
+    } else {
+      this.setState({ toHour: value })
+    }
   }
   setToMinute (value) {
     this.setState({ toMin: value })
   }
   setToAmPm (value) {
-    if (value === 'PM') {
-      let stringify = parseInt(this.state.toHour, 10) + 12
-      this.setState({ toHour: stringify })
+    if (this.state.toHour) {
+      if (value === 'PM') {
+        this.setState({ toAmPm: value,
+          toHour: +this.state.toHour + +12 })
+      } else {
+        if (this.state.toHour > 12) {
+          this.setState({ toAmPm: value,
+            toHour: this.state.toHour - 12 })
+        } else {
+          this.setState({ toAmPm: value })
+        }
+      }
+    } else {
+      this.setState({ toAmPm: value })
     }
   }
   staffRequired (e, value) {
