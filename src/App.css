@@ -466,6 +466,7 @@ header {
   }
   .loader {
     position: absolute;
+    vertical-align: center;
     top: 50%;
     left: 48%;
   }
