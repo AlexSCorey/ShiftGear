@@ -50,7 +50,9 @@ class AvailabilityResponse extends Component {
       availabilitiesResponses[availability.id] = availability.available
     })
     api.submitRequestAvailbility(availabilitiesResponses, token, id)
-      .then()
+      .then(res => {
+        this.setState({ responseComplete: true })
+      })
   }
   render () {
     let { loaded, availabilities, availabilityRequests, responseComplete } = this.state
