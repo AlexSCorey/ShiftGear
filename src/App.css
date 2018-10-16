@@ -182,16 +182,15 @@ body {
       0px -1px 3px #AFB3F7,
       0px 1px 0px #AFB3F7;
   }
-    
   .currentDate {
     font-size: 1.4rem;
     font-family: 'Roboto Slab', serif, bold;
   }
-  .request-unavailable-btn  {
-    background-color: red !important;
+  .modal{
+    width:200px;
   }
   .request-available-btn {
-    background-color:green !important;
+    border-color: 2px solid rgb(230, 93, 93) !important
   }
   .columns2 {
     width: 100%;

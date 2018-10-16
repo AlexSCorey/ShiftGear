@@ -17,13 +17,11 @@ class MyShifts extends Component {
   getMySchedule () {
     api.getMySchedule()
       .then(res => {
-        console.log(res)
         this.setState({ myShifts: res,
           loaded: true })
       })
   }
   requestSwap (e, value, calId) {
-
     api.requestSwap(calId, value)
       .then(res => res)
   }
