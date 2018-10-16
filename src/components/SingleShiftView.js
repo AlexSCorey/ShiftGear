@@ -49,19 +49,21 @@ class SingleShiftView extends Component {
       if ((roles.indexOf('owner') > -1) || (roles.indexOf('manager') > -1)) {
         return (
           <div>
-            <div>Assigned Staff</div>
+            <div className='itemList1'>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
               <div key={user.id}>
-                <div>{user.name}
-                  <Delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+                <div className='itemList3'>{user.name}&nbsp;
+                  <delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
+                  <i className='far fa-trash-alt' />
                 </div>
               </div>
             )}</div>
             <div>
-              <div>Unassigned Staff</div>
+              <div className='itemList1'>Unassigned Staff</div>
               <div>{unassignedUsers.map((user) =>
-                <div key={user.id * Math.random()}>{user.name}
-                  <Button type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</Button>
+                <div key={user.id * Math.random()}><div className='itemList3'>{user.name}&nbsp;
+                  <button className='requestSwap' type='checkbox' value={user.id} onClick={e => this.assignStaff(e.target.value)}>Assign</button>
+                </div>
                 </div>
               )}</div>
             </div>
@@ -70,7 +72,7 @@ class SingleShiftView extends Component {
       } else {
         return (
           <div>
-            <div>Assigned Staff</div>
+            <div className='itemList1'>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
               <div key={user.id}>
                 <div>{user.name}
@@ -78,7 +80,7 @@ class SingleShiftView extends Component {
               </div>
             )}</div>
             <div>
-              <div>Unassigned Staff</div>
+              <div className='itemList1'>Unassigned Staff</div>
               <div>{unassignedUsers.map((user) =>
                 <div>{user.name}
                 </div>
@@ -88,12 +90,7 @@ class SingleShiftView extends Component {
         )
       }
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }

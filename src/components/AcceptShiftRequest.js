@@ -25,8 +25,8 @@ class AcceptShiftRequest extends Component {
               if (shiftSwap.accepting_user) {
                 return (<div>
                   <div key={shiftSwap.id}>
-                    <div id={shiftSwap.requesting_user.id}>Requested By:{shiftSwap.requesting_user.name}</div>
-                    <div id={shiftSwap.accepting_user.id}>Accepted By:{shiftSwap.accepting_user.name}</div>
+                    <div className=''id={shiftSwap.requesting_user.id}>Requested By: {shiftSwap.requesting_user.name}</div>
+                    <div className=''id={shiftSwap.accepting_user.id}>Accepted By: {shiftSwap.accepting_user.name}</div>
                     <Button isColor='danger' isStatic='false' isOutlined='true' value={shiftSwap.id}
                       onClick={(e) => { if (window.confirm('Click to approve this shift swap.')) this.approveShiftSwap() }}>
                       <div>
@@ -78,20 +78,10 @@ class AcceptShiftRequest extends Component {
           </div>
         )
       } else {
-        return (<div class='loader'>
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-        </div>)
+        return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
       }
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }

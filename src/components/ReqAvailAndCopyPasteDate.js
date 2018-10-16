@@ -60,44 +60,45 @@ class ReqAvailAndCopyPasteDate extends Component {
           return (<div>
             {shifts.availability_processes.map((availabilityProcess) =>
               <div className='requestOffAndCopy' key={availabilityProcess.id}>
-                <button className='navButtons' value={availabilityProcess.id} onClick={(e) => this.assignShifts(e.target.value)}>Assign Shifts</button>
-                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
-                <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
-                <span className='datePicker'>
-                  <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
-                  <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
-                </span>
+                <button className='titleButton' value={availabilityProcess.id} onClick={(e) => this.assignShifts(e.target.value)}>Assign Shifts</button>
+
+                <span><Link to={`/Calendar/${id}/AddStaff`}><button className='requestSwap1' >Add A New User</button></Link>
+                  <Link to={`/Calendar/${id}/AddShifts`}><button className='requestSwap2' >Add A Shift</button></Link></span><br />
+
+                <div className='datePicker'>
+                  <h1 className='titles'>Copy this schedule</h1>
+                  <span>
+                    <DayPickerInput className='date' id='timeSelector' placeholder='Select a Date' onDayChange={(day) => this.copyWeekStart(day)} />
+                    <button className='requestSwap3' onClick={e => this.pasteWeek(e)}>Copy to <i class='fas fa-arrow-circle-right' /></button>
+                  </span>
+                </div>
+                <div className='whitespace'>&nbsp;</div><div className='whitespace'>&nbsp;</div>
               </div>)}
           </div>)
         } else {
           return (
             <div>
               <div className='requestOffAndCopy'>
-                <button className='navButtons' onClick={e => this.requestAvailability(e)}>Request Availability</button>
-                <Link to={`/Calendar/${id}/AddStaff`}><button className='navButtons' >Add Staff</button></Link>
-                <Link to={`/Calendar/${id}/AddShifts`}><button className='navButtons' >Add Shift</button></Link>
-                <span className='datePicker'>
-                  <button className='navButtons' onClick={e => this.pasteWeek(e)}>Copy to:</button>
-                  <DayPickerInput className='date' onDayChange={(day) => this.copyWeekStart(day)} />
-                </span>
+                <button className='titleButton' onClick={e => this.requestAvailability(e)}>Request Availability</button><br />
+
+                <span><div><Link to={`/Calendar/${id}/AddStaff`}><button className='requestSwap1'>Add A New User</button></Link>
+                  <Link to={`/Calendar/${id}/AddShifts`}><button className='requestSwap2'>Add A Shift</button></Link></div></span><br />
+
+                <div className='datePicker'>
+                  <h1 className='titles'>Copy this schedule</h1>
+                  <span>
+                    <DayPickerInput className='date' id='timeSelector' placeholder='Select a Date' onDayChange={(day) => this.copyWeekStart(day)} />
+                    <button className='requestSwap3' onClick={e => this.pasteWeek(e)}>Copy to <i class='fas fa-arrow-circle-right' /></button></span>
+                </div>
+                <div className='whitespace'>&nbsp;</div><div className='whitespace'>&nbsp;</div>
               </div>
             </div>)
         }
       } else {
-        return (<div class='loader'>
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-          <div class='line' />
-        </div>)
+        return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
       }
     } else {
-      return (<div class='loader'>
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-        <div class='line' />
-      </div>)
+      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
     }
   }
 }
