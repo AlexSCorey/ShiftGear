@@ -17,19 +17,7 @@ class ReqAvailAndCopyPasteDate extends Component {
       loaded: false
     }
   }
-  componentDidMount () {
-    // this.getShifts()
-  }
-  // getShifts () {
-  //   const { id } = this.props
-  //   const { thisWeek, nextWeek } = this.state
-  //   api.getWeekShiftInfo(id, thisWeek, nextWeek)
-  //     .then(res => {
-  //       console.log(res, 'res in req avail')
-  //       this.setState({ shifts: res,
-  //         loaded: true })
-  //     })
-  // }
+
   copyWeekStart (date) {
     let copyWeekStart = moment(date).format('YYYY-MM-DD')
     this.setState({ copyWeekStart: copyWeekStart })

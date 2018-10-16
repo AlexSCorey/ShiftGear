@@ -39,7 +39,6 @@ class DayView extends Component {
   }
 
   deleteShift (e, shiftId) {
-    console.log(shiftId, 'here')
     e.preventDefault()
     let { id } = this.props
     api.deleteShift(id, shiftId)
@@ -122,8 +121,8 @@ class DayView extends Component {
                   <div id={shift.shift_id} className='shiftNode'>
                     <div className='columns3'>
                       <div className='column3'>Capacity<br /><strong>{shift.capacity}</strong></div>
-                      <div className='column3'>Start<br /><strong>{moment(shift.start_time).format('h:mma')}</strong></div>
-                      <div className='column3'>End<br /><strong>{moment(shift.end_time).format('h:mma')}</strong></div>
+                      <div className='column3'>Start<br /><strong>{moment(shift.start_time).utcOffset(shift.start_time).format('h:mma')}</strong></div>
+                      <div className='column3'>End<br /><strong>{moment(shift.end_time).utcOffset(shift.end_time).format('h:mma')}</strong></div>
                     </div>
                   </div>
                 </Link>

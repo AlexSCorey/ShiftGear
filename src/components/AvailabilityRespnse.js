@@ -22,7 +22,6 @@ class AvailabilityResponse extends Component {
     api.getAvailabilityRequests(id, token)
       .then(res => {
         let availabilities = res.availability_process.request.responses
-        console.log('res', res)
         this.setState({ availabilities: availabilities,
           availabilityRequests: res,
           loaded: true })
@@ -51,8 +50,8 @@ class AvailabilityResponse extends Component {
     })
     api.submitRequestAvailbility(availabilitiesResponses, token, id)
       .then(res => {
-        this.setState({ responseComplete: true })
       })
+    this.setState({ responseComplete: true })
   }
   render () {
     let { loaded, availabilities, availabilityRequests, responseComplete } = this.state
