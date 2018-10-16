@@ -38,8 +38,8 @@ body {
   font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
   vertical-align: center;
-  border: 1px solid black;
-  border-radius: .5rem;
+  border: 2px solid black;
+  border-radius: 10px;
   font-size: 1rem;
 }
 .emailInput2, {
@@ -143,12 +143,12 @@ body {
     font-size: 1.2rem;
     font-family: 'Nunito Sans', sans-serif
   }
-  i {
+  /* i {
     padding: .1rem;
     border: 0;
     background: white
   }
-  
+   */
   /* week view */
   .weekRange {
     text-align: center;
@@ -344,7 +344,7 @@ background-color:#593EBC;
     margin: 0 auto 0;
   }
   .itemList1 {
-    margin-top: 1.2rem;
+    margin-top: .8rem;
     text-align: center;
     color: black;
     font-size: 1.5rem;
@@ -378,6 +378,13 @@ background-color:#593EBC;
     border: 1px black;
     background-color: transparent;
     font-size: 1rem;
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: center;
+    border-radius: 10px;
   }
   button.button-is-outlined {
     width: 100%
@@ -392,10 +399,6 @@ background-color:#593EBC;
     padding: .4rem;
     font-size: 1.5rem;
     font-family: 'Montserrat', sans-serif;
-  }
-  .loginField {
-    vertical-align: center;
-    
   }
   .formInput {
     display: inline-block;
@@ -490,7 +493,7 @@ background-color:#593EBC;
     margin: 0 auto 0
   }
   .itemList3 {
-    padding-top:.6rem;
+    padding-top:.4rem;
     margin: 0 auto;
     text-align: center;
     color: black;

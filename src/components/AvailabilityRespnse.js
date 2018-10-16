@@ -58,23 +58,23 @@ class AvailabilityResponse extends Component {
     let { loaded, availabilities, availabilityRequests, responseComplete } = this.state
     if (loaded) {
       console.log('loaded', loaded, 'availabilities', availabilities, 'availabilityRequests', availabilityRequests)
-      return (<div>
+      return (<div className='itemList1'>
         <div>{availabilityRequests.availability_process.calendar_name}</div>
         {availabilities.map((request) =>
           <div key={request.id}>
-            <div>{moment(request.start_time).format('MMM Do, YYYY')}</div>
-            <div>Start:{moment(request.start_time).format('h:mma')}</div>
-            <div>End: {moment(request.end_time).format('h:mma')}</div>
+            <div className='itemList1'>{moment(request.start_time).format('MMM Do, YYYY')}</div>
+            <div className='itemList1'>Start:{moment(request.start_time).format('h:mma')}</div>
+            <div className='itemList1'>End: {moment(request.end_time).format('h:mma')}</div>
             <div>
               <Button className={request.available ? 'request-available-btn' : ''} name='availability' value={request.id} isActive='true'onClick={e => this.acceptRequest(e, e.target.value)}>I'm Available</Button>
               <Button className={request.available ? '' : 'request-unavailable-btn'} name='availability' value={request.id} isActive='true' onClick={e => this.denyRequest(e, e.target.value)}>Not Available</Button>
             </div>
           </div>
         )}
-        <Button onClick={e => this.submitForm(e)}>Submit</Button>
+        <button className='titleButton' onClick={e => this.submitForm(e)}>Submit</button>
       </div>)
     } else if (responseComplete) {
-      return (<div>Thank you for submitting your availability!<Link to='/login'>Go To Login</Link>
+      return (<div className='itemList1'>Thank you for submitting your availability!<Link to='/login'>Go To Login</Link>
       </div>)
     } else {
       return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
