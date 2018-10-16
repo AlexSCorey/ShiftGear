@@ -47,7 +47,7 @@ class CalendarList extends Component {
                 </div>
                 <div>{assignedUsers.map((user) =>
                   <div>
-                    <Button onClick={e => this.requestSwap(e)}>Request Swap</Button>
+                    <button className='requestSwap' onClick={e => this.requestSwap(e)}>Request Swap</button>
                     <div>{user.name}
                     </div>
                   </div>

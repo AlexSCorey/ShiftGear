@@ -63,13 +63,9 @@ class CreateCalendar extends Component {
               </select>
             </div>
             </label><br />
-            <div>Daily Hour Thresholds
-              <input type='number' placeholder='provide a number' onChange={e => this.setState({ dailyHourThreshold: e.target.value })} />
-            </div>
-            <div>Weekly Hour Threshold
-              <input type='number' placeholder='provide a number' onChange={e => this.setState({ weeklyHourThreshold: e.target.value })} />
-            </div>
-
+            <span><p className='itemList1'>Daily Hour Thresholds  <input type='number' className='selector' placeholder='#' onChange={e => this.setState({ dailyHourThreshold: e.target.value })} /></p></span>
+            <span><p className='itemList1'>Weekly Hour Threshold  <input type='number' className='selector' placeholder='#' onChange={e => this.setState({ weeklyHourThreshold: e.target.value })} /></p>
+            </span>
             <div> <Link to={`/Calendar/${newCalendarId}/AddEmployee`}><button className='titleButton' to='/Calendar/:id/AddEmployee' onClick={e => { this.submitCalendar(e) }}>Create Calendar</button></Link>
             </div>
           </div>

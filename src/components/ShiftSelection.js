@@ -128,17 +128,16 @@ class ShiftSelection extends Component {
     const { addShift } = this.state
     if (addShift === undefined) {
       return (
-        <div><p className='itemList1'><strong>Add a Shift</strong></p>
-          <span className='DayPickerInput'>
-            <DayPickerInput placeholder='Start Date' onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
-          </span>
-          <span className='DayPickerInput'>
-            <DayPickerInput placeholder='End Date' onDayChange={(day) => this.handleToDateChange(day)} />
-          </span>
+        <div className='calendarItem'><p className='itemList1'><strong>Add a Shift</strong></p>
+
+          <DayPickerInput placeholder='Start Date' onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} /><br />
+
+          <DayPickerInput placeholder='End Date' onDayChange={(day) => this.handleToDateChange(day)} />
+
           <div className='calendarItem'>
             <div>
               <span>
-                <div className='calendarItem'><strong>Start Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setFromAmPm(e.target.value)}>
+                <div><strong>Start Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setFromAmPm(e.target.value)}>
                   <option placeholder='AM/PM'>AM/PM</option>
                   <option value='AM' className='timeSelector2'>AM</option>
                   <option value='PM' className='timeSelector2'>PM</option>
@@ -171,7 +170,7 @@ class ShiftSelection extends Component {
               </span>
             </div><br />
 
-            <span><div className='calendarItem'><strong>Stop Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
+            <span><div><strong>Stop Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
               <option placeholder='AM/PM'>AM/PM</option>
               <option value='AM'>AM</option>
               <option value='PM'>PM</option>
@@ -201,26 +200,24 @@ class ShiftSelection extends Component {
                 <option value='45'>45</option>
               </select>
             </span><br />
-
-            <span><label><strong className='calendarItem'>Staff Required: </strong>
-            </label><input className='emailInput2' type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
+            <div className='whitespace'>&nbsp;</div>
+            <span className='calendarItem'><label>Staff Required: </label>
+              <input className='selector' placeholder='#' type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
             </span>
           </div>
-          <button><Link to='/CalendarList' className='titles' onClick={e => this.saveShift(e)}>Save Shift</Link></button>
+          <Link to='/CalendarList'><button className='titleButton' onClick={e => this.saveShift(e)}>Save Shift</button></Link>
         </div>)
     } else {
       return (
-        <div>
-          <span className='DayPickerInput'>
-            <DayPickerInput placeholder='Start Date' onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} />
-          </span>
-          <span className='DayPickerInput'>
-            <DayPickerInput placeholder='End Date'onDayChange={(day) => this.handleToDateChange(day)} />
-          </span>
+        <div className='calendarItem'>
+          <DayPickerInput placeholder='Start Date' className='emailInput' onDayChange={(day) => this.handleFromDateChange(day, 'fromdate')} /><br />
+
+          <DayPickerInput placeholder='End Date'onDayChange={(day) => this.handleToDateChange(day)} />
+
           <div className='calendarItem'>
             <div>
               <span>
-                <div className='calendarItem'><strong>Start Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setFromAmPm(e.target.value)}>
+                <div><strong>Start Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setFromAmPm(e.target.value)}>
                   <option placeholder='AM/PM'>AM/PM</option>
                   <option value='AM' className='timeSelector2'>AM</option>
                   <option value='PM' className='timeSelector2'>PM</option>
@@ -251,7 +248,7 @@ class ShiftSelection extends Component {
                 </select>
               </span><br />
 
-              <span><div className='calendarItem'><strong>Stop Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
+              <span><div><strong>Stop Time: </strong><select className='timeSelector2' placeholder='AM/PM' onChange={(e) => this.setToAmPm(e.target.value)}>
                 <option placeholder='AM/PM'>AM/PM</option>
                 <option value='AM'>AM</option>
                 <option value='PM'>PM</option>
@@ -282,11 +279,10 @@ class ShiftSelection extends Component {
                 </select>
               </span><br />
 
-              <span><label><strong className='calendarItem'>Staff Required: </strong>
-              </label><input className='emailInput2' type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
+              <span><label className='calendarItem'>Staff Required: </label><input classlist='selector' placeholder='#' type='number' name='quantity' min='1' onChange={(e) => this.staffRequired(e, e.target.value)} />
               </span>
             </div>
-            <button><Link to='/CalendarList' className='titles' onClick={e => this.saveShift(e)}>Add Another Shift</Link></button>
+            <Link to='/CalendarList' className='titleButton' onClick={e => this.saveShift(e)}>Add Another Shift</Link>
           </div>
         </div>)
     }

@@ -177,6 +177,7 @@ class WeekView extends Component {
                         <div className='column3'>Shift<br /> Capacity<br /><strong>{shift.total_capacity}</strong></div>
                         <div className='column3'>Assigned<br /> Staff<br /><strong>{shift.total_assigned_capacity}</strong></div>
                       </button>
+                      <div className='whitespace'>&nbsp;</div>
                     </Link>
 
                   </div>
