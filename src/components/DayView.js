@@ -74,9 +74,9 @@ class DayView extends Component {
                   <span>
 
                     <Link to={`/Calendar/${id}/EditShifts/${shift.shift_id}`} type={'type'}>
-                      <button className='column2'><i className='far fa-edit' />Edit Shift</button></Link>
+                      <button className='column2'><i className='far fa-edit' /> Edit Shift</button></Link>
                     <button className='column2' id={shift.shift_id} onClick={e => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                  Delete Shift<i className='far fa-trash-alt' /></button>
+                  Delete Shift <i className='far fa-trash-alt' /></button>
                   </span><br />
 
                   <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
@@ -88,7 +88,6 @@ class DayView extends Component {
                       </div>
                     </div>
                   </Link>
-                  <div className='whitespace'>&nbsp;</div>
 
                   <div>
                     <div className='temp'>
@@ -96,6 +95,8 @@ class DayView extends Component {
                       {shift.assigned_users.map((user) =>
                         <div key={user.id}><p className='itemList3'>{user.name}</p></div>)}
                     </div>
+                    <div className='whitespace'>&nbsp;</div>
+                    <div className='whitespace'>&nbsp;</div>
                   </div>
                 </div>
 

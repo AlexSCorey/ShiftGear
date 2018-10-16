@@ -75,14 +75,14 @@ class SingleShiftView extends Component {
             <div className='itemList1'>Assigned Staff</div>
             <div>{assignedUsers.map((user) =>
               <div key={user.id}>
-                <div>{user.name}
+                <div className='itemList3'>{user.name}
                 </div>
               </div>
             )}</div>
             <div>
               <div className='itemList1'>Unassigned Staff</div>
               <div>{unassignedUsers.map((user) =>
-                <div>{user.name}
+                <div className='itemList3'>{user.name}
                 </div>
               )}</div>
             </div>
