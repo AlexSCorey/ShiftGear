@@ -68,7 +68,7 @@ class ReqAvailAndCopyPasteDate extends Component {
                 <div className='datePicker'>
                   <h1 className='titles'>Copy this schedule</h1>
                   <span>
-                    <DayPickerInput className='date' id='timeSelector' placeholder='Select a Date' onDayChange={(day) => this.copyWeekStart(day)} />
+                    <DayPickerInput className='date' id='timeSelector' placeholder='Select a Date  ' onDayChange={(day) => this.copyWeekStart(day)} />
                     <button className='requestSwap3' onClick={e => this.pasteWeek(e)}>Copy to <i class='fas fa-arrow-circle-right' /></button>
                   </span>
                 </div>
