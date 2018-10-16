@@ -81,8 +81,6 @@ const api = {
     return request.delete(`${domain}/calendars/${id}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(() => {
-        // debugger
-        // return (res)
       })
   },
   deleteEmployee: (employeeId, role, calendarId) => {
