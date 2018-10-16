@@ -48,7 +48,6 @@ class WeekViewContainer extends Component {
     const { id } = this.props
     const { thisWeek } = this.state
     let nextWeek = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
-    console.log(thisWeek, nextWeek, 'weeks range')
     api.getWeekShiftInfo(id, thisWeek, nextWeek)
       .then(res => {
         this.setState({ shifts: res,
@@ -93,10 +92,8 @@ class WeekViewContainer extends Component {
       loaded: false })
     this.setState({ loaded: false })
     let nextWeekShifts = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
-    console.log(thisWeek, nextWeekShifts, 'next week shifts')
     api.getWeekShiftInfo(id, thisWeek, nextWeekShifts)
       .then(res => {
-        console.log(res)
         this.setState({ shifts: res,
           loaded: true })
       })
@@ -113,10 +110,8 @@ class WeekViewContainer extends Component {
       loaded: false })
     this.setState({ loaded: false })
     let nextWeekShifts = moment(thisWeek).add(6, 'days').format('YYYY-MM-DD')
-    console.log(thisWeek, nextWeekShifts, 'next week shifts')
     api.getWeekShiftInfo(id, thisWeek, nextWeekShifts)
       .then(res => {
-        console.log(res)
         this.setState({ shifts: res,
           loaded: true })
       })

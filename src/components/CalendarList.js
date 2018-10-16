@@ -46,9 +46,7 @@ class CalendarList extends Component {
             return (
               <div key={calendarGroup.id}>
                 <div className='calendarItem'>
-                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>
-                    Hi
-                  </Link>
+                  <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`} key={calendar.id}>{calendar.name}</Link>
                 </div>
                 <div>{assignedUsers.map((user) =>
                   <div>

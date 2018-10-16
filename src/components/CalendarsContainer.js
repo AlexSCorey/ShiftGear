@@ -64,11 +64,9 @@ class CalendarsContainer extends Component {
           </div>
         )
       } else if (calendars.employed_calendars.length > 0 && calendars.owned_calendars.length === 0 && calendars.managed_calendars.length === 0) {
-        console.log('calendars.managed_calendars.length', calendars.managed_calendars.length)
         let calendarGroup = calendars.employed_calendars
         return (
           <div className='listItems'>
-            {console.log('calendarGroup', calendarGroup)}
             <div>
               <div key={Math.random() * 3}>
                 <div>

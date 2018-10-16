@@ -34,8 +34,8 @@ class ManageApproveSwap extends Component {
       return (
         <div>
           <h1>Approve or Deny This Shift Swap</h1>
-          <Button isColor='succes' value={'approve'} onClick={(e) => { if (window.confirm('Approve this shift swap?')) this.approvetShiftSwap(e, e.target.value) }}>Approve Swap</Button>
-          <Button isColor='danger' value={'deny'}onClick={(e) => { if (window.confirm('Deny this shift swap?')) this.denyShiftSwap(e, e.target.value) }}>Deny Swap</Button>
+          <Button isColor='succes' value={'approve'} onClick={(e) => { this.approvetShiftSwap(e, e.target.value) }}>Approve Swap</Button>
+          <Button isColor='danger' value={'deny'}onClick={(e) => { this.denyShiftSwap(e, e.target.value) }}>Deny Swap</Button>
         </div>)
     }
   }

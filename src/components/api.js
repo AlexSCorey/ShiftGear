@@ -27,17 +27,6 @@ const api = {
         return { userToken }
       })
   },
-  // newUserRegistrationCompletion: (name, password, id) => {
-  //   return request.post(`${domain}/invitations/complete`)
-  //     .set('Authorization', `Bearer ${id}`)
-  //     .send({ 'name': `${name}`,
-  //       'password': `${password}` })
-  //     .then(res => res.body.user.api_token)
-  //     .then(token => {
-  //       api.setUserToken(token)
-  //       return { userToken }
-  //     })
-  // },
   newUserRegistrationCompletion: (name, password, id) => {
     return request.post(`${domain}/invitations/complete`)
       .set('Authorization', `Bearer ${id}`)
@@ -120,7 +109,6 @@ const api = {
       .then(res => res.body)
   },
   getMySchedule: () => {
-    console.log(userToken, 'userToken')
     return request.get(`${domain}/myschedule/`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
@@ -170,7 +158,7 @@ const api = {
       })
   },
   removeStaffFromShift: (calendarID, shiftsId, userID) => {
-    return request.delete(`${domain}/calendars${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
+    return request.delete(`${domain}/calendars/${calendarID}/shifts/${shiftsId}/usershifts/${userID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => res.body)
   },
@@ -277,11 +265,9 @@ const api = {
       })
   },
   getDailyAlerts: (id, date) => {
-    // https:// fierce-forest-56311.herokuapp.com/calendars/:calendar_id/alerts_daily?date=:date
     return request.get(`${domain}/calendars/${id}/alerts_daily?date=${date}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(res => {
-        console.log(res.body)
         return (res.body)
       })
   }

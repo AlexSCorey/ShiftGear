@@ -35,6 +35,10 @@ class SingleShiftView extends Component {
       .then(res => {
         this.setState({ msg: `You Successfully removed ${userName}` })
       })
+    let users = this.state.assignedUsers
+    console.log('here')
+    users = users.filter((user) => user.id !== userID)
+    this.setState({ assignedUsers: users })
   }
   assignStaff (value) {
     let { id, shiftsId } = this.props
@@ -53,8 +57,8 @@ class SingleShiftView extends Component {
             <div>{assignedUsers.map((user) =>
               <div key={user.id}>
                 <div className='itemList3'>{user.name}&nbsp;
-                  <delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)} />
-                  <i className='far fa-trash-alt' />
+                  <delete userid={user.id} onClick={e => this.removeStaff(e, user.id, user.name)}>
+                    <i className='far fa-trash-alt' /></delete>
                 </div>
               </div>
             )}</div>
