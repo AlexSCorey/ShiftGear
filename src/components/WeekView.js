@@ -152,7 +152,7 @@ class WeekView extends Component {
   }
 
   render () {
-    const { thisWeek } = this.state
+    // const { thisWeek } = this.state
     const { id, loaded, shiftsState, thisWeekState, shifts } = this.props
     if (loaded) {
       if ((shiftsState.roles.indexOf('owner') > -1) || (shiftsState.roles.indexOf('manager') > -1)) {
