@@ -365,8 +365,8 @@ background-color:#593EBC;
     background-image: none;
     box-shadow: none;
     color: #4A90E2;
-    font-size: 0.875em;
-    cursor: pointer;
+    width: 5rem;
+    font-size: 1rem;
   }
   #DayPickerInput-Overlay {
     position: absolute;
@@ -377,6 +377,12 @@ background-color:#593EBC;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   }
   input {
+    border: 1px black;
+    background-color: transparent;
+    font-size: 1rem;
+    
+  }
+  .input2 {
     border: 1px black;
     background-color: transparent;
     font-size: 1rem;
