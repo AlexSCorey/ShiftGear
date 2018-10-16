@@ -26,16 +26,16 @@ class ManageApproveSwap extends Component {
 
   render () {
     if (this.state.complete) {
-      return (<div>
-        <div>Thank you very much.  Your response has been recorded.  Have a great day!</div>
-        <button><Link to='/login'>Go To Login Page</Link></button>
+      return (<div><div className='whitespace'>&nbsp;</div>
+        <h1 className='titles'>Thank you very much. Your response has been recorded. Have a great day!</h1>
+        <button className='titleButton'><Link to='/login'>Go To Login Page</Link></button>
       </div>)
     } else {
       return (
-        <div>
-          <h1>Approve or Deny This Shift Swap</h1>
-          <Button isColor='succes' value={'approve'} onClick={(e) => { this.approvetShiftSwap(e, e.target.value) }}>Approve Swap</Button>
-          <Button isColor='danger' value={'deny'}onClick={(e) => { this.denyShiftSwap(e, e.target.value) }}>Deny Swap</Button>
+        <div><div className='whitespace'>&nbsp;</div>
+          <h1 className='titles'>Approve or Deny This Shift Swap</h1>
+          <button className='requestSwap' value={'approve'} onClick={(e) => { this.approvetShiftSwap(e, e.target.value) }}>Approve Swap</button>
+          <button className='requestSwap3' value={'deny'} onClick={(e) => { this.denyShiftSwap(e, e.target.value) }}>Deny Swap</button>
         </div>)
     }
   }
