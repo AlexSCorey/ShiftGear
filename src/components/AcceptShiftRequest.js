@@ -16,7 +16,8 @@ class AcceptShiftRequest extends Component {
   }
   render () {
     let { shiftSwapsIndex, shiftSwapIndexLoaded } = this.props
-    if (shiftSwapIndexLoaded) {
+    if (shiftSwapIndexLoaded && shiftSwapsIndex.swaps.length > 0) {
+      console.log(shiftSwapsIndex.swaps, 'swaps index')
       if ((shiftSwapsIndex.roles.indexOf('owner') > -1) || (shiftSwapsIndex.roles.indexOf('manager') > -1)) {
         return (
           <div>
@@ -78,10 +79,10 @@ class AcceptShiftRequest extends Component {
           </div>
         )
       } else {
-        return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
+        return (<div className='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
       }
     } else {
-      return (<div class='lds-roller'><div /><div /><div /><div /><div /><div /><div /><div /></div>)
+      return (<div />)
     }
   }
 }

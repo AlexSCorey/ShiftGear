@@ -191,7 +191,10 @@ body {
     width:200px;
   }
   .request-available-btn {
-    border-color: 2px solid rgb(230, 93, 93) !important
+    background-color: #AFB3F7 !important
+  }
+  .request-unavailable-btn{
+    background-color: #AFB3F7 !important
   }
   .columns2 {
     width: 100%;
