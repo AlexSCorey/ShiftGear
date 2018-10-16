@@ -57,7 +57,6 @@ class AvailabilityResponse extends Component {
   render () {
     let { loaded, availabilities, availabilityRequests, responseComplete } = this.state
     if (loaded) {
-      console.log('loaded', loaded, 'availabilities', availabilities, 'availabilityRequests', availabilityRequests)
       return (<div>
         <div>{availabilityRequests.availability_process.calendar_name}</div>
         {availabilities.map((request) =>
