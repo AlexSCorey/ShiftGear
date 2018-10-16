@@ -64,52 +64,56 @@ class DayView extends Component {
     if (shiftsLoaded) {
       if ((shiftsToday.roles.indexOf('owner') > -1) || (shiftsToday.roles.indexOf('manager') > -1)) {
         return (
-
           <div>
-            {shiftsToday.shifts.map((shift) =>
-              <div key={shift.shift_id}>
-                <span>
-                  <button className='column2'>
-                    <span><Link className='itemList' to={`/Calendar/${id}/EditShifts/${shift.shift_id}`} type={'type'}>
-                      <button className='btn'><i className='far fa-edit' />Edit Shift</button></Link></span></button>
-                  <button className='column2'><span><button className='btn' id={shift.shift_id} onClick={e => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
-                  Delete Shift<i className='far fa-trash-alt' /></button>
-                  </span></button>
+            <div className='itemList1'>{moment(date).format('ddd, Do')}</div>
+            <div className='enclosingDiv'>
 
-                  <br />
-                </span>
-                <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
-                  <div id={shift.shift_id} className='shiftNode'>
-                    <div className='columns3'>
-                      <div className='column3'>Capacity<br /><strong>{shift.capacity}</strong></div>
-                      <div className='column3'>Start<br /><strong>{moment(shift.start_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
-                      <div className='column3'>End<br /><strong>{moment(shift.end_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
+              {shiftsToday.shifts.map((shift) =>
+                <div key={shift.shift_id}>
+
+                  <span>
+
+                    <Link to={`/Calendar/${id}/EditShifts/${shift.shift_id}`} type={'type'}>
+                      <button className='column2'><i className='far fa-edit' />Edit Shift</button></Link>
+                    <button className='column2' id={shift.shift_id} onClick={e => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteShift(e, shift.shift_id) }}>
+                  Delete Shift<i className='far fa-trash-alt' /></button>
+                  </span><br />
+
+                  <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
+                    <div id={shift.shift_id} className='shiftNode'>
+                      <div className='columns3'>
+                        <div className='column3'>Capacity<br /><strong>{shift.capacity}</strong></div>
+                        <div className='column3'>Start<br /><strong>{moment(shift.start_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
+                        <div className='column3'>End<br /><strong>{moment(shift.end_time).utcOffset(shift.end_time).format('h:mm:a')}</strong></div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className='whitespace'>&nbsp;</div>
+
+                  <div>
+                    <div className='temp'>
+                      <div className='itemList1'>Assigned Staff</div>
+                      {shift.assigned_users.map((user) =>
+                        <div key={user.id}><p className='itemList3'>{user.name}</p></div>)}
                     </div>
                   </div>
-                </Link>
-
-                <div>
-                  <div className='temp'>
-                    <div className='itemList1'>Assigned Staff</div>
-                    {shift.assigned_users.map((user) =>
-                      <div key={user.id}><p className='itemList3'>{user.name}</p></div>)}
-                  </div>
                 </div>
-              </div>
 
-            )}
+              )}
 
-            <div className='weekRange'><Link to={`/Calendar/${id}/AddShifts/`}><button className='titleButton'>Add A Shift</button></Link><br />
-              <label className='itemList1'>Write a Note for {moment(date).format('ddd, Do')}
-                <input className='formInput2' type='textarea'onChange={e => this.setState({ note: e.target.value })} required />
-              </label>
-              <button className='titleButton' type='submit' onClick={e => this.handleSubmit(e)}>Save</button></div>
+              <div className='weekRange'><Link to={`/Calendar/${id}/AddShifts/`}><button className='titleButton'>Add A Shift</button></Link><br />
+                <label className='itemList1'>Write a Note for {moment(date).format('ddd, Do')}
+                  <input className='formInput2' type='textarea'onChange={e => this.setState({ note: e.target.value })} required />
+                </label>
+                <button className='titleButton' type='submit' onClick={e => this.handleSubmit(e)}>Save</button></div>
 
+            </div>
           </div>
         )
       } else {
         return (
           <div>
+            <div className='itemList1'>{moment(date).format('ddd, Do')}</div>
             {shiftsToday.shifts.map((shift) =>
               <div key={shift.id}>
                 <Link to={`/calendars/${id}/shifts/${shift.shift_id}/usershifts`}>
