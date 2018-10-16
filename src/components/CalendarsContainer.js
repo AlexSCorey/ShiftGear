@@ -10,6 +10,7 @@ class CalendarsContainer extends Component {
     this.state = {
       calendars: {}
     }
+    this.deleteCalendar = this.deleteCalendar.bind(this)
   }
   componentDidMount () {
     this.getCalendars()
@@ -19,6 +20,15 @@ class CalendarsContainer extends Component {
       .then(calendars => {
         this.setState({ calendars: calendars })
       })
+  }
+  deleteCalendar (id) {
+    api.deleteCalendar(id)
+      .then(res => {
+      })
+    let calendars = this.state.calendars
+    let ownedCalendars = calendars.owned_calendars
+    calendars.owned_calendars = ownedCalendars.filter((calendar) => calendar.id !== id)
+    this.setState({ calendars: calendars })
   }
 
   render () {
@@ -43,7 +53,7 @@ class CalendarsContainer extends Component {
                   <div>
                     <div key={Math.random() * 3} >
                       <h1 className='titles'>{calendarNames[calendarType]}</h1>
-                      <CalendarList key={calendarGroup.id} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
+                      <CalendarList deleteCalendar={this.deleteCalendar} key={Math.random() * 3} type={calendarNames[calendarType]} calendarGroup={calendarGroup} />
                     </div>
                   </div>
                 )
@@ -63,7 +73,7 @@ class CalendarsContainer extends Component {
               <div key={Math.random() * 3}>
                 <div>
                   <h1 className='titles'>{calendarNames.employed_calendars}</h1>
-                  <CalendarList key={Math.random() * 3} type={'Employed Calendars'} calendarGroup={calendarGroup} />
+                  <CalendarList deleteCalendar={this.deleteCalendar} key={Math.random() * 3} type={'Employed Calendars'} calendarGroup={calendarGroup} />
                 </div>
               </div>
             </div>

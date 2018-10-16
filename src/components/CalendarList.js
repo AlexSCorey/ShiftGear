@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'bloomer'
-// import { confirmAlert } from 'react-confirm-alert'
-// import 'react-confirm-alert/src/react-confirm-alert.css'
+import { Button, Modal, ModalCard, ModalCardBody, ModalCardFooter, ModalBackground } from 'bloomer'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 // import moment from 'moment'
 
 import api from './api'
@@ -17,19 +17,24 @@ class CalendarList extends Component {
       assignedUsers: [],
       unassignedUsers: [],
       roles: {},
-      loaded: false
+      loaded: false,
+      deleteWarning: false
     }
     this.deleteCalendar = this.deleteCalendar.bind(this)
-    // this.onLogout = this.onLogout.bind(this)
   }
 
-  componentDidMount () {
-
+  setDelete (e, id) {
+    e.preventDefault()
+    this.setState({ deleteWarning: true,
+      calId: id })
+  }
+  cancelDelete (e) {
+    e.preventDefault()
+    this.setState({ deleteWarning: false })
   }
   deleteCalendar (e, id) {
     e.preventDefault()
-    api.deleteCalendar(id)
-      .then(res => res)
+    this.props.deleteCalendar(id)
   }
   render () {
     let { calendarGroup, type } = this.props
@@ -61,8 +66,8 @@ class CalendarList extends Component {
                   <Link className='itemList' to={`/Calendar/${calendar.id}/EditCalendar`} type={'type'}>
                     <button className='btn'><i className='far fa-edit' /></button></Link>
                   <Link className='itemList' to={`/Calendar/${calendar.id}/type/${type}`}>{calendar.name}</Link>
-
-                  <span type='submit' onClick={(e) => { if (window.confirm('Are you sure you want to delete this calendar?')) this.deleteCalendar(e, calendar.id) }}><button className='btn'><i className='far fa-trash-alt' /></button></span>
+                  <span type='submit' value={calendar.id}>
+                    <button className='btn' onClick={(e) => { this.deleteCalendar(e, calendar.id) }}><i className='far fa-trash-alt' /></button></span>
                 </span><br />
               </div>
             )
